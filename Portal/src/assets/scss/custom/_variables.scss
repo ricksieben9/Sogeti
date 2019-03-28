@@ -105,6 +105,7 @@ $success:       $green !default;
 $info:          $teal !default;
 $warning:       $orange !default;
 $danger:        $red !default;
+$sogeti:        #09addc!default; //#0071af 09addc
 $light:         $gray-500 !default;
 $dark:          $gray-900 !default;
 $darker:        darken($gray-900, 15%) !default;
@@ -131,7 +132,8 @@ $theme-colors: map-merge((
   "white":        $white,
   "neutral":      $white,
   "dark":         $dark,
-  "darker":       $darker
+  "darker":       $darker,
+  "sogeti":       $sogeti
 ), $theme-colors);
 
 $brand-colors: () !default;
