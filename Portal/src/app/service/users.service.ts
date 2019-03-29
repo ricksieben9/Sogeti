@@ -28,7 +28,7 @@ export class UsersService {
   }
 
   insertUser(user: User): Observable<User> {
-    return this.http.post<User>('http://localhost:4001/api/v1/users/', user)
+    return this.http.post<User>('http://localhost:4001/api/v1/users/data/', user)
   }
 
   updateUser(user: User): Observable<void> {
