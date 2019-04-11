@@ -1,5 +1,8 @@
 {
   "name": "medicatieapp",
-  "integrations": {},
+  "integrations": {
+    "cordova": {},
+    "capacitor": {}
+  },
   "type": "angular"
 }

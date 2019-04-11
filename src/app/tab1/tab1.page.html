@@ -6,13 +6,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-    <ion-card class="welcome-card">
-      <ion-card-header>
-        <ion-card-title>Melding 1</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        <p></p>
-      </ion-card-content>
-    </ion-card>
+<ion-content padding>
+  <ion-button expand="block" (click)="scheduleNotification()">Gepland</ion-button>
+  <ion-button expand="block" (click)="recurringNotification()">Elke Minuut</ion-button>
+  <ion-button expand="block" (click)="repeatingDaily()">Dagelijks</ion-button>
+  <ion-button expand="block" (click)="getAll()">Alle Meldingen</ion-button>
+
+<ion-list>
+  <ion-list *ngFor="let n of scheduled">
+    <ion-label text-wrap>
+      {{ n.id }} - {{ n.title}}
+      <p>Trigger: {{ n.trigger | json }}</p>
+    </ion-label>
+  </ion-list>
+</ion-list>
+
 </ion-content>
