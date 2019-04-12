@@ -23,6 +23,7 @@ export class AuthService {
 			tap(async (res: AuthResponse) => {
 				if (res) {
 					await this.storage.set("ACCESS_TOKEN", res.token);
+					await this.storage.set('ROLE', res.role);
 					this.authSubject.next(true);
 				}
 			})
@@ -31,6 +32,7 @@ export class AuthService {
 
 	async logout() {
 		await this.storage.remove("ACCESS_TOKEN");
+		await this.storage.remove('ROLE');
 		this.authSubject.next(false);
 	}
 
