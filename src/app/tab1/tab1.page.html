@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Meldingen
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-button expand="block" (click)="scheduleNotification()">Na 5 seconde melding</ion-button>
+  <ion-button expand="block" (click)="recurringNotification()">Elke minuut melding</ion-button>
+  <ion-button expand="block" (click)="repeatingDaily()">Dagelijkse melding</ion-button>
+  <ion-button expand="block" (click)="getAll()">Laad alle meldingen</ion-button>
+  <ion-button expand="block" (click)="removeAll()">Verwijder meldingen</ion-button>
+
+<ion-list>
+  <ion-list *ngFor="let n of scheduled">
+    <ion-label text-wrap>
+      {{ n.title}}
+      <p>{{ n.data }}</p>
+    </ion-label>
+  </ion-list>
+</ion-list>
+
+</ion-content>
