@@ -53,17 +53,7 @@ export class Tab2Page implements OnInit{
       title: this.event.title,
       startTime: new Date(this.event.startTime),
       endTime: new Date(this.event.endTime),
-      allDay: this.event.allDay,
       desc: this.event.desc
-    }
-
-    if(eventCopy.allDay){
-      let start = eventCopy.startTime;
-      let end = eventCopy.endTime;
-
-      //2019, 
-      eventCopy.startTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate()));
-      eventCopy.endTime = new Date(Date.UTC(start.getUTCFullYear(), start.getUTCMonth(), start.getUTCDate() + 1));
     }
 
     this.eventSource.push(eventCopy);
@@ -95,9 +85,9 @@ export class Tab2Page implements OnInit{
     let end = formatDate(event.endTime, 'medium', this.locale);
 
     const alert = await this.alertCtrl.create({
-      header: event.title,
-      subHeader: event.desc,
-      message: 'From: '+ start + '<br><br>tot: ' + end,
+      header: "Ontvanger: " + event.title,
+      subHeader: "Medicijn: " + event.desc,
+      message: 'Om: '+ start,
       buttons: ['OK']
     });
     alert.present();

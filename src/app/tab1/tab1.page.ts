@@ -33,7 +33,12 @@ export class Tab1Page {
       text: 'Medicatie melding!',
       data: 'Pieter heeft medicatie nodig ' + this.getDate(),
       trigger: { in: 5, unit: ELocalNotificationTriggerUnit.SECOND },
-      foreground: true
+      foreground: true,
+      wakeup: true,
+      priority: 2,
+      vibrate: true,
+      launch: true,
+      silent: false
     });
   }
 
@@ -44,7 +49,12 @@ export class Tab1Page {
       text: 'Medicatie herinnering!',
       data: 'Heeft Peter zijn medicatie ingenomen? ' + this.getDate(),
       trigger: { every: ELocalNotificationTriggerUnit.MINUTE },
-      foreground: true
+      foreground: true,
+      wakeup: true,
+      priority: 2,
+      vibrate: true,
+      launch: true,
+      silent: false
     });
   }
 
@@ -65,7 +75,7 @@ export class Tab1Page {
       header: header,
       subHeader: sub,
       message: msg,
-      buttons: ['Ok']
+      buttons: ['Ok'],
     }).then(alert => alert.present());
   }
 

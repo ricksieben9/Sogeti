@@ -17,10 +17,10 @@
     </ion-card-header>
     <ion-card-content *ngIf="!collapseCard">
       <ion-item>
-        <ion-input type="text" placeholder="Titel" [(ngModel)]="event.title"></ion-input>
+        <ion-input type="text" placeholder="Ontvanger" [(ngModel)]="event.title"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="Beschrijving" [(ngModel)]="event.desc"></ion-input>
+        <ion-input type="text" placeholder="Medicijn" [(ngModel)]="event.desc"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Start</ion-label>
@@ -31,10 +31,6 @@
         <ion-label>Eind</ion-label>
         <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime"
           [min]="minDate"></ion-datetime>
-      </ion-item>
-      <ion-item>
-        <ion-label>Hele dag</ion-label>
-        <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
       </ion-item>
       <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Toevoegen
       </ion-button>
@@ -73,8 +69,8 @@
     (onEventSelected)="onEventSelected($event)" 
     (onTitleChanged)="onViewTitleChanged($event)"
     (onTimeSelected)="onTimeSelected($event)" 
-    startHour="6" 
-    endHour="20" 
+    startHour="0" 
+    endHour="24" 
     step="30" 
     startingDayWeek="1">
   </calendar>
