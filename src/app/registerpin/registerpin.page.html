@@ -1,0 +1,22 @@
+<form #form="ngForm" (ngSubmit)="registerPin(form)">
+	<ion-grid>
+		<ion-row justify-content-center>
+			<ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+				<div text-center>
+					<h5>Registreer uw pincode</h5>
+				</div>
+				<div padding>
+					<ion-item>
+						<ion-input name="pincode" type="password" placeholder="PIN" ngModel required></ion-input>
+					</ion-item>
+				</div>
+				<div padding>
+					<ion-button size="large" type="submit" expand="block">Registreer</ion-button>
+				</div>
+				<div padding *ngIf="pinErrorMsg" class="alert-danger">
+					{{ pinErrorMsg }}
+				</div>
+			</ion-col>
+		</ion-row>
+	</ion-grid>
+</form>

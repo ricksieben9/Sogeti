@@ -1,8 +1,16 @@
 import { Component } from '@angular/core';
+import { AuthService } from '../auth/auth.service';
 
 @Component({
   selector: 'app-tab4',
   templateUrl: 'tab4.page.html',
   styleUrls: ['tab4.page.scss']
 })
-export class Tab4Page {}
+export class Tab4Page {
+
+constructor(private authService: AuthService) { }
+
+  logout(form){
+    this.authService.logout();
+  }
+}

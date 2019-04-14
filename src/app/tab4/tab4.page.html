@@ -6,4 +6,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content></ion-content>
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="logout(form)">
+    <ion-button size="large" type="submit" expand="block">Uitloggen</ion-button>
+  </form>
+</ion-content>
