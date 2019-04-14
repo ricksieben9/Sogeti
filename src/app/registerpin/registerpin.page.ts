@@ -14,8 +14,11 @@ export class RegisterpinPage {
 
   registerPin(form) {
     var pin: number;
-    try {
-      pin = parseInt(form.value.pincode);
+    pin = parseInt(form.value.pincode);
+    if (isNaN(pin)) {
+      this.pinErrorMsg = "U kunt alleen cijfers in uw pincode gebruiken.";
+    }
+    else {
       if (pin.toString().length < 5 || pin.toString().length > 8) {
         this.pinErrorMsg = "Uw pincode mag niet minder dan 5 en niet meer dan 8 cijfers bevatten.";
       }
@@ -26,9 +29,7 @@ export class RegisterpinPage {
         this.router.navigateByUrl('');
       }
     }
-    catch (e) {
-      this.pinErrorMsg = "U kunt alleen cijfers in uw pincode gebruiken.";
-    }
+    form.reset();
   }
 
 }

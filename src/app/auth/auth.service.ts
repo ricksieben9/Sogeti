@@ -12,11 +12,13 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-	AUTH_SERVER_ADDRESS: string = 'http://localhost:3000';
+	//desktop
+	//AUTH_SERVER_ADDRESS: string = 'http://localhost:3000';
+	//mobile-to-desktop
+	AUTH_SERVER_ADDRESS: string = 'http://192.168.0.106:3000';
 	authSubject = new BehaviorSubject(false);
 
-	constructor(private httpClient: HttpClient, private router: Router) {
-	}
+	constructor(private httpClient: HttpClient, private router: Router) { }
 
 	login(user: User): Observable<AuthResponse> {
 		return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/auth/login`, user).pipe(
