@@ -2,6 +2,8 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RegisterpinPage } from './registerpin.page';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RegisterpinPage', () => {
   let component: RegisterpinPage;
@@ -10,6 +12,7 @@ describe('RegisterpinPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ RegisterpinPage ],
+      imports: [ HttpClientTestingModule, RouterTestingModule ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();

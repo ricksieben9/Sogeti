@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from "@angular/router";
 import { AuthService } from '../auth.service';
 import { FormGroup } from '@angular/forms';
@@ -8,6 +8,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss', '../../../bootstrap/css/bootstrap.min.css'],
 })
+
 export class LoginPage implements OnInit {
 
   private errorMsg: string;

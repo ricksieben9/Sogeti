@@ -10,6 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
+import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { AuthModule } from './auth/auth.module';
@@ -21,6 +22,7 @@ import { AuthModule } from './auth/auth.module';
     BrowserModule,
     IonicModule.forRoot(),
     HttpClientModule,
+    RouterModule.forRoot([]),
     IonicStorageModule.forRoot(),
     AppRoutingModule],
   providers: [

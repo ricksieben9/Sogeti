@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, forwardRef, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registerpin',
   templateUrl: './registerpin.page.html',
-  styleUrls: ['./registerpin.page.scss'],
+  styleUrls: ['./registerpin.page.scss']
 })
+
 export class RegisterpinPage {
 
   private pinErrorMsg: string;
