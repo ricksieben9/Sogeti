@@ -49,25 +49,34 @@ export class Tab2Page implements OnInit {
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) {
+
+
+   }
 
   ngOnInit() {
     this.resetEvent();
-    //this.loadTimeIndicator()
+
+  }
+
+  ngAfterViewInit(){
+    this.loadTimeIndicator()
   }
 
   loadTimeIndicator(){
-    var elem = document.getElementById("timeIndicator"); 
-    var pos = 0;
-    var id = setInterval(frame, 10);
-    function frame() {
-      if (pos == 350) {
-        clearInterval(id);
-      } else {
-        pos++; 
-        elem.style.top = pos + 'px'; 
-      }
-    }
+    var line = document.createElement('div');
+    line.id = 'timeIndicator';
+    var calendarGrid = document.querySelectorAll('.dayview-normal-event-container[ng-reflect-emit-event="false"]');
+    var calendarcell = calendarGrid[0].querySelector(".dayview-normal-event-table > tbody > tr > .calendar-cell");
+    calendarcell.prepend(line)
+    var d = new Date();
+    var pos = (d.getHours() * 36.875 ) + (d.getMinutes() * 0.6145833);
+    line.style.top = pos + 'px'; 
+    setInterval(function() {
+    var d = new Date();
+    var pos = (d.getHours() * 36.875 ) + (d.getMinutes() * 0.6145833);
+    line.style.top = pos + 'px'; 
+    }, 60000);
   }
 
   resetEvent() {
@@ -96,7 +105,12 @@ export class Tab2Page implements OnInit {
 
   changeMode(mode) {
     this.calendar.mode = mode;
+    if(mode.toString() === "day"){
+        this.loadTimeIndicator();
+    }
   }
+
+
 
   back() {
     var swiper = document.querySelector('.swiper-container')['swiper'];
