@@ -6,9 +6,9 @@ import { formatDate } from '@angular/common';
 @Component({
   selector: 'app-tab2',
   templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  styleUrls: ['tab2.page.scss'],
 })
-export class Tab2Page implements OnInit{
+export class Tab2Page implements OnInit {
 
   event = {
     //id
@@ -24,21 +24,53 @@ export class Tab2Page implements OnInit{
   eventSource = [];
 
   calendar = {
+    allDay: false,
     mode: 'day',
-    currentDate: new Date()
+    currentDate: new Date(),
+    dateFormatter: {
+      formatDayViewHourColumn: function (date: Date) {
+        return date.getHours() + ":" + date.getMinutes() + '0';
+      },
+      formatWeekViewHourColumn: function (date: Date) {
+        return date.getHours() + ":" + date.getMinutes() + '0';
+      },
+      formatWeekViewDayHeader: function(date:Date) {
+        var days = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
+       return days[date.getDay()] + " " + date.getDate();
+    },
+    formatMonthViewDayHeader: function(date:Date) {
+      var days = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
+      return days[date.getDay()]
+  },
+    }
   }
 
   viewTitle = '';
 
-  @ViewChild(CalendarComponent) myCal : CalendarComponent;
+  @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID)private locale: string){}
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) { }
 
   ngOnInit() {
     this.resetEvent();
+    //this.loadTimeIndicator()
   }
 
-  resetEvent(){
+  loadTimeIndicator(){
+    var elem = document.getElementById("timeIndicator"); 
+    var pos = 0;
+    var id = setInterval(frame, 10);
+    function frame() {
+      if (pos == 350) {
+        clearInterval(id);
+      } else {
+        pos++; 
+        elem.style.top = pos + 'px'; 
+      }
+    }
+  }
+
+  resetEvent() {
     this.event = {
       title: '',
       desc: '',
@@ -48,7 +80,7 @@ export class Tab2Page implements OnInit{
     };
   }
 
-  addEvent(){
+  addEvent() {
     let eventCopy = {
       title: this.event.title,
       startTime: new Date(this.event.startTime),
@@ -62,45 +94,46 @@ export class Tab2Page implements OnInit{
 
   }
 
-  changeMode(mode){
+  changeMode(mode) {
     this.calendar.mode = mode;
   }
 
-  back(){
+  back() {
     var swiper = document.querySelector('.swiper-container')['swiper'];
     swiper.slidePrev();
   }
 
-  next(){
+  next() {
     var swiper = document.querySelector('.swiper-container')['swiper'];
     swiper.slideNext();
   }
 
-  today(){
+  today() {
     this.calendar.currentDate = new Date();
   }
 
-  async onEventSelected(event){
+  async onEventSelected(event) {
     let start = formatDate(event.startTime, 'medium', this.locale);
     let end = formatDate(event.endTime, 'medium', this.locale);
 
     const alert = await this.alertCtrl.create({
       header: "Ontvanger: " + event.title,
       subHeader: "Medicijn: " + event.desc,
-      message: 'Om: '+ start,
+      message: 'Om: ' + start,
       buttons: ['OK']
     });
     alert.present();
   }
 
-  onViewTitleChanged(title){
+  onViewTitleChanged(title) {
     this.viewTitle = title;
   }
 
-  onTimeSelected(ev){
+  onTimeSelected(ev) {
     let selected = new Date(ev.selectedTime);
     this.event.startTime = selected.toISOString();
     selected.setHours(selected.getHours() + 1);
     this.event.endTime = (selected.toISOString());
   }
+
 }

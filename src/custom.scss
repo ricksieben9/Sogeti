@@ -1,0 +1,27 @@
+//remove allday row
+.weekview-allday-table{
+    display: none;
+}
+
+.dayview-allday-table {
+    display: none;
+}
+  
+.weekview-normal-event-container {
+    margin-top: 37px!important;
+}
+
+.dayview-normal-event-container {
+    margin-top: 0px!important;
+}
+
+
+// calendar fully fits in screen
+[_nghost-c3] > div[_ngcontent-c3] {
+    height: 85%!important;
+}
+
+
+.item-native {
+    padding-left: 0px!important;
+}
