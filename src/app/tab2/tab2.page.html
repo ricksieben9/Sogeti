@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>
+    <ion-title class="agendaTitle">
       {{ viewTitle }}
     </ion-title>
     <ion-button slot="start" fill="clear" (click)="back()">
@@ -40,7 +40,7 @@
     </ion-card-content>
   </ion-card> -->
 
-  <ion-row>
+  <ion-row class="butrow">
     <ion-col size="4">
       <ion-button expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'secondary'" (click)="changeMode('month')">Maand</ion-button>
     </ion-col>

@@ -17,7 +17,7 @@
 
 
 // calendar fully fits in screen
-[_nghost-c3] > div[_ngcontent-c3] {
+.dayview-container, .weekview-container {
     height: 85%!important;
 }
 
@@ -32,3 +32,12 @@
     position: relative;
     background: red;
   }
+
+
+.agendaTitle{
+    padding: initial!important;
+  }
+
+ion-row.butrow {
+    padding-bottom: 17px;
+}
