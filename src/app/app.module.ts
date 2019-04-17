@@ -14,6 +14,8 @@ import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { AuthModule } from './auth/auth.module';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -28,7 +30,8 @@ import { AuthModule } from './auth/auth.module';
   providers: [
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    LocalNotifications
   ],
   bootstrap: [AppComponent]
 })
