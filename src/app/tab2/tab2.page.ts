@@ -2,6 +2,7 @@ import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
+import { DateFormatterService } from '../providers/date-formatter.service'
 
 @Component({
   selector: 'app-tab2',
@@ -9,6 +10,11 @@ import { formatDate } from '@angular/common';
   styleUrls: ['tab2.page.scss'],
 })
 export class Tab2Page implements OnInit {
+
+  minDate = new Date().toISOString();
+  eventSource = [];
+  viewTitle = '';
+  currentDay = '';
 
   event = {
     //id
@@ -19,117 +25,81 @@ export class Tab2Page implements OnInit {
     allDay: false
   };
 
-  minDate = new Date().toISOString();
-
-  eventSource = [];
-
   calendar = {
     allDay: false,
     mode: 'day',
     currentDate: new Date(),
-    dateFormatter: {
-      formatDayViewHourColumn: function (date: Date) {
-        return date.getHours() + ":" + date.getMinutes() + '0';
-      },
-      formatWeekViewHourColumn: function (date: Date) {
-        return date.getHours() + ":" + date.getMinutes() + '0';
-      },
-      formatWeekViewDayHeader: function(date:Date) {
-        var days = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
-       return days[date.getDay()] + " " + date.getDate();
-    },
-    formatMonthViewDayHeader: function(date:Date) {
-      var days = ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'];
-      return days[date.getDay()]
-  },
-    }
+    dateFormatter: this.dateFormat.getDates()
   }
 
-  viewTitle = '';
+
 
   @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string) {
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService) { }
 
 
-   }
-
+  //Before agenda has loaded
   ngOnInit() {
-    this.resetEvent();
-
+    // this.resetEvent();
   }
 
-  ngAfterViewInit(){
+
+  //When agenda is done loading
+  ngAfterViewInit() {
     this.loadTimeIndicator()
   }
 
-  loadTimeIndicator(){
+
+  loadTimeIndicator() {
     var line = document.createElement('div');
     line.id = 'timeIndicator';
     var calendarGrid = document.querySelectorAll('.dayview-normal-event-container[ng-reflect-emit-event="false"]');
     var calendarcell = calendarGrid[0].querySelector(".dayview-normal-event-table > tbody > tr > .calendar-cell");
+    document.querySelectorAll("#timeIndicator").forEach(e => e.parentNode.removeChild(e));
     calendarcell.prepend(line)
     var d = new Date();
-    var pos = (d.getHours() * 36.875 ) + (d.getMinutes() * 0.6145833);
-    line.style.top = pos + 'px'; 
-    setInterval(function() {
-    var d = new Date();
-    var pos = (d.getHours() * 36.875 ) + (d.getMinutes() * 0.6145833);
-    line.style.top = pos + 'px'; 
+    var pos = (d.getHours() * 36.875) + (d.getMinutes() * 0.6145833);
+    line.style.top = pos + 'px';
+    setInterval(function () {
+      var d = new Date();
+      var pos = (d.getHours() * 36.875) + (d.getMinutes() * 0.6145833);
+      line.style.top = pos + 'px';
     }, 60000);
   }
 
-  resetEvent() {
-    this.event = {
-      title: '',
-      desc: '',
-      startTime: new Date().toISOString(),
-      endTime: new Date().toISOString(),
-      allDay: false
-    };
-  }
 
-  addEvent() {
-    let eventCopy = {
-      title: this.event.title,
-      startTime: new Date(this.event.startTime),
-      endTime: new Date(this.event.endTime),
-      desc: this.event.desc
-    }
-
-    this.eventSource.push(eventCopy);
-    this.myCal.loadEvents();
-    this.resetEvent();
-
-  }
-
+  //Change mode to 'day', 'week, or 'month'
   changeMode(mode) {
+    if (this.calendar.mode == 'day' && mode == 'day')
+      this.today();
     this.calendar.mode = mode;
-    if(mode.toString() === "day"){
-        this.loadTimeIndicator();
-    }
   }
 
 
-
+  //Previous date
   back() {
     var swiper = document.querySelector('.swiper-container')['swiper'];
     swiper.slidePrev();
   }
 
+
+  //Next date
   next() {
     var swiper = document.querySelector('.swiper-container')['swiper'];
     swiper.slideNext();
   }
 
+
+  //Go to today
   today() {
     this.calendar.currentDate = new Date();
   }
 
+
+  //When event is clicked
   async onEventSelected(event) {
     let start = formatDate(event.startTime, 'medium', this.locale);
-    let end = formatDate(event.endTime, 'medium', this.locale);
-
     const alert = await this.alertCtrl.create({
       header: "Ontvanger: " + event.title,
       subHeader: "Medicijn: " + event.desc,
@@ -139,10 +109,8 @@ export class Tab2Page implements OnInit {
     alert.present();
   }
 
-  onViewTitleChanged(title) {
-    this.viewTitle = title;
-  }
 
+  //Get event time in week and month mode
   onTimeSelected(ev) {
     let selected = new Date(ev.selectedTime);
     this.event.startTime = selected.toISOString();
@@ -150,4 +118,44 @@ export class Tab2Page implements OnInit {
     this.event.endTime = (selected.toISOString());
   }
 
+
+  //When switched to another day or calendar mode
+  onViewTitleChanged(title) {
+    this.loadDayIndicator(title)
+    this.viewTitle = title;
+  }
+
+
+  loadDayIndicator(title) {
+    if (this.viewTitle.length == 0)
+      this.currentDay = title;
+    if (title == this.currentDay)
+      this.loadTimeIndicator()
+  }
 }
+
+//Code for adding events within the mobile app
+
+  // resetEvent() {
+  //   this.event = {
+  //     title: '',
+  //     desc: '',
+  //     startTime: new Date().toISOString(),
+  //     endTime: new Date().toISOString(),
+  //     allDay: false
+  //   };
+  // }
+
+  // addEvent() {
+  //   let eventCopy = {
+  //     title: this.event.title,
+  //     startTime: new Date(this.event.startTime),
+  //     endTime: new Date(this.event.endTime),
+  //     desc: this.event.desc
+  //   }
+
+  //   this.eventSource.push(eventCopy);
+  //   this.myCal.loadEvents();
+  //   this.resetEvent();
+
+  // }
