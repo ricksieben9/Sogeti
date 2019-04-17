@@ -3,7 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  // change server to local desktop ip running the api server
+  apiServerAddress: 'http://192.168.0.106:3000'
 };
 
 /*

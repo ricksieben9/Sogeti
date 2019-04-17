@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { tap, catchError } from 'rxjs/operators';
 import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 
+import { environment } from './../../environments/environment';
 import { User } from './user';
 import { AuthResponse } from './auth-response';
 import { Router } from '@angular/router';
@@ -12,16 +13,13 @@ import { Router } from '@angular/router';
 })
 export class AuthService {
 
-	//desktop
-	//AUTH_SERVER_ADDRESS: string = 'http://localhost:3000';
-	//mobile-to-desktop
-	AUTH_SERVER_ADDRESS: string = 'http://192.168.0.106:3000';
-	authSubject = new BehaviorSubject(false);
+	private authServer = environment.apiServerAddress;
+	private authSubject = new BehaviorSubject(false);
 
 	constructor(private httpClient: HttpClient, private router: Router) { }
 
 	login(user: User): Observable<AuthResponse> {
-		return this.httpClient.post(`${this.AUTH_SERVER_ADDRESS}/auth/login`, user).pipe(
+		return this.httpClient.post(`${this.authServer}/auth/login`, user).pipe(
 			tap((res: AuthResponse) => {
 				if (res) {
 					res.status = 200;
@@ -43,8 +41,8 @@ export class AuthService {
 		);
 	}
 
-	pinlogin(pincode: number): Observable<AuthResponse> {
-		if (JSON.parse(localStorage.getItem("PIN_CODE_USER")).pin == pincode.toString()) {
+	pinLogin(pincode: number): Observable<AuthResponse> {
+		if (JSON.parse(localStorage.getItem("PIN_CODE_USER")).pin === pincode.toString()) {
 			this.authSubject.next(true);
 			return of(JSON.parse(localStorage.getItem("CURRENT_USER")));
 		}
@@ -54,6 +52,7 @@ export class AuthService {
 	}
 
 	logout() {
+		localStorage.removeItem("CURRENT_USER");
 		this.authSubject.next(false);
 		this.router.navigateByUrl('');
 	}

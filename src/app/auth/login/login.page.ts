@@ -1,5 +1,5 @@
 import { Component, OnInit, NgModule } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { FormGroup } from '@angular/forms';
 
@@ -30,32 +30,28 @@ export class LoginPage implements OnInit {
     this.authService.login(form.value).subscribe(res => {
       if (res.status != 200) {
         this.errorMsg = res.error.response;
-      }
-      else {
+      } else {
         form.reset();
         if (localStorage.getItem("PIN_CODE_USER")) {
-          let pinusername = JSON.parse(localStorage.getItem("PIN_CODE_USER")).username;
-          let currentusername = JSON.parse(localStorage.getItem("CURRENT_USER")).username;
-          if (pinusername == currentusername) {
+          const pinUserName = JSON.parse(localStorage.getItem("PIN_CODE_USER")).username;
+          const currentUserName = JSON.parse(localStorage.getItem("CURRENT_USER")).username;
+          if (pinUserName == currentUserName) {
             this.router.navigateByUrl('');
-          }
-          else {
+          } else {
             this.router.navigateByUrl('registerpin');
           }
-        }
-        else {
+        } else {
           this.router.navigateByUrl('registerpin');
         }
       }
     });
   }
 
-  pinlogin(form: FormGroup) {
-    this.authService.pinlogin(form.value.pincode).subscribe(res => {
+  pinLogin(form: FormGroup) {
+    this.authService.pinLogin(form.value.pincode).subscribe(res => {
       if (res.status != 200) {
         this.pinErrorMsg = res.error.response;
-      }
-      else {
+      } else {
         form.reset();
         this.router.navigateByUrl('');
       }

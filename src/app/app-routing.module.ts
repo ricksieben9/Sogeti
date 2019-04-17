@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'registerpin',
-    loadChildren: './registerpin/registerpin.module#RegisterpinPageModule',
+    loadChildren: './auth/registerpin/registerpin.module#RegisterpinPageModule',
     canActivate: [LoginGuard]
   }
 
