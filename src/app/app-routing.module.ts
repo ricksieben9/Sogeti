@@ -5,7 +5,7 @@ import { LoginGuard } from './guards/login.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './tabs/tabs.module#TabsPageModule',
+    loadChildren: './pages/tabs/tabs.module#TabsPageModule',
     canActivate: [LoginGuard]
   },
   {

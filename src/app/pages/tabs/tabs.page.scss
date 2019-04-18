@@ -1,12 +1,12 @@
-.connected, .not-connected{
+[class^="connected"]{
     background-repeat: no-repeat;
     background-size: contain;
 }
 
-.connected{
-    background-image: url('./../../assets/icon/connected.png');
+.connectedtrue{
+    background-image: url('./../../../assets/icon/connected.png');
 }
 
-.not-connected{
-    background-image: url('./../../assets/icon/notconnected.png');
+.connectedfalse{
+    background-image: url('./../../../assets/icon/notconnected.png');
 }

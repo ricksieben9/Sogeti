@@ -20,12 +20,7 @@
       <ion-icon name="person"></ion-icon>
       <ion-label>Profiel</ion-label>
     </ion-tab-button>
-  <div>
-    <ion-icon [ngClass]="{
-      'connected': connected,
-      'not-connected': !connected
-    }"></ion-icon>
-  </div>
+  <div class="connected{{ connected }}"></div>
   </ion-tab-bar>
 
 </ion-tabs>

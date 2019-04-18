@@ -16,5 +16,6 @@ export class TabsPage implements OnInit {
 
   ngOnInit() {
     this.connected = this.connService.isConnected();
+    console.log("connected: " + this.connected);
   }
 }

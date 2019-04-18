@@ -21,9 +21,6 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
     this.pinIsSet = localStorage.getItem("PIN_CODE_USER") != null;
-    this.errorMsg = null;
-    this.pinErrorMsg = null;
-
   }
 
   login(form: FormGroup) {
@@ -31,7 +28,7 @@ export class LoginPage implements OnInit {
       if (res.status != 200) {
         this.errorMsg = res.error.response;
       } else {
-        form.reset();
+        this.resetForm(form);
         if (localStorage.getItem("PIN_CODE_USER")) {
           const pinUserName = JSON.parse(localStorage.getItem("PIN_CODE_USER")).username;
           const currentUserName = JSON.parse(localStorage.getItem("CURRENT_USER")).username;
@@ -52,9 +49,15 @@ export class LoginPage implements OnInit {
       if (res.status != 200) {
         this.pinErrorMsg = res.error.response;
       } else {
-        form.reset();
+        this.resetForm(form);
         this.router.navigateByUrl('');
       }
     });
+  }
+
+  resetForm(form: FormGroup) {
+    this.errorMsg = null;
+    this.pinErrorMsg = null;
+    form.reset();
   }
 }

@@ -16,7 +16,7 @@ export class ConnService{
     constructor(private httpClient: HttpClient) { }
 
     isConnected(): boolean{
-        this.httpClient.get<boolean>(`${this.authServer}/auth/check-connection`).pipe(
+        this.httpClient.get<boolean>(`${this.authServer}/conn`).pipe(
             catchError((err) => {
                 return of(false);
             })

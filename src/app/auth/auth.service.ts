@@ -45,7 +45,7 @@ export class AuthService {
 	}
 
 	pinLogin(pincode: number): Observable<AuthResponse> {
-		if (JSON.parse(localStorage.getItem("PIN_CODE_USER")).pin === pincode.toString()) {
+		if (JSON.parse(localStorage.getItem("PIN_CODE_USER")).pin == pincode) {
 			this.authSubject.next(true);
 			return of(JSON.parse(localStorage.getItem("CURRENT_USER")));
 		}
@@ -55,7 +55,6 @@ export class AuthService {
 	}
 
 	logout() {
-		localStorage.removeItem("CURRENT_USER");
 		this.authSubject.next(false);
 		this.router.navigateByUrl('');
 	}
