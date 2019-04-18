@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ConnService } from './../auth/conn.service';
+
 
 @Component({
   selector: 'app-tabs',
@@ -6,4 +8,13 @@ import { Component } from '@angular/core';
   styleUrls: ['tabs.page.scss']
 })
 
-export class TabsPage { }
+export class TabsPage implements OnInit {
+
+  private connected: boolean;
+
+  constructor(private connService: ConnService){ }
+
+  ngOnInit() {
+    this.connected = this.connService.isConnected();
+  }
+}

@@ -14,7 +14,7 @@ import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 
 import { AuthModule } from './auth/auth.module';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 
 @NgModule({
