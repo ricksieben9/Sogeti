@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { LoginGuard } from './auth/guard/login.guard';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
@@ -14,7 +14,7 @@ const routes: Routes = [
   },
   {
     path: 'registerpin',
-    loadChildren: './auth/registerpin/registerpin.module#RegisterpinPageModule',
+    loadChildren: './auth/registerpin/registerpin.module#RegisterPinPageModule',
     canActivate: [LoginGuard]
   }
 

@@ -4,9 +4,10 @@ import { tap, catchError } from 'rxjs/operators';
 import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 
 import { environment } from './../../environments/environment';
-import { User } from './user';
+import { Request } from './user';
 import { AuthResponse } from './auth-response';
 import { Router } from '@angular/router';
+import { ConnService } from './conn.service';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,12 +16,14 @@ export class AuthService {
 
 	private authServer = environment.apiServerAddress;
 	private authSubject = new BehaviorSubject(false);
+	private connected: boolean;
 
-	constructor(private httpClient: HttpClient, private router: Router) { }
+	constructor(private httpClient: HttpClient, private router: Router, private connService: ConnService) { }
 
-	login(user: User): Observable<AuthResponse> {
-		return this.httpClient.post(`${this.authServer}/auth/login`, user).pipe(
+	login(req: Request): Observable<AuthResponse> {
+		return this.httpClient.post(`${this.authServer}/auth/login`, req).pipe(
 			tap((res: AuthResponse) => {
+				console.log(res);
 				if (res) {
 					res.status = 200;
 					if (res.role.toLowerCase() != "admin") {
