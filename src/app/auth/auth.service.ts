@@ -4,8 +4,8 @@ import { tap, catchError } from 'rxjs/operators';
 import { Observable, BehaviorSubject, throwError, of } from 'rxjs';
 
 import { environment } from './../../environments/environment';
-import { Request } from './user';
-import { AuthResponse } from './auth-response';
+import { Request } from '../models/request';
+import { AuthResponse } from '../models/auth-response';
 import { Router } from '@angular/router';
 import { ConnService } from './conn.service';
 
