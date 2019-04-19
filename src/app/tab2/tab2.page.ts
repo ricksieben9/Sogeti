@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
-import { AlertController } from '@ionic/angular';
+import {AlertController, NavController} from '@ionic/angular';
 import { formatDate } from '@angular/common';
 
 @Component({
@@ -32,7 +32,7 @@ export class Tab2Page implements OnInit{
 
   @ViewChild(CalendarComponent) myCal : CalendarComponent;
 
-  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID)private locale: string){}
+  constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID)private locale: string, public navCtrl: NavController){}
 
   ngOnInit() {
     this.resetEvent();
@@ -91,16 +91,17 @@ export class Tab2Page implements OnInit{
   }
 
   async onEventSelected(event){
-    let start = formatDate(event.startTime, 'medium', this.locale);
-    let end = formatDate(event.endTime, 'medium', this.locale);
-
-    const alert = await this.alertCtrl.create({
-      header: event.title,
-      subHeader: event.desc,
-      message: 'From: '+ start + '<br><br>tot: ' + end,
-      buttons: ['OK']
-    });
-    alert.present();
+    // let start = formatDate(event.startTime, 'medium', this.locale);
+    // let end = formatDate(event.endTime, 'medium', this.locale);
+    //
+    // const alert = await this.alertCtrl.create({
+    //   header: event.title,
+    //   subHeader: event.desc,
+    //   message: 'From: '+ start + '<br><br>tot: ' + end,
+    //   buttons: ['OK']
+    // });
+    // alert.present();
+    this.navCtrl.navigateForward('/application/1');
   }
 
   onViewTitleChanged(title){
