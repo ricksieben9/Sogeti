@@ -21,7 +21,6 @@ export class TabsPage {
   }
 
   getConnectedState() {
-    console.log(this.connService);
     this.connService.isConnected().subscribe(res => {
       if (this.connected == false) {
         this.timeSinceConnected = Date.now();
@@ -41,9 +40,10 @@ export class TabsPage {
           console.log(this.timeSinceDisconnected);
         }
         this.connected = false;
-      },
-      () => setInterval(this.getConnectedState, 3000)
+      }
     );
-
+    setTimeout(() => {
+      this.getConnectedState();
+    }, 3000);
   }
 }
