@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 import { environment } from './../../environments/environment';
 
@@ -15,14 +15,7 @@ export class ConnService{
 
     constructor(private httpClient: HttpClient) { }
 
-    isConnected(): boolean{
-        this.httpClient.get<boolean>(`${this.authServer}/conn`).pipe(
-            catchError((err) => {
-                return of(false);
-            })
-        ).subscribe((res) => {
-            return res;
-        });
-        return false;
+    isConnected(){
+        return this.httpClient.get<boolean>(`${this.authServer}/conn`);
     }
 }
