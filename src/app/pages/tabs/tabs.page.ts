@@ -12,21 +12,18 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 export class TabsPage {
 
-  private connected: boolean = false;
+  private connected: boolean = true;
   private timeSinceConnected: number;
   private timeSinceDisconnected: number;
 
-  constructor(private connService: ConnService, private localNotifications: LocalNotifications){
-
-    timer(1, 3000).subscribe(val => {
-      this.getConnectedState();
-    });
-
+  constructor(private connService: ConnService, private localNotifications: LocalNotifications) {
+    this.getConnectedState();
   }
 
   getConnectedState() {
+    console.log(this.connService);
     this.connService.isConnected().subscribe(res => {
-      if(this.connected == false){
+      if (this.connected == false) {
         this.timeSinceConnected = Date.now();
         console.log(this.timeSinceConnected);
 
@@ -39,11 +36,14 @@ export class TabsPage {
       this.connected = res;
     },
       (err) => {
-        if(this.connected){
+        if (this.connected) {
           this.timeSinceDisconnected = Date.now();
           console.log(this.timeSinceDisconnected);
         }
         this.connected = false;
-      });
+      },
+      () => setInterval(this.getConnectedState, 3000)
+    );
+
   }
 }
