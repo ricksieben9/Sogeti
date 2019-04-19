@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ConnService } from '../../auth/conn.service';
 import { timer } from 'rxjs';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 
 @Component({
@@ -11,12 +12,13 @@ import { timer } from 'rxjs';
 
 export class TabsPage {
 
-  private connected: boolean;
+  private connected: boolean = false;
   private timeSinceConnected: number;
   private timeSinceDisconnected: number;
 
-  constructor(private connService: ConnService){
-    timer(1000, 3000).subscribe(val => {
+  constructor(private connService: ConnService, private localNotifications: LocalNotifications){
+
+    timer(1, 3000).subscribe(val => {
       this.getConnectedState();
     });
 
@@ -27,6 +29,12 @@ export class TabsPage {
       if(this.connected == false){
         this.timeSinceConnected = Date.now();
         console.log(this.timeSinceConnected);
+
+        this.localNotifications.schedule({
+          id: 1,
+          text: "U bent nu verbonden met de server",
+          sound: 'file"://beep.caf'
+        });
       }
       this.connected = res;
     },
