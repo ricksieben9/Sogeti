@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ConnService } from '../../auth/conn.service';
+import { timer } from 'rxjs';
 
 
 @Component({
@@ -8,22 +9,33 @@ import { ConnService } from '../../auth/conn.service';
   styleUrls: ['tabs.page.scss']
 })
 
-export class TabsPage implements OnInit {
+export class TabsPage {
 
   private connected: boolean;
+  private timeSinceConnected: number;
+  private timeSinceDisconnected: number;
 
-  constructor(private connService: ConnService){ 
-    /* this.socket.on("conn_ping", (val) => {
+  constructor(private connService: ConnService){
+    timer(1000, 3000).subscribe(val => {
+      this.getConnectedState();
+    });
 
-    }); */
   }
 
-  ngOnInit() {
+  getConnectedState() {
     this.connService.isConnected().subscribe(res => {
+      if(this.connected == false){
+        this.timeSinceConnected = Date.now();
+        console.log(this.timeSinceConnected);
+      }
       this.connected = res;
     },
-    (err) => {
-      this.connected = false;
-    });
+      (err) => {
+        if(this.connected){
+          this.timeSinceDisconnected = Date.now();
+          console.log(this.timeSinceDisconnected);
+        }
+        this.connected = false;
+      });
   }
 }

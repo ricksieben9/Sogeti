@@ -13,6 +13,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+import { environment } from './../environments/environment';
+const config: SocketIoConfig = { url: environment.apiServerAddress }
+
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 
@@ -25,6 +29,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     HttpClientModule,
     RouterModule.forRoot([]),
     IonicStorageModule.forRoot(),
+    SocketIoModule.forRoot(config),
     AppRoutingModule],
   providers: [
     StatusBar,
