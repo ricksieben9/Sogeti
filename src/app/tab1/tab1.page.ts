@@ -7,25 +7,32 @@ import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native
   templateUrl: 'tab1.page.html',
   styleUrls: ['tab1.page.scss']
 })
+
+
 export class Tab1Page {
-  scheduled = [];
+  history = [];
+
 
   constructor(private plt: Platform, private localNotifications: LocalNotifications,
     private alertCtrl: AlertController) {
     this.plt.ready().then(() => {
       this.localNotifications.on('click').subscribe(res => {
-        console.log('click: ', res);
         let msg = res.data ? res.data.mydata : '';
         this.showAlert(res.title, res.text, msg);
       });
 
       this.localNotifications.on('trigger').subscribe(res => {
-        console.log('trigger: ', res);
         let msg = res.data ? res.data.mydata : '';
         this.showAlert(res.title, res.text, msg);
       });
     })
   }
+
+  ionViewDidEnter() {
+    this.loadHistory();
+  }
+
+
   scheduleNotification() {
     this.localNotifications.schedule({
       id: 1,
@@ -42,6 +49,7 @@ export class Tab1Page {
     });
   }
 
+
   recurringNotification() {
     this.localNotifications.schedule({
       id: 2,
@@ -57,6 +65,7 @@ export class Tab1Page {
       silent: false
     });
   }
+
 
   repeatingDaily() {
     this.localNotifications.schedule({
@@ -79,28 +88,18 @@ export class Tab1Page {
     }).then(alert => alert.present());
   }
 
+
   getDate() {
-
-    var today = new Date();
-    var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
+    const today = new Date();
+    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    const time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     return date + '-' + time;
-
   }
 
-  getAll() {
-    this.localNotifications.getAll().then(res => {
-      this.scheduled = res;
+
+  loadHistory() {
+    this.localNotifications.getAllTriggered().then(res => {
+        this.history = res;
     });
   }
-
-  ionViewDidEnter() {
-    this.getAll();
-  }
-
-  removeAll() {
-    this.scheduled = [];
-  }
-
 }

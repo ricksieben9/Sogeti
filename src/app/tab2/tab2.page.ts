@@ -14,7 +14,9 @@ export class Tab2Page implements OnInit {
   minDate = new Date().toISOString();
   eventSource = [];
   viewTitle = '';
-  currentDay = '';
+  dateFormatter = this.dateFormat.getDates();
+  currentWeek;
+  currentDay
 
   event = {
     //id
@@ -41,29 +43,38 @@ export class Tab2Page implements OnInit {
 
   //Before agenda has loaded
   ngOnInit() {
-    // this.resetEvent();
+    const today = new Date;
+    this.currentWeek = this.dateFormatter.getWeekNumber(today.getFullYear(), today.getMonth(), today.getDate())
   }
 
 
   //When agenda is done loading
   ngAfterViewInit() {
-    this.loadTimeIndicator()
+    this.loadTimeIndicator();
   }
 
 
   loadTimeIndicator() {
-    var line = document.createElement('div');
+    const line = document.createElement('div');
     line.id = 'timeIndicator';
-    var calendarGrid = document.querySelectorAll('.dayview-normal-event-container[ng-reflect-emit-event="false"]');
-    var calendarcell = calendarGrid[0].querySelector(".dayview-normal-event-table > tbody > tr > .calendar-cell");
     document.querySelectorAll("#timeIndicator").forEach(e => e.parentNode.removeChild(e));
-    calendarcell.prepend(line)
-    var d = new Date();
-    var pos = (d.getHours() * 36.875) + (d.getMinutes() * 0.6145833);
+    if (this.calendar.mode == 'day') {
+      const calendarGrid = document.querySelectorAll('.dayview-normal-event-container[ng-reflect-emit-event="false"]');
+      const calendarcell = calendarGrid[0].querySelector(".dayview-normal-event-table > tbody > tr > .calendar-cell");
+      calendarcell.prepend(line);
+    }
+    if (this.calendar.mode == 'week') {
+      const calendarGrid = document.querySelectorAll('.weekview-normal-event-container[ng-reflect-emit-event="false"]');
+      const calendarcell = calendarGrid[0].querySelectorAll(".weekview-normal-event-table > tbody > tr > .calendar-cell");
+      calendarcell[this.calendar.currentDate.getDay() - 1].prepend(line);
+    }
+
+    const d = new Date();
+    const pos = (d.getHours() * 36.875) + (d.getMinutes() * 0.6145833);
     line.style.top = pos + 'px';
     setInterval(function () {
-      var d = new Date();
-      var pos = (d.getHours() * 36.875) + (d.getMinutes() * 0.6145833);
+      const d = new Date();
+      const pos = (d.getHours() * 36.875) + (d.getMinutes() * 0.6145833);
       line.style.top = pos + 'px';
     }, 60000);
   }
@@ -71,7 +82,7 @@ export class Tab2Page implements OnInit {
 
   //Change mode to 'day', 'week, or 'month'
   changeMode(mode) {
-    if (this.calendar.mode == 'day' && mode == 'day')
+    if (this.calendar.mode == mode)
       this.today();
     this.calendar.mode = mode;
   }
@@ -79,14 +90,14 @@ export class Tab2Page implements OnInit {
 
   //Previous date
   back() {
-    var swiper = document.querySelector('.swiper-container')['swiper'];
+    const swiper = document.querySelector('.swiper-container')['swiper'];
     swiper.slidePrev();
   }
 
 
   //Next date
   next() {
-    var swiper = document.querySelector('.swiper-container')['swiper'];
+    const swiper = document.querySelector('.swiper-container')['swiper'];
     swiper.slideNext();
   }
 
@@ -121,16 +132,23 @@ export class Tab2Page implements OnInit {
 
   //When switched to another day or calendar mode
   onViewTitleChanged(title) {
-    this.loadDayIndicator(title)
+    this.loadDayIndicator(title);
     this.viewTitle = title;
   }
 
 
   loadDayIndicator(title) {
-    if (this.viewTitle.length == 0)
-      this.currentDay = title;
-    if (title == this.currentDay)
-      this.loadTimeIndicator()
+    if (this.calendar.mode == 'week') {
+      const titleParts = title.split(' ');
+      if (titleParts[3] == this.currentWeek)
+        this.loadTimeIndicator();
+    }
+    if (this.calendar.mode == 'day') {
+      if (this.viewTitle.length == 0)
+        this.currentDay = title;
+      if (title == this.currentDay)
+        this.loadTimeIndicator()
+    }
   }
 }
 
