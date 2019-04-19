@@ -12,7 +12,11 @@ export class TabsPage implements OnInit {
 
   private connected: boolean;
 
-  constructor(private connService: ConnService){ }
+  constructor(private connService: ConnService){ 
+    /* this.socket.on("conn_ping", (val) => {
+
+    }); */
+  }
 
   ngOnInit() {
     this.connService.isConnected().subscribe(res => {

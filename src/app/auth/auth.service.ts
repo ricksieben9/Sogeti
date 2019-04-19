@@ -18,9 +18,10 @@ export class AuthService {
 	private authSubject = new BehaviorSubject(false);
 	private connected: boolean;
 
-	constructor(private httpClient: HttpClient, private router: Router, private connService: ConnService) { }
+	constructor(private httpClient: HttpClient, private router: Router) { }
 
 	login(req: Request): Observable<AuthResponse> {
+		// pass username and password input to the api, return the response object
 		return this.httpClient.post(`${this.authServer}/auth/login`, req).pipe(
 			tap((res: AuthResponse) => {
 				console.log(res);
@@ -45,6 +46,7 @@ export class AuthService {
 	}
 
 	pinLogin(pincode: number): Observable<AuthResponse> {
+		// compare pin input to stored pin data, get previous user data if correct
 		if (JSON.parse(localStorage.getItem("PIN_CODE_USER")).pin == pincode) {
 			this.authSubject.next(true);
 			return of(JSON.parse(localStorage.getItem("CURRENT_USER")));
@@ -55,6 +57,7 @@ export class AuthService {
 	}
 
 	logout() {
+		// designate user as logged off, but save data for pin login
 		this.authSubject.next(false);
 		this.router.navigateByUrl('');
 	}
