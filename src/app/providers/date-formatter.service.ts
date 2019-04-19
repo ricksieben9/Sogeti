@@ -8,12 +8,12 @@ export class DateFormatterService {
 
   constructor() {}
 
-
+  // Needed for the calendar
   getDates() {
     return this.dateFormatter
   }
 
-
+  // Object with format functions returning dates in dutch
   dateFormatter = {
     months : ['Januari', 'Februari', 'Maart', 'April', 'Mei', 'Juni', 'Juli', 'Augustus', 'September', 'Oktober', 'November', 'December'],
     days : ['Zo', 'Ma', 'Di', 'Wo', 'Do', 'Vr', 'Za'],
@@ -40,8 +40,8 @@ export class DateFormatterService {
     formatMonthViewDayHeader: function (date: Date) {
       return this.dateFormatter.days[date.getDay()]
     },
-    getWeekNumber(year, month, day) {
-      month += 1; //use 1-12
+    getWeekNumber(year, month, day) {   // Calculate week number
+      month += 1; // Start with month 1
       const a = Math.floor((14 - (month)) / 12);
       const y = year + 4800 - a;
       const m = (month) + (12 * a) - 3;

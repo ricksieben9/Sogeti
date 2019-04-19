@@ -13,8 +13,7 @@ export class Tab1Page {
   history = [];
 
 
-  constructor(private plt: Platform, private localNotifications: LocalNotifications,
-    private alertCtrl: AlertController) {
+  constructor(private plt: Platform, private localNotifications: LocalNotifications, private alertCtrl: AlertController) {
     this.plt.ready().then(() => {
       this.localNotifications.on('click').subscribe(res => {
         let msg = res.data ? res.data.mydata : '';
@@ -28,11 +27,13 @@ export class Tab1Page {
     })
   }
 
+  // When tab is opened
   ionViewDidEnter() {
     this.loadHistory();
   }
 
 
+  // Notification content
   scheduleNotification() {
     this.localNotifications.schedule({
       id: 1,
@@ -50,35 +51,7 @@ export class Tab1Page {
   }
 
 
-  recurringNotification() {
-    this.localNotifications.schedule({
-      id: 2,
-      title: 'Herrinnering',
-      text: 'Medicatie herinnering!',
-      data: 'Heeft Peter zijn medicatie ingenomen? ' + this.getDate(),
-      trigger: { every: ELocalNotificationTriggerUnit.MINUTE },
-      foreground: true,
-      wakeup: true,
-      priority: 2,
-      vibrate: true,
-      launch: true,
-      silent: false
-    });
-  }
-
-
-  repeatingDaily() {
-    this.localNotifications.schedule({
-      id: 3,
-      title: 'Melding',
-      text: 'Medicatie melding!',
-      data: 'Pieter heeft medicatie nodig ' + this.getDate(),
-      trigger: { every: { hour: 13, minute: 20 } },
-      foreground: true
-    });
-  }
-
-
+  // When notification is clicked
   showAlert(header, sub, msg) {
     this.alertCtrl.create({
       header: header,
@@ -89,6 +62,7 @@ export class Tab1Page {
   }
 
 
+  // Get current date for notification
   getDate() {
     const today = new Date();
     const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -97,9 +71,21 @@ export class Tab1Page {
   }
 
 
+  // Load history of notifications
   loadHistory() {
-    this.localNotifications.getAllTriggered().then(res => {
-        this.history = res;
+    this.localNotifications.getAll().then(res => {
+      res.forEach(notification => {
+        if (this.history.length == 0)
+          this.history.push(notification);
+        else
+          if (this.history[this.history.length - 1].data !== notification.data)
+            this.history.push(notification);
+      });
     });
+  }
+
+// Remove notification history
+  remove() {
+    this.history = [];
   }
 }
