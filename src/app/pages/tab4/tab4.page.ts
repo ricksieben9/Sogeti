@@ -1,21 +1,22 @@
-import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
+import {Component} from '@angular/core';
+import {AuthService} from '../../services/auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
-  selector: 'app-tab4',
-  templateUrl: 'tab4.page.html',
-  styleUrls: ['tab4.page.scss']
+    selector: 'app-tab4',
+    templateUrl: 'tab4.page.html',
+    styleUrls: ['tab4.page.scss']
 })
 export class Tab4Page {
 
-constructor(private authService: AuthService, private router: Router) { }
+    constructor(private authService: AuthService, private router: Router) {
+    }
 
-  logout(form) {
-	this.authService.logout();
-  }
+    logout() {
+        this.authService.logout();
+    }
 
-  changePin() {
-	this.router.navigateByUrl('registerpin');
-  }
+    changePin() {
+        this.router.navigateByUrl('registerpin');
+    }
 }
