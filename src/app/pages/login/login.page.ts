@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule } from '@angular/core';
+import { Component, OnInit, NgModule} from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup } from '@angular/forms';
@@ -16,11 +16,21 @@ export class LoginPage implements OnInit {
   private pinIsSet: boolean;
 
   constructor(private authService: AuthService, private router: Router) {
-
   }
 
   ngOnInit() {
-	this.pinIsSet = localStorage.getItem('PIN_CODE_USER') != null;
+
+  }
+
+  // fires every time the you enter the view
+  ionViewWillEnter() {
+	this.checkPin();
+  }
+
+  // sets value of pinIsSet which is used in the view
+  // to decide if password or pincode should be shown
+  checkPin() {
+	  this.pinIsSet = localStorage.getItem('PIN_CODE_USER') != null;
   }
 
   login(form: FormGroup) {
