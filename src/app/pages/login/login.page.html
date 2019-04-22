@@ -1,4 +1,4 @@
-<form #form="ngForm" (ngSubmit)="login(form)">
+<form *ngIf="!this.pinIsSet" #form="ngForm" (ngSubmit)="login(form)">
 	<ion-grid>
 		<ion-row justify-content-center>
 			<ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
@@ -34,7 +34,7 @@
 				</div>
 				<div padding>
 					<ion-item>
-						<ion-input name="pincode" type="password" ngMaxlength="5" placeholder="PIN" ngModel required></ion-input>
+						<ion-input name="pincode"type=number style="-webkit-text-security:disc;" ngMaxlength="5" placeholder="PIN" ngModel required></ion-input>
 					</ion-item>
 				</div>
 				<div padding>
