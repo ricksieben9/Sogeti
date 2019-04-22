@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../auth/auth.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,11 +11,11 @@ export class Tab4Page {
 
 constructor(private authService: AuthService, private router: Router) { }
 
-  logout(form){
-    this.authService.logout();
+  logout(form) {
+	this.authService.logout();
   }
 
-  changePin(){
-    this.router.navigateByUrl('registerpin');
+  changePin() {
+	this.router.navigateByUrl('registerpin');
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ConnService } from '../../auth/conn.service';
+import { ConnService } from '../../services/auth/conn.service';
 
 
 @Component({
@@ -12,14 +12,14 @@ export class TabsPage implements OnInit {
 
   private connected: boolean;
 
-  constructor(private connService: ConnService){ }
+  constructor(private connService: ConnService) { }
 
   ngOnInit() {
-    this.connService.isConnected().subscribe(res => {
-      this.connected = res;
-    },
-    (err) => {
-      this.connected = false;
-    });
+	this.connService.isConnected().subscribe(res => {
+		this.connected = res;
+	},
+	(err) => {
+		this.connected = false;
+	});
   }
 }

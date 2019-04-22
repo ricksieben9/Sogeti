@@ -11,21 +11,21 @@ describe('LoginPage', () => {
   let fixture: ComponentFixture<LoginPage>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ LoginPage ],
-      imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+	TestBed.configureTestingModule({
+		declarations: [ LoginPage ],
+		imports: [ FormsModule, HttpClientTestingModule, RouterTestingModule ],
+		schemas: [CUSTOM_ELEMENTS_SCHEMA],
+	})
+	.compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+	fixture = TestBed.createComponent(LoginPage);
+	component = fixture.componentInstance;
+	fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+	expect(component).toBeTruthy();
   });
 });

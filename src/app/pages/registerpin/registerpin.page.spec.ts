@@ -10,21 +10,21 @@ describe('RegisterpinPage', () => {
   let fixture: ComponentFixture<RegisterPinPage>;
 
   beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ RegisterPinPage ],
-      imports: [ HttpClientTestingModule, RouterTestingModule ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
+	TestBed.configureTestingModule({
+		declarations: [ RegisterPinPage ],
+		imports: [ HttpClientTestingModule, RouterTestingModule ],
+		schemas: [CUSTOM_ELEMENTS_SCHEMA],
+	})
+	.compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(RegisterPinPage);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
+	fixture = TestBed.createComponent(RegisterPinPage);
+	component = fixture.componentInstance;
+	fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+	expect(component).toBeTruthy();
   });
 });

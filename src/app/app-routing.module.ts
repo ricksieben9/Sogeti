@@ -4,24 +4,24 @@ import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   {
-    path: '',
-    loadChildren: './pages/tabs/tabs.module#TabsPageModule',
-    canActivate: [LoginGuard]
+	path: '',
+	loadChildren: './pages/tabs/tabs.module#TabsPageModule',
+	canActivate: [LoginGuard]
   },
   {
-    path: 'login',
-    loadChildren: './auth/login/login.module#LoginPageModule'
+	path: 'login',
+	loadChildren: './pages/login/login.module#LoginPageModule'
   },
   {
-    path: 'registerpin',
-    loadChildren: './auth/registerpin/registerpin.module#RegisterPinPageModule',
-    canActivate: [LoginGuard]
+	path: 'registerpin',
+	loadChildren: './pages/registerpin/registerpin.module#RegisterPinPageModule',
+	canActivate: [LoginGuard]
   }
 
 ];
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+	RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
   ],
   exports: [RouterModule]
 })

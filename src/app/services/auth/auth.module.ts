@@ -8,10 +8,10 @@ import { IonicStorageModule } from '@ionic/storage';
 @NgModule({
   declarations: [],
   imports: [
-    CommonModule,
-    HttpClientModule,
-    FormsModule,
-    IonicStorageModule.forRoot()
+	CommonModule,
+	HttpClientModule,
+	FormsModule,
+	IonicStorageModule.forRoot()
   ]
 })
 export class AuthModule { }
