@@ -10,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx'
-import { DateFormatterService } from './providers/date-formatter.service'
+import { DateFormatterService } from './services/formatter/date-formatter.service'
 
 @NgModule({
   declarations: [AppComponent],

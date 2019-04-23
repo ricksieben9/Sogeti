@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
-import { DateFormatterService } from '../providers/date-formatter.service'
+import { DateFormatterService } from '../services/formatter/date-formatter.service'
 
 @Component({
   selector: 'app-tab2',
