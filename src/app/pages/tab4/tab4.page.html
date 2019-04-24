@@ -1,0 +1,16 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Profiel
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form #form="ngForm" (ngSubmit)="logout(form)">
+    <ion-button size="large" type="submit" expand="block">Uitloggen</ion-button>
+  </form>
+  <form #form="ngForm" (ngSubmit)="changePin()">
+    <ion-button size="large" type="submit" expand="block">Pin wijzigen</ion-button>
+  </form>
+</ion-content>
