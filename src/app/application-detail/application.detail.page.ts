@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {list} from 'tar';
 import {forEach} from '@angular-devkit/schematics';
+import {ApplicationService} from '../services/application.service';
+import {test} from '@angular-devkit/core/src/virtual-fs/host';
+import {count} from 'rxjs/operators';
 
 @Component({
     selector: 'app-application.detail',
@@ -10,41 +13,47 @@ import {forEach} from '@angular-devkit/schematics';
 })
 export class ApplicationDetailPage implements OnInit {
     Id = null;
-    todos = [
-        {name: 'item1', description: 'temp' , completed: false},
-        {name: 'item2', completed: false},
-        {name: 'item3', completed: false},
-        {name: 'item4', completed: false},
-        {name: 'item5', completed: false},
-        {name: 'item6', completed: false},
-        {name: 'item7', completed: false}
-    ];
-    list = [];
+    todos = [];
+    test;
 
 
-    constructor(private activatedRoute: ActivatedRoute) {
+    constructor(private activatedRoute: ActivatedRoute, private applicationService: ApplicationService) {
     }
 
     ngOnInit() {
-        // this.Id = this.activatedRoute.snapshot.paramMap.get('id');
+        this.Id = this.activatedRoute.snapshot.paramMap.get('id');
+        this.getApplicationDetail();
+    }
+
+    getApplicationDetail() {
+        const applicationObservable = this.applicationService.getApplicationById(this.Id);
+        applicationObservable.subscribe(
+            data => {
+                console.log(data);
+                this.todos = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : '');
+                this.test = data[0];
+            },
+            error => {
+                console.log(error);
+            });
     }
 
     submit() {
-        const t = [];
-        this.todos.forEach(function (elem, index) {
-            if (elem.completed) {
-                t.push(elem);
+        this.todos.forEach((elem) => {
+            if (elem.checked) {
+                elem.completed_at = new Date();
+                delete (elem.checked);
+                this.applicationService.setApplicationCompletion(this.Id, elem).subscribe();
             }
         });
-        this.todos = this.todos.filter(i => !i.completed);
-        this.list = this.list.concat(t);
-        console.log(this.todos);
-        console.log(this.list);
     }
 
     delete(item) {
-        item.completed = false;
-        this.todos.push(item);
-        this.list = this.list.filter(i => i.name !== item.name);
+        item.completed_at = null;
+        this.applicationService.removeApplicationCompletion(this.Id, item).subscribe();
+    }
+
+    canSend(): boolean {
+        return this.todos.filter(elem => elem.completed_at === null).length === 0;
     }
 }
