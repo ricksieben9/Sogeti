@@ -3,11 +3,11 @@ import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'app-tab4',
-    templateUrl: 'tab4.page.html',
-    styleUrls: ['tab4.page.scss']
+    selector: 'app-profile',
+    templateUrl: 'profile.page.html',
+    styleUrls: ['profile.page.scss']
 })
-export class Tab4Page {
+export class ProfilePage {
 
     constructor(private authService: AuthService, private router: Router) {
     }
