@@ -34,13 +34,13 @@ export class AgendaPage implements OnInit, AfterViewInit {
     ngOnInit() {
         const today = new Date;
         this.currentWeek = this.dateFormatter.getWeekNumber(today.getFullYear(), today.getMonth(), today.getDate());
+        this.loadIntakeMoment();
     }
 
 
     // When agenda is done loading
     ngAfterViewInit() {
         this.loadTimeIndicator();
-        this.loadIntakeMoment();
     }
 
 
@@ -140,7 +140,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
             id: 1,
             title: 'intakemoment',
             startTime: new Date(2019, 3, 24, 12, 29),
-            endTime: new Date(2019, 3, 24, 16, 29),
+            endTime: new Date(2019, 3, 24, 17, 29),
             desc: 'Jan moet medicatie innemen'
         };
         this.eventSource.push(testMoment);
