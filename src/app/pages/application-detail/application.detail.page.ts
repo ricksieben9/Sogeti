@@ -2,7 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {list} from 'tar';
 import {forEach} from '@angular-devkit/schematics';
-import {ApplicationService} from '../services/application.service';
+import {ApplicationService} from '../../services/application.service';
 import {test} from '@angular-devkit/core/src/virtual-fs/host';
 import {count} from 'rxjs/operators';
 
