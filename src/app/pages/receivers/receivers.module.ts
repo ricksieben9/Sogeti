@@ -3,15 +3,15 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { OntvangersPage } from './ontvangers.page';
+import { ReceiversPage } from './receivers.page';
 
 @NgModule({
   imports: [
 	IonicModule,
 	CommonModule,
 	FormsModule,
-	RouterModule.forChild([{ path: '', component: OntvangersPage }])
+	RouterModule.forChild([{ path: '', component: ReceiversPage }])
   ],
-  declarations: [OntvangersPage]
+  declarations: [ReceiversPage]
 })
-export class OntvangersPageModule {}
+export class ReceiversPageModule {}

@@ -3,13 +3,13 @@ import {Platform, AlertController} from '@ionic/angular';
 import {LocalNotifications, ELocalNotificationTriggerUnit} from '@ionic-native/local-notifications/ngx';
 
 @Component({
-    selector: 'app-meldingen',
-    templateUrl: 'meldingen.page.html',
-    styleUrls: ['meldingen.page.scss']
+    selector: 'app-notifications',
+    templateUrl: 'notifications.page.html',
+    styleUrls: ['notifications.page.scss']
 })
 
 
-export class MeldingenPage {
+export class NotificationsPage {
     history = [];
 
 

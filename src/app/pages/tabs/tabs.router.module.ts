@@ -10,11 +10,11 @@ const routes: Routes = [
     canActivateChild: [LoginGuard],
     children: [
       {
-        path: 'meldingen',
+        path: 'notifications',
         children: [
           {
             path: '',
-            loadChildren: '../meldingen/meldingen.module#MeldingenPageModule'
+            loadChildren: '../notifications/notifications.module#NotificationsPageModule'
           }
         ]
       },
@@ -28,33 +28,33 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'ontvangers',
+        path: 'receivers',
         children: [
           {
             path: '',
-            loadChildren: '../ontvangers/ontvangers.module#OntvangersPageModule'
+            loadChildren: '../receivers/receivers.module#ReceiversPageModule'
           }
         ]
       },
             {
-        path: 'profiel',
+        path: 'profile',
         children: [
           {
             path: '',
-            loadChildren: '../profiel/profiel.module#ProfielPageModule'
+            loadChildren: '../profile/profile.module#ProfilePageModule'
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/meldingen',
+        redirectTo: '/tabs/notifications',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/meldingen',
+    redirectTo: '/tabs/notifications',
     pathMatch: 'full'
   }
 ];
