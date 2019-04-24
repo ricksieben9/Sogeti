@@ -13,7 +13,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { AuthModule } from './services/auth/auth.module';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { DateFormatterService } from './services/formatter/date-formatter.service';
 
@@ -29,7 +28,7 @@ import { DateFormatterService } from './services/formatter/date-formatter.servic
 	IonicStorageModule.forRoot(),
 	AppRoutingModule],
   providers: [
-		DateFormatterService,
+  	DateFormatterService,
 	StatusBar,
 	SplashScreen,
 	{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

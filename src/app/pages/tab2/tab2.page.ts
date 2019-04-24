@@ -2,7 +2,7 @@ import { Component, ViewChild, OnInit, Inject, LOCALE_ID } from '@angular/core';
 import { CalendarComponent } from 'ionic2-calendar/calendar';
 import { AlertController } from '@ionic/angular';
 import { formatDate } from '@angular/common';
-import { DateFormatterService } from '../services/formatter/date-formatter.service'
+import { DateFormatterService } from '../../services/formatter/date-formatter.service';
 
 @Component({
   selector: 'app-tab2',
@@ -150,30 +150,30 @@ export class Tab2Page implements OnInit {
         this.loadTimeIndicator()
     }
   }
+
+
+  resetEvent() {
+    this.event = {
+      title: '',
+      desc: '',
+      startTime: new Date().toISOString(),
+      endTime: new Date().toISOString(),
+      allDay: false
+    };
+  }
+
+  
+  addEvent() {
+    let eventCopy = {
+      title: this.event.title,
+      startTime: new Date(this.event.startTime),
+      endTime: new Date(this.event.endTime),
+      desc: this.event.desc
+    }
+
+    this.eventSource.push(eventCopy);
+    this.myCal.loadEvents();
+    this.resetEvent();
+
+  }
 }
-
-//Code for adding events within the mobile app
-
-  // resetEvent() {
-  //   this.event = {
-  //     title: '',
-  //     desc: '',
-  //     startTime: new Date().toISOString(),
-  //     endTime: new Date().toISOString(),
-  //     allDay: false
-  //   };
-  // }
-
-  // addEvent() {
-  //   let eventCopy = {
-  //     title: this.event.title,
-  //     startTime: new Date(this.event.startTime),
-  //     endTime: new Date(this.event.endTime),
-  //     desc: this.event.desc
-  //   }
-
-  //   this.eventSource.push(eventCopy);
-  //   this.myCal.loadEvents();
-  //   this.resetEvent();
-
-  // }
