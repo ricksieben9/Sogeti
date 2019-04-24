@@ -1,5 +1,8 @@
 <ion-row>
-  <div class="network">
-    <ion-label align="center" *ngIf="offline"> U bent offline!</ion-label>
+  <div class="network networkoff" *ngIf="offline" >
+    <ion-label align="center"> U bent Offline!</ion-label>
+  </div>
+  <div class="network networkon" *ngIf="!offline" >
+    <ion-label align="center"></ion-label>
   </div>
 </ion-row>
