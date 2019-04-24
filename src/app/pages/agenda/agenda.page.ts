@@ -5,7 +5,7 @@ import {formatDate} from '@angular/common';
 import {DateFormatterService} from '../../services/formatter/date-formatter.service';
 
 @Component({
-    selector: 'app-tab2',
+    selector: 'app-agenda',
     templateUrl: 'agenda.page.html',
     styleUrls: ['agenda.page.scss'],
 })
@@ -50,13 +50,13 @@ export class AgendaPage implements OnInit, AfterViewInit {
         document.querySelectorAll('#timeIndicator').forEach(e => e.parentNode.removeChild(e));
         if (this.calendar.mode === 'day') {
             const calendarGrid = document.querySelectorAll('.dayview-normal-event-container[ng-reflect-emit-event="false"]');
-            const calendarcell = calendarGrid[0].querySelector('.dayview-normal-event-table > tbody > tr > .calendar-cell');
-            calendarcell.prepend(line);
+            const calendarCell = calendarGrid[0].querySelector('.dayview-normal-event-table > tbody > tr > .calendar-cell');
+            calendarCell.prepend(line);
         }
         if (this.calendar.mode === 'week') {
             const calendarGrid = document.querySelectorAll('.weekview-normal-event-container[ng-reflect-emit-event="false"]');
-            const calendarcell = calendarGrid[0].querySelectorAll('.weekview-normal-event-table > tbody > tr > .calendar-cell');
-            calendarcell[this.calendar.currentDate.getDay() - 1].prepend(line);
+            const calendarCell = calendarGrid[0].querySelectorAll('.weekview-normal-event-table > tbody > tr > .calendar-cell');
+            calendarCell[this.calendar.currentDate.getDay() - 1].prepend(line);
         }
 
         const startDate = new Date();

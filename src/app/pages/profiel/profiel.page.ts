@@ -3,7 +3,7 @@ import {AuthService} from '../../services/auth/auth.service';
 import {Router} from '@angular/router';
 
 @Component({
-    selector: 'app-tab4',
+    selector: 'app-profiel',
     templateUrl: 'profiel.page.html',
     styleUrls: ['profiel.page.scss']
 })

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-tab3',
+  selector: 'app-ontvangers',
   templateUrl: 'ontvangers.page.html',
   styleUrls: ['ontvangers.page.scss']
 })
