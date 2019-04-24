@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+import { Network} from '@ionic-native/network/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
@@ -28,6 +29,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 	IonicStorageModule.forRoot(),
 	AppRoutingModule],
   providers: [
+  	Network,
 	StatusBar,
 	SplashScreen,
 	{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
