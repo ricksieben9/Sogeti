@@ -15,6 +15,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { AuthModule } from './services/auth/auth.module';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import { DateFormatterService } from './services/formatter/date-formatter.service';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 	IonicStorageModule.forRoot(),
 	AppRoutingModule],
   providers: [
+		DateFormatterService,
 	StatusBar,
 	SplashScreen,
 	{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },

@@ -1,26 +1,29 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>
+    <ion-title class="agendaTitle">
       {{ viewTitle }}
     </ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="today()">Vandaag</ion-button>
-    </ion-buttons>
+    <ion-button slot="start" fill="clear" (click)="back()">
+      <ion-icon name="arrow-back" slot="icon-only" color="light"></ion-icon>
+    </ion-button>
+    <ion-button slot="end" fill="clear" (click)="next()">
+      <ion-icon name="arrow-forward" slot="icon-only" color="light"></ion-icon>
+    </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
 
-  <ion-card>
+  <!-- <ion-card>
     <ion-card-header tappable (click)="collapseCard = !collapseCard">
       <ion-card-title>Nieuw toedienmoment</ion-card-title>
     </ion-card-header>
     <ion-card-content *ngIf="!collapseCard">
       <ion-item>
-        <ion-input type="text" placeholder="Titel" [(ngModel)]="event.title"></ion-input>
+        <ion-input type="text" placeholder="Ontvanger" [(ngModel)]="event.title"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-input type="text" placeholder="Beschrijving" [(ngModel)]="event.desc"></ion-input>
+        <ion-input type="text" placeholder="Medicijn" [(ngModel)]="event.desc"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label>Start</ion-label>
@@ -32,16 +35,12 @@
         <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime"
           [min]="minDate"></ion-datetime>
       </ion-item>
-      <ion-item>
-        <ion-label>Hele dag</ion-label>
-        <ion-checkbox [(ngModel)]="event.allDay"></ion-checkbox>
-      </ion-item>
       <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Toevoegen
       </ion-button>
     </ion-card-content>
-  </ion-card>
+  </ion-card> -->
 
-  <ion-row>
+  <ion-row class="butrow">
     <ion-col size="4">
       <ion-button expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'secondary'" (click)="changeMode('month')">Maand</ion-button>
     </ion-col>
@@ -50,18 +49,6 @@
     </ion-col>
     <ion-col size="4">
       <ion-button expand="block" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'" (click)="changeMode('day')">Dag</ion-button>
-    </ion-col>
-
-  <ion-col size="6" text-left>
-    <ion-button fill="clear" (click)="back()">
-      <ion-icon name="arrow-back" slot="icon-only"></ion-icon>
-    </ion-button>
-  </ion-col>
-
-  <ion-col size="6" text-right>
-      <ion-button fill="clear" (click)="next()">
-        <ion-icon name="arrow-forward" slot="icon-only"></ion-icon>
-      </ion-button>
     </ion-col>
 </ion-row>
 
@@ -73,10 +60,12 @@
     (onEventSelected)="onEventSelected($event)" 
     (onTitleChanged)="onViewTitleChanged($event)"
     (onTimeSelected)="onTimeSelected($event)" 
-    startHour="6" 
-    endHour="20" 
+    startHour="0" 
+    endHour="24" 
     step="30" 
-    startingDayWeek="1">
+    startingDayWeek="1"
+    [dateFormatter]="calendar.dateFormatter">
   </calendar>
+
 
 </ion-content>
