@@ -11,22 +11,11 @@ import {DateFormatterService} from '../../services/formatter/date-formatter.serv
 })
 export class AgendaPage implements OnInit, AfterViewInit {
 
-    minDate = new Date().toISOString();
     eventSource = [];
     viewTitle = '';
     dateFormatter = this.dateFormat.getDates();
     currentWeek;
     currentDay;
-    collapseCard = true;
-
-    event = {
-        // id
-        title: '',
-        desc: '',
-        startTime: '',
-        endTime: '',
-        allDay: false
-    };
 
     calendar = {
         allDay: false,
@@ -38,8 +27,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
 
     @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
-    constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService) {
-    }
+    constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService) {}
 
 
     // Before agenda has loaded
@@ -52,6 +40,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     // When agenda is done loading
     ngAfterViewInit() {
         this.loadTimeIndicator();
+        this.loadIntakeMoment();
     }
 
 
@@ -114,23 +103,13 @@ export class AgendaPage implements OnInit, AfterViewInit {
     async onEventSelected(event) {
         const start = formatDate(event.startTime, 'medium', this.locale);
         const alert = await this.alertCtrl.create({
-            header: 'Ontvanger: ' + event.title,
+            header: 'Ontvanger: ' + event.title + event.id,
             subHeader: 'Medicijn: ' + event.desc,
             message: 'Om: ' + start,
             buttons: ['OK']
         });
         alert.present();
     }
-
-
-    // Get event time in week and month mode
-    onTimeSelected(ev) {
-        const selected = new Date(ev.selectedTime);
-        this.event.startTime = selected.toISOString();
-        selected.setHours(selected.getHours() + 1);
-        this.event.endTime = (selected.toISOString());
-    }
-
 
     // When switched to another day or calendar mode
     onViewTitleChanged(title) {
@@ -156,29 +135,16 @@ export class AgendaPage implements OnInit, AfterViewInit {
         }
     }
 
-
-    resetEvent() {
-        this.event = {
-            title: '',
-            desc: '',
-            startTime: new Date().toISOString(),
-            endTime: new Date().toISOString(),
-            allDay: false
+    loadIntakeMoment() {
+        const testMoment = {
+            id: 1,
+            title: 'intakemoment',
+            startTime: new Date(2019, 3, 24, 12, 29),
+            endTime: new Date(2019, 3, 24, 16, 29),
+            desc: 'Jan moet medicatie innemen'
         };
-    }
-
-
-    addEvent() {
-        const eventCopy = {
-            title: this.event.title,
-            startTime: new Date(this.event.startTime),
-            endTime: new Date(this.event.endTime),
-            desc: this.event.desc
-        };
-
-        this.eventSource.push(eventCopy);
+        this.eventSource.push(testMoment);
         this.myCal.loadEvents();
-        this.resetEvent();
     }
 }
 

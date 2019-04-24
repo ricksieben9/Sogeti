@@ -14,32 +14,6 @@
 
 <ion-content padding>
 
-    <ion-card>
-        <ion-card-header tappable (click)="collapseCard = !collapseCard">
-            <ion-card-title>Nieuw toedienmoment</ion-card-title>
-        </ion-card-header>
-        <ion-card-content *ngIf="!collapseCard">
-            <ion-item>
-                <ion-input type="text" placeholder="Ontvanger" [(ngModel)]="event.title"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-input type="text" placeholder="Medicijn" [(ngModel)]="event.desc"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label>Start</ion-label>
-                <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.startTime"
-                              [min]="minDate"></ion-datetime>
-            </ion-item>
-            <ion-item>
-                <ion-label>Eind</ion-label>
-                <ion-datetime displayFormat="DD/MM/YYYY HH:mm" pickerFormat="MMM D:HH:mm" [(ngModel)]="event.endTime"
-                              [min]="minDate"></ion-datetime>
-            </ion-item>
-            <ion-button fill="outline" expand="block" (click)="addEvent()" [disabled]="event.title == ''">Toevoegen
-            </ion-button>
-        </ion-card-content>
-    </ion-card>
-
     <ion-row class="butrow">
         <ion-col size="4">
             <ion-button expand="block" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'"
@@ -65,7 +39,6 @@
             [currentDate]="calendar.currentDate"
             (onEventSelected)="onEventSelected($event)"
             (onTitleChanged)="onViewTitleChanged($event)"
-            (onTimeSelected)="onTimeSelected($event)"
             startHour="0"
             endHour="24"
             step="30"
