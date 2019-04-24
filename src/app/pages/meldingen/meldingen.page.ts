@@ -4,12 +4,12 @@ import {LocalNotifications, ELocalNotificationTriggerUnit} from '@ionic-native/l
 
 @Component({
     selector: 'app-tab1',
-    templateUrl: 'tab1.page.html',
-    styleUrls: ['tab1.page.scss']
+    templateUrl: 'meldingen.page.html',
+    styleUrls: ['meldingen.page.scss']
 })
 
 
-export class Tab1Page {
+export class MeldingenPage {
     history = [];
 
 

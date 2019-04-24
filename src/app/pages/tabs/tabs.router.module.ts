@@ -10,51 +10,51 @@ const routes: Routes = [
     canActivateChild: [LoginGuard],
     children: [
       {
-        path: 'tab1',
+        path: 'meldingen',
         children: [
           {
             path: '',
-            loadChildren: '../tab1/tab1.module#Tab1PageModule'
+            loadChildren: '../meldingen/meldingen.module#MeldingenPageModule'
           }
         ]
       },
       {
-        path: 'tab2',
+        path: 'agenda',
         children: [
           {
             path: '',
-            loadChildren: '../tab2/tab2.module#Tab2PageModule'
+            loadChildren: '../agenda/agenda.module#AgendaPageModule'
           }
         ]
       },
       {
-        path: 'tab3',
+        path: 'ontvangers',
         children: [
           {
             path: '',
-            loadChildren: '../tab3/tab3.module#Tab3PageModule'
+            loadChildren: '../ontvangers/ontvangers.module#OntvangersPageModule'
           }
         ]
       },
-	        {
-        path: 'tab4',
+            {
+        path: 'profiel',
         children: [
           {
             path: '',
-            loadChildren: '../tab4/tab4.module#Tab4PageModule'
+            loadChildren: '../profiel/profiel.module#ProfielPageModule'
           }
         ]
       },
       {
         path: '',
-        redirectTo: '/tabs/tab1',
+        redirectTo: '/tabs/meldingen',
         pathMatch: 'full'
       }
     ]
   },
   {
     path: '',
-    redirectTo: '/tabs/tab1',
+    redirectTo: '/tabs/meldingen',
     pathMatch: 'full'
   }
 ];
