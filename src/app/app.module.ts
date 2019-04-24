@@ -22,18 +22,18 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
   declarations: [AppComponent],
   entryComponents: [],
   imports: [
-	BrowserModule,
-	IonicModule.forRoot(),
-	HttpClientModule,
-	RouterModule.forRoot([]),
-	IonicStorageModule.forRoot(),
-	AppRoutingModule],
+    BrowserModule,
+    IonicModule.forRoot(),
+    HttpClientModule,
+    RouterModule.forRoot([]),
+    IonicStorageModule.forRoot(),
+    AppRoutingModule],
   providers: [
-  	Network,
-	StatusBar,
-	SplashScreen,
-	{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-	LocalNotifications
+      Network,
+    StatusBar,
+    SplashScreen,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    LocalNotifications
   ],
   bootstrap: [AppComponent]
 })

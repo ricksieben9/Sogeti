@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {Network} from '@ionic-native/network/ngx';
 import {Platform} from '@ionic/angular';
