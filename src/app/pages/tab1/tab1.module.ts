@@ -4,7 +4,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
-import {NetworkComponent} from '../../components/network/network.component';
+
+import {NetworkModule} from '../../modules/network/network.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import {NetworkComponent} from '../../components/network/network.component';
     CommonModule,
     FormsModule,
     RouterModule.forChild([{path: '', component: Tab1Page}]),
+    NetworkModule,
   ],
-  declarations: [Tab1Page, NetworkComponent]
+  declarations: [Tab1Page]
 })
 export class Tab1PageModule {}

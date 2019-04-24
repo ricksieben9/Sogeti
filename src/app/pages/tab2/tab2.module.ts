@@ -6,17 +6,19 @@ import { FormsModule } from '@angular/forms';
 import { Tab2Page } from './tab2.page';
 
 import { NgCalendarModule } from 'ionic2-calendar';
+import {NetworkModule} from '../../modules/network/network.module';
 
 
 
 @NgModule({
-  imports: [
-    IonicModule,
-    CommonModule,
-    FormsModule,
-    RouterModule.forChild([{ path: '', component: Tab2Page }]),
-    NgCalendarModule
-  ],
+    imports: [
+        IonicModule,
+        CommonModule,
+        FormsModule,
+        RouterModule.forChild([{path: '', component: Tab2Page}]),
+        NgCalendarModule,
+        NetworkModule
+    ],
   declarations: [Tab2Page]
 })
 export class Tab2PageModule {}
