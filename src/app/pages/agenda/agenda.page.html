@@ -1,0 +1,48 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title class="agendaTitle">
+            {{ viewTitle }}
+        </ion-title>
+        <ion-button slot="start" fill="clear" (click)="back()">
+            <ion-icon name="arrow-back" slot="icon-only" color="light"></ion-icon>
+        </ion-button>
+        <ion-button slot="end" fill="clear" (click)="next()">
+            <ion-icon name="arrow-forward" slot="icon-only" color="light"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+
+    <ion-row class="butrow">
+        <ion-col size="4">
+            <ion-button expand="block" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'"
+                        (click)="changeMode('day')">Dag
+            </ion-button>
+        </ion-col>
+        <ion-col size="4">
+            <ion-button expand="block" [color]="calendar.mode == 'week' ? 'primary' : 'secondary'"
+                        (click)="changeMode('week')">Week
+            </ion-button>
+        </ion-col>
+        <ion-col size="4">
+            <ion-button expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'secondary'"
+                        (click)="changeMode('month')">Maand
+            </ion-button>
+        </ion-col>
+    </ion-row>
+
+
+    <calendar
+            [eventSource]="eventSource"
+            [calendarMode]="calendar.mode"
+            [currentDate]="calendar.currentDate"
+            (onEventSelected)="onEventSelected($event)"
+            (onTitleChanged)="onViewTitleChanged($event)"
+            startHour="0"
+            endHour="24"
+            step="30"
+            startingDayWeek="1"
+            [dateFormatter]="calendar.dateFormatter">
+    </calendar>
+</ion-content>

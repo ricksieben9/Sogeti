@@ -18,10 +18,8 @@ const routes: Routes = [
         canActivate: [LoginGuard]
     },
     {   path: 'application/:id',
-        loadChildren: './application-detail/application.detail.module#ApplicationDetailPageModule',
-        canActivate: [LoginGuard]
+        loadChildren: './pages/application-detail/application.detail.module#ApplicationDetailPageModule',
     }
-
 ];
 
 @NgModule({

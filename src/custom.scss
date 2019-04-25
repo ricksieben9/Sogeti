@@ -1,0 +1,67 @@
+.network{
+  background-color: red;
+  width: 100%;
+  text-align: center;
+  color:white;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+
+.networkoff{
+  transition: height 1s;
+  height: 22px;
+}
+
+.networkon {
+  transition: height 1s;
+  height: 0px;
+}
+  
+//remove allday row
+.weekview-allday-table {
+  display: none;
+}
+
+.dayview-allday-table {
+  display: none;
+}
+
+.weekview-normal-event-container {
+  margin-top: 37px !important;
+}
+
+.dayview-normal-event-container {
+  margin-top: 0px !important;
+}
+
+
+// calendar fully fits in screen
+.dayview-container, .weekview-container {
+  height: 85% !important;
+}
+
+
+.item-native {
+  padding-left: 0px !important;
+}
+
+#timeIndicator {
+  width: 100%;
+  height: 2px;
+  position: relative;
+  background: red;
+  z-index: 2;
+}
+
+.agendaTitle {
+  padding: initial !important;
+}
+
+ion-row.butrow {
+  padding-bottom: 17px;
+}
+
+.calendar-event{
+  z-index: 1!important;
+}

@@ -1,0 +1,21 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Meldingen
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content padding>
+  <ion-button expand="block" (click)="scheduleNotification()">Na 5 seconde melding</ion-button>
+  <ion-button expand="block" (click)="loadHistory()">Refresh Geschiedenis</ion-button>
+  <ion-button expand="block" (click)="remove()">Verwijder Geschiedenis</ion-button>
+
+  <ion-list>
+    <ion-list *ngFor="let notification of history;">
+      <ion-label text-wrap>
+        {{ notification.title}}
+        <p>{{ notification.data }}</p>
+      </ion-label>
+    </ion-list>
+  </ion-list>
+</ion-content>

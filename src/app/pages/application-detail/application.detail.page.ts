@@ -5,6 +5,7 @@ import {forEach} from '@angular-devkit/schematics';
 import {ApplicationService} from '../../services/application.service';
 import {test} from '@angular-devkit/core/src/virtual-fs/host';
 import {count} from 'rxjs/operators';
+import {NavController} from '@ionic/angular';
 
 @Component({
     selector: 'app-application.detail',
@@ -17,7 +18,7 @@ export class ApplicationDetailPage implements OnInit {
     test;
 
 
-    constructor(private activatedRoute: ActivatedRoute, private applicationService: ApplicationService) {
+    constructor(private activatedRoute: ActivatedRoute, private applicationService: ApplicationService, private navCtrl: NavController) {
     }
 
     ngOnInit() {
@@ -30,7 +31,7 @@ export class ApplicationDetailPage implements OnInit {
         applicationObservable.subscribe(
             data => {
                 console.log(data);
-                this.todos = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : '');
+                this.todos = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : null);
                 this.test = data[0];
             },
             error => {
@@ -55,5 +56,8 @@ export class ApplicationDetailPage implements OnInit {
 
     canSend(): boolean {
         return this.todos.filter(elem => elem.completed_at === null).length === 0;
+    }
+    back() {
+        this.navCtrl.navigateBack('/tabs/agenda');
     }
 }
