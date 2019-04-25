@@ -3,7 +3,7 @@ import { RouterModule } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Tab4Page } from './tab4.page';
+import { ProfilePage } from './profile.page';
 import {NetworkModule} from '../../modules/network/network.module';
 
 @NgModule({
@@ -11,9 +11,9 @@ import {NetworkModule} from '../../modules/network/network.module';
         IonicModule,
         CommonModule,
         FormsModule,
-        RouterModule.forChild([{path: '', component: Tab4Page}]),
+        RouterModule.forChild([{path: '', component: ProfilePage}]),
         NetworkModule
     ],
-  declarations: [Tab4Page]
+  declarations: [ProfilePage]
 })
-export class Tab4PageModule {}
+export class ProfilePageModule {}

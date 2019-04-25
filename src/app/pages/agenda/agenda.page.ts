@@ -5,10 +5,10 @@ import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-tab2',
-  templateUrl: 'tab2.page.html',
-  styleUrls: ['tab2.page.scss']
+  templateUrl: 'agenda.page.html',
+  styleUrls: ['agenda.page.scss']
 })
-export class Tab2Page implements OnInit{
+export class AgendaPage implements OnInit{
 
   event = {
     //id

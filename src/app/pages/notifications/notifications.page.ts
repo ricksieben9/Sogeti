@@ -4,23 +4,21 @@ import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native
 
 @Component({
   selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  templateUrl: 'notifications.page.html',
+  styleUrls: ['notifications.page.scss']
 })
-export class Tab1Page {
+export class NotificationsPage {
   scheduled = [];
 
   constructor(private plt: Platform, private localNotifications: LocalNotifications,
     private alertCtrl: AlertController) {
     this.plt.ready().then(() => {
       this.localNotifications.on('click').subscribe(res => {
-        console.log('click: ', res);
         let msg = res.data ? res.data.mydata : '';
         this.showAlert(res.title, res.text, msg);
       });
 
       this.localNotifications.on('trigger').subscribe(res => {
-        console.log('trigger: ', res);
         let msg = res.data ? res.data.mydata : '';
         this.showAlert(res.title, res.text, msg);
       });
