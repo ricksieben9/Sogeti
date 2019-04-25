@@ -1,21 +1,22 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { RouteReuseStrategy } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
+import {RouteReuseStrategy} from '@angular/router';
 
-import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-import { SplashScreen } from '@ionic-native/splash-screen/ngx';
-import { StatusBar } from '@ionic-native/status-bar/ngx';
+import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
+import {SplashScreen} from '@ionic-native/splash-screen/ngx';
+import {StatusBar} from '@ionic-native/status-bar/ngx';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
+import {AppRoutingModule} from './app-routing.module';
+import {AppComponent} from './app.component';
+
 
 import { Network} from '@ionic-native/network/ngx';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { IonicStorageModule } from '@ionic/storage';
 
-import { AuthModule } from './services/auth/auth.module';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {DateFormatterService} from './services/formatter/date-formatter.service';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
     IonicStorageModule.forRoot(),
     AppRoutingModule],
   providers: [
+  DateFormatterService,
       Network,
     StatusBar,
     SplashScreen,
@@ -37,4 +39,5 @@ import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {}
+export class AppModule {
+}

@@ -7,7 +7,6 @@ import { NotificationsPage } from './notifications.page';
 
 import {NetworkModule} from '../../modules/network/network.module';
 
-
 @NgModule({
   imports: [
     IonicModule,
