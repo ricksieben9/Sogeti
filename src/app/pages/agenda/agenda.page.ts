@@ -147,4 +147,3 @@ export class AgendaPage implements OnInit, AfterViewInit {
         this.myCal.loadEvents();
     }
 }
-
