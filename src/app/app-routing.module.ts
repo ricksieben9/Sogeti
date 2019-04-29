@@ -19,6 +19,7 @@ const routes: Routes = [
     },
     {   path: 'application/:id',
         loadChildren: './pages/application-detail/application.detail.module#ApplicationDetailPageModule',
+        canActivate: [LoginGuard]
     }
 ];
 

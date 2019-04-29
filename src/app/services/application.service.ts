@@ -25,7 +25,6 @@ export class ApplicationService {
     }
 
     removeApplicationCompletion(id: any, elem: any): Observable<any> {
-        console.log(elem);
         return this.http.request<any>('delete', `${environment.apiServerAddress}` + '/application/' + id, {body: elem});
     }
 }

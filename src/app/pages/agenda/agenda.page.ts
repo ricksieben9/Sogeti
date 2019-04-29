@@ -138,7 +138,6 @@ export class AgendaPage implements OnInit, AfterViewInit {
             return new Date(dt.getTime() + minutes * 60000);
         };
         this.applicationService.getAllApplication().subscribe(res => {
-            console.log(res);
             agenda = res;
         }, error => {
         }, () => {
@@ -152,7 +151,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
                 };
                 this.eventSource.push(event);
             }
+            this.myCal.loadEvents();
         });
-        this.myCal.loadEvents();
     }
 }
