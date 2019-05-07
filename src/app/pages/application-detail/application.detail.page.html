@@ -18,20 +18,20 @@
       </ion-item>
       <ion-item id="-container2">
         <div class="show-list-numbers-and-dots">
-          <p style="margin-top:0px;color:#000000;">
+          <p>
             Opmerking: {{intakeMomentDetail.remark}}
           </p>
         </div>
       </ion-item>
       <ion-item>
         <div class="show-list-numbers-and-dots">
-          <p style="margin-top:0px;color:#000000;">
+          <p>
             Datum: {{intakeMomentDetail.intake_start_time| date:'d-M-yy'}}
           </p>
-          <p style="margin-top:0px;color:#000000;">
+          <p>
             Starttijd: {{intakeMomentDetail.intake_start_time| date:'H:mm'}}
           </p>
-          <p style="margin-top:0px;color:#000000;">
+          <p>
             Eindtijd: {{intakeMomentDetail.intake_end_time| date:'H:mm'}}
           </p>
         </div>
@@ -43,10 +43,8 @@
       Controlelijst
     </ion-item-divider>
     <div ngFor *ngFor="let item of intakeMomentMedicines">
-
       <ion-item  *ngIf="!item.completed_at">
         <ion-checkbox [(ngModel)]="item.checked"></ion-checkbox>
-
         <ion-label>
           {{item.medicine_id.name}}
           {{item.dosage}} {{item.medicine_id.unit}}
