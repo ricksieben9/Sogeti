@@ -17,8 +17,8 @@ const routes: Routes = [
         loadChildren: './pages/registerpin/registerpin.module#RegisterPinPageModule',
         canActivate: [LoginGuard]
     },
-    {   path: 'application/:id',
-        loadChildren: './pages/application-detail/application.detail.module#ApplicationDetailPageModule',
+    {   path: 'intakeMoment/:id',
+        loadChildren: './pages/intake-moment-detail/intake-moment-detail.module#IntakeMomentDetailPageModule',
         canActivate: [LoginGuard]
     }
 ];

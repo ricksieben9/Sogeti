@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { ApplicationService } from './application.service';
+import { IntakeMomentService } from './intake-moment.service';
 
-describe('ApplicationService', () => {
+describe('IntakeMomentService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: ApplicationService = TestBed.get(ApplicationService);
+    const service: IntakeMomentService = TestBed.get(IntakeMomentService);
     expect(service).toBeTruthy();
   });
 });

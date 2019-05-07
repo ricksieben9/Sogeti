@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApplicationDetailPage } from './application.detail.page';
+import { IntakeMomentDetailPage } from './intake-moment-detail.page';
 
-describe('Application.DetailPage', () => {
-  let component: ApplicationDetailPage;
-  let fixture: ComponentFixture<ApplicationDetailPage>;
+describe('IntakeMoment.DetailPage', () => {
+  let component: IntakeMomentDetailPage;
+  let fixture: ComponentFixture<IntakeMomentDetailPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ApplicationDetailPage ],
+      declarations: [ IntakeMomentDetailPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ApplicationDetailPage);
+    fixture = TestBed.createComponent(IntakeMomentDetailPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,29 +1,29 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ApplicationService} from '../../services/application.service';
+import {IntakeMomentService} from '../../services/intake-moment.service';
 import {NavController} from '@ionic/angular';
 
 @Component({
-    selector: 'app-application.detail',
-    templateUrl: './application.detail.page.html',
-    styleUrls: ['./application.detail.page.scss'],
+    selector: 'app-intake-moment-detail',
+    templateUrl: './intake-moment-detail.page.html',
+    styleUrls: ['./intake-moment-detail.page.scss'],
 })
-export class ApplicationDetailPage implements OnInit {
+export class IntakeMomentDetailPage implements OnInit {
     Id = null;
     intakeMomentMedicines = [];
     intakeMomentDetail;
 
-    constructor(private activatedRoute: ActivatedRoute, private applicationService: ApplicationService, private navCtrl: NavController) {
+    constructor(private activatedRoute: ActivatedRoute, private intakeMomentService: IntakeMomentService, private navCtrl: NavController) {
     }
 
     ngOnInit() {
         this.Id = this.activatedRoute.snapshot.paramMap.get('id');
-        this.getApplicationDetail();
+        this.getIntakeMomentDetail();
     }
 
-    getApplicationDetail() {
-        const applicationObservable = this.applicationService.getApplicationById(this.Id);
-        applicationObservable.subscribe(
+    getIntakeMomentDetail() {
+        const intakeMomentObservable = this.intakeMomentService.getIntakeMomentById(this.Id);
+        intakeMomentObservable.subscribe(
             data => {
                 this.intakeMomentMedicines = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : null);
                 this.intakeMomentDetail = data[0];
@@ -38,13 +38,13 @@ export class ApplicationDetailPage implements OnInit {
             if (elem.checked) {
                 elem.completed_at = new Date();
                 delete (elem.checked);
-                this.applicationService.setApplicationCompletion(this.Id, elem).subscribe();
+                this.intakeMomentService.setIntakeMomentMedicineCompletion(this.Id, elem).subscribe();
             }
         });
     }
     delete(item) {
         item.completed_at = null;
-        this.applicationService.removeApplicationCompletion(this.Id, item).subscribe();
+        this.intakeMomentService.removeIntakeMomentMedicineCompletion(this.Id, item).subscribe();
     }
 
     canSend(): boolean {

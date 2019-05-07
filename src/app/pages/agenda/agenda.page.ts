@@ -3,7 +3,7 @@ import {CalendarComponent} from 'ionic2-calendar/calendar';
 import {AlertController, NavController} from '@ionic/angular';
 import {formatDate} from '@angular/common';
 import {DateFormatterService} from '../../services/formatter/date-formatter.service';
-import {ApplicationService} from '../../services/application.service';
+import {IntakeMomentService} from '../../services/intake-moment.service';
 import {forEach} from '@angular-devkit/schematics';
 
 @Component({
@@ -30,7 +30,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
     constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService,
-                public navCtrl: NavController, private applicationService: ApplicationService) {
+                public navCtrl: NavController, private intakeMomentService: IntakeMomentService) {
     }
 
 
@@ -105,7 +105,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
 
     // When event is clicked
     async onEventSelected(event) {
-        this.navCtrl.navigateForward('/application/' + event.id);
+        this.navCtrl.navigateForward('/intakeMoment/' + event.id);
     }
 
     // When switched to another day or calendar mode
@@ -137,7 +137,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
         const add_minutes = function (dt, minutes) {
             return new Date(dt.getTime() + minutes * 60000);
         };
-        this.applicationService.getAllApplication().subscribe(res => {
+        this.intakeMomentService.getAllIntakeMoments().subscribe(res => {
             agenda = res;
         }, error => {
         }, () => {

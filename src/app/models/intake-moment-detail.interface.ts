@@ -1,4 +1,4 @@
-export interface ApplicationDetailInterface {
+export interface IntakeMomentDetailInterface {
     'id': string;
     'intake_start_time': string;
     'intake_end_time': string;
