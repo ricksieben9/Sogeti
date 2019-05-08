@@ -1,8 +1,10 @@
 import {Component, ViewChild, OnInit, Inject, LOCALE_ID, AfterViewInit} from '@angular/core';
 import {CalendarComponent} from 'ionic2-calendar/calendar';
-import {AlertController} from '@ionic/angular';
+import {AlertController, NavController} from '@ionic/angular';
 import {formatDate} from '@angular/common';
 import {DateFormatterService} from '../../services/formatter/date-formatter.service';
+import {IntakeMomentService} from '../../services/intake-moment.service';
+import {forEach} from '@angular-devkit/schematics';
 
 @Component({
     selector: 'app-agenda',
@@ -27,7 +29,9 @@ export class AgendaPage implements OnInit, AfterViewInit {
 
     @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
-    constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService) {}
+    constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService,
+                public navCtrl: NavController, private intakeMomentService: IntakeMomentService) {
+    }
 
 
     // Before agenda has loaded
@@ -101,14 +105,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
 
     // When event is clicked
     async onEventSelected(event) {
-        const start = formatDate(event.startTime, 'medium', this.locale);
-        const alert = await this.alertCtrl.create({
-            header: 'Ontvanger: ' + event.title + event.id,
-            subHeader: 'Medicijn: ' + event.desc,
-            message: 'Om: ' + start,
-            buttons: ['OK']
-        });
-        alert.present();
+        this.navCtrl.navigateForward('/intakeMoment/' + event.id);
     }
 
     // When switched to another day or calendar mode
@@ -136,14 +133,25 @@ export class AgendaPage implements OnInit, AfterViewInit {
     }
 
     loadIntakeMoment() {
-        const testMoment = {
-            id: 1,
-            title: 'intakemoment',
-            startTime: new Date(2019, 3, 24, 12, 29),
-            endTime: new Date(2019, 3, 24, 17, 29),
-            desc: 'Jan moet medicatie innemen'
+        let agenda: any;
+        const add_minutes = function (dt, minutes) {
+            return new Date(dt.getTime() + minutes * 60000);
         };
-        this.eventSource.push(testMoment);
-        this.myCal.loadEvents();
+        this.intakeMomentService.getAllIntakeMoments().subscribe(res => {
+            agenda = res;
+        }, error => {
+        }, () => {
+            for (const data of agenda) {
+                const event = {
+                    id: data.id,
+                    title: data.receiver_id.name,
+                    startTime: new Date(data.intake_start_time),
+                    endTime: add_minutes(new Date(data.intake_start_time), 30),
+                    desc: data.remark
+                };
+                this.eventSource.push(event);
+            }
+            this.myCal.loadEvents();
+        });
     }
 }
