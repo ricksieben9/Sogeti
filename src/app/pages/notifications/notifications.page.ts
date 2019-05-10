@@ -12,7 +12,7 @@ import {IntakeMomentService} from '../../services/intake-moment/intake-moment.se
 
 export class NotificationsPage {
 
-   notifications: any;
+    notifications: any;
 
 
     constructor(public navCtrl: NavController, private notification: NotificationService,
@@ -56,5 +56,14 @@ export class NotificationsPage {
 
     openIntakeMoment(intake) {
         this.navCtrl.navigateForward('/intakeMoment/' + intake.id);
+    }
+
+    checkDate(notification) {
+        const notificationDate = new Date (notification.intake_start_time);
+        if (notificationDate < new Date()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

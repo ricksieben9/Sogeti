@@ -30,7 +30,7 @@ export class NotificationService {
       title: 'Melding',
       text: 'Medicatie melding!',
       data: '',
-      trigger: {at: notification.intake_start_time},
+      trigger: {at: new Date(notification.intake_start_time)},
       foreground: true,
       wakeup: true,
       priority: 2,

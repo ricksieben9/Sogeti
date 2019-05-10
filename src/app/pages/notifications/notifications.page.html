@@ -10,7 +10,7 @@
   <ion-button expand="block" (click)="loadIntakeMoments()">Refresh lijst</ion-button>
 
   <ion-list>
-    <ion-item *ngFor="let notification of notifications;" (click)="openIntakeMoment(notification)">
+    <ion-item *ngFor="let notification of notifications;" (click)="openIntakeMoment(notification)" [color]="checkDate(notification) ? 'primary' : 'medium'">
       <ion-label text-wrap>
         {{ notification.receiver_id.name}}
         <p>{{ notification.remark }}</p>
