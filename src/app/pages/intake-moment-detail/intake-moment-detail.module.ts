@@ -6,6 +6,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { IntakeMomentDetailPage } from './intake-moment-detail.page';
+import { NetworkModule } from '../../modules/network/network.module';
 
 const routes: Routes = [
   {
@@ -15,12 +16,13 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes),
+        NetworkModule
+    ],
   declarations: [IntakeMomentDetailPage]
 })
 export class IntakeMomentDetailPageModule {}

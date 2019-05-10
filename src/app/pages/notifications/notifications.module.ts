@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NotificationsPage } from './notifications.page';
 
-import {NetworkModule} from '../../modules/network/network.module';
+import { NetworkModule } from '../../modules/network/network.module';
 
 @NgModule({
   imports: [

@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { AgendaPage } from './agenda.page';
 
 import { NgCalendarModule } from 'ionic2-calendar';
-import {NetworkModule} from '../../modules/network/network.module';
+import { NetworkModule } from '../../modules/network/network.module';
 
 
 

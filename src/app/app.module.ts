@@ -17,7 +17,7 @@ import {IonicStorageModule} from '@ionic/storage';
 
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {DateFormatterService} from './services/formatter/date-formatter.service';
-import {IntakeMomentService} from './services/intake-moment.service';
+import {IntakeMomentService} from './services/intake-moment/intake-moment.service';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 
 
