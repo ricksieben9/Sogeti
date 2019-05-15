@@ -8,7 +8,6 @@ import { tap, map, catchError } from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {AuthResponse} from '../../models/auth-response';
 import {Request} from '../../models/request';
-import {subscribeToPromise} from 'rxjs/internal-compatibility';
 
 
 
@@ -56,6 +55,21 @@ export class ApiService {
                    })
       );
     }
+  }
+
+  getIntakeMomentById(forceRefresh: boolean = false, id: any) {
+      if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
+          // Return the cached data from Storage
+
+          // return from(this.getLocalData('intakeMoments'));
+      } else {
+          // Return real API data and store it locally
+          return this.http.get(`${this.API_URL}/intakeMoment/mobile/` + id).pipe(
+              tap(res => {
+                //  this.setLocalData('intakeMoment', JSON.stringify(res));
+              })
+          );
+      }
   }
 
   setIntakeMomentMedicineCompletion(id: any, elem: any) {
