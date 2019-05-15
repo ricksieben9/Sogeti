@@ -42,7 +42,9 @@ export class ApiService {
     );
   }
 
-  getAllIntakeMoments(forceRefresh: boolean = false)  {
+
+    // region IntakeMoments
+    getAllIntakeMoments(forceRefresh: boolean = false)  {
 
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
       // Return the cached data from Storage
@@ -93,6 +95,7 @@ export class ApiService {
       return this.http.request<any>('delete', url, {body: elem});
     }
   }
+    // endregion
 
   // Save result of API requests
   private setLocalData(key, data) {
