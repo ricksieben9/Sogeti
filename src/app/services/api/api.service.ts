@@ -8,6 +8,7 @@ import { tap, map, catchError } from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {AuthResponse} from '../../models/auth-response';
 import {Request} from '../../models/request';
+import {subscribeToPromise} from 'rxjs/internal-compatibility';
 
 
 
@@ -16,20 +17,18 @@ import {Request} from '../../models/request';
 })
 export class ApiService {
 
-  private API_STORAGE_KEY = 'specialkey';
   private API_URL = environment.apiServerAddress;
 
   constructor(private http: HttpClient, private networkService: NetworkService, private storage: Storage,
               private offlineManager: OfflineManagerService) { }
 
-  login(req: Request): Observable<AuthResponse>  {
+  login(req: Request) {
     return this.http.post(`${this.API_URL}/auth/login`, req).pipe(
         tap((res: AuthResponse) => {
           if (res) {
             res.status = 200;
             if (res.role.toLowerCase() !== 'admin') {
               localStorage.setItem('CURRENT_USER', JSON.stringify(res));
-              // this.authSubject.next(true);
             } else {
               res.status = 401;
               res.error = {
@@ -44,15 +43,39 @@ export class ApiService {
     );
   }
 
+  getAllIntakeMoments(forceRefresh: boolean = false)  {
 
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
+      // Return the cached data from Storage
+      return from(this.getLocalData('intakeMoments'));
+    } else {
+      // Return real API data and store it locally
+      return this.http.get(`${this.API_URL}/intakeMoment/mobile/`).pipe(
+                   tap(res => {
+                     this.setLocalData('intakeMoment', JSON.stringify(res));
+                   })
+      );
+    }
+  }
+
+  setIntakeMomentMedicineCompletion(id: any, elem: any) {
+    const url = `${environment.apiServerAddress}` + '/intakeMoment/mobile/' + id;
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
+      // save api call
+      return from(this.offlineManager.storeRequest(url, 'PATCH', elem));
+    } else {
+      // Return real API data
+       return this.http.patch(url, elem);
+    }
+  }
 
   // Save result of API requests
   private setLocalData(key, data) {
-    localStorage.set(`${this.API_STORAGE_KEY}-${key}`, data);
+    localStorage.setItem(key, data);
   }
 
   // Get cached API result
   private getLocalData(key) {
-    return localStorage.get(`${this.API_STORAGE_KEY}-${key}`);
+    return this.storage.get(key);
   }
 }

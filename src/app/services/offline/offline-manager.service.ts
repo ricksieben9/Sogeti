@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { Observable, from, of, forkJoin } from 'rxjs';
-import { switchMap, finalize } from 'rxjs/operators';
+import { switchMap, map, finalize } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import {forEach} from '@angular-devkit/schematics';
+import {sendRequest} from 'selenium-webdriver/http';
+import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 const STORAGE_REQ_KEY = 'storedreq';
 
@@ -19,24 +22,18 @@ interface StoredRequest {
 })
 export class OfflineManagerService {
 
-  constructor(private storage: Storage, private http: HttpClient) { }
+  constructor(private http: HttpClient) { }
 
-  checkForEvents(): Observable<any> {
-    return from(this.storage.get(STORAGE_REQ_KEY)).pipe(
-        switchMap(storedOperations => {
-          const storedObj = JSON.parse(storedOperations);
-          if (storedObj && storedObj.length > 0) {
-            return this.sendRequests(storedObj).pipe(
-                finalize(() => {
-                  this.storage.remove(STORAGE_REQ_KEY);
-                })
-            );
-          } else {
-            console.log('no local events to sync');
-            return of(false);
-          }
-        })
-    );
+  // checkForEvents(): Observable<any> {
+  checkForEvents() {
+
+    const requests: [] = JSON.parse(localStorage.getItem(STORAGE_REQ_KEY));
+    // send all requests and remove from local storage
+    if (requests && requests.length > 0) {
+      this.sendRequests(requests).pipe().toPromise().finally(() => localStorage.removeItem(STORAGE_REQ_KEY));
+    } else {
+      return of(false);
+    }
   }
 
   storeRequest(url, type, data) {
@@ -49,26 +46,29 @@ export class OfflineManagerService {
     };
     // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
 
-    return this.storage.get(STORAGE_REQ_KEY).then(storedOperations => {
-      let storedObj = JSON.parse(storedOperations);
+    let storedObj = JSON.parse(localStorage.getItem(STORAGE_REQ_KEY));
 
-      if (storedObj) {
-        storedObj.push(action);
-      } else {
-        storedObj = [action];
-      }
-      // Save old & new local transactions back to Storage
-      return this.storage.set(STORAGE_REQ_KEY, JSON.stringify(storedObj));
-    });
+    if (storedObj) {
+      storedObj.push(action);
+    } else {
+      storedObj = [action];
+    }
+    // Save old & new local transactions back to Storage
+    localStorage.setItem(STORAGE_REQ_KEY, JSON.stringify(storedObj));
+
+    return localStorage.getItem(STORAGE_REQ_KEY);
   }
 
   sendRequests(operations: StoredRequest[]) {
     const obs = [];
-
     for (const op of operations) {
-      console.log('Make one request: ', op);
-      const oneObs = this.http.request(op.type, op.url, op.data);
-      obs.push(oneObs);
+      if (op.type === 'PATCH') {
+         const oneObs = this.http.patch(op.url, op.data).subscribe();
+         obs.push(oneObs);
+      } else if (op.type === 'DELETE') {
+        const oneObs = this.http.delete(op.url, op.data);
+        obs.push(oneObs);
+      }
     }
 
     // Send out all local events and return once they are finished
