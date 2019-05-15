@@ -3,6 +3,8 @@ import {Component} from '@angular/core';
 import {Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
+import {ConnectionStatus, NetworkService} from './services/connection/network.service';
+import {OfflineManagerService} from './services/offline/offline-manager.service';
 
 
 @Component({
@@ -10,6 +12,8 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
     templateUrl: 'app.component.html'
 })
 export class AppComponent {
+    private networkService: NetworkService;
+    private offlineManager: OfflineManagerService;
     constructor(
         private platform: Platform,
         private splashScreen: SplashScreen,

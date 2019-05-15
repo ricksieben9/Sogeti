@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {ConnectionStatus, NetworkService} from '../../services/connection/network.service';
+import {OfflineManagerService} from '../../services/offline/offline-manager.service';
 
 @Component({
   selector: 'NetworkComponent',
@@ -9,7 +10,8 @@ import {ConnectionStatus, NetworkService} from '../../services/connection/networ
 export class NetworkComponent {
 
   offline: boolean;
-  constructor(private networkService: NetworkService) {
+
+  constructor(private networkService: NetworkService,  private offlineManager: OfflineManagerService) {
     this.offline = false;
 
     // subscribe to networkservice on networkchange set local bool to offline/online
@@ -18,6 +20,7 @@ export class NetworkComponent {
         this.offline = true;
       } else if (status === ConnectionStatus.Online) {
         this.offline = false;
+        this.offlineManager.checkForEvents();
       }
     });
   }

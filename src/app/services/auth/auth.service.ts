@@ -1,44 +1,28 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {tap, catchError} from 'rxjs/operators';
 import {Observable, BehaviorSubject, throwError, of} from 'rxjs';
 
-import {environment} from '../../../environments/environment';
 import {Request} from '../../models/request';
 import {AuthResponse} from '../../models/auth-response';
 import {Router} from '@angular/router';
+import {ApiService} from '../api/api.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    private authServer = environment.apiServerAddress;
     private authSubject = new BehaviorSubject(false);
 
-    constructor(private httpClient: HttpClient, private router: Router) {
+    constructor(private router: Router, private api: ApiService) {
     }
 
     login(req: Request): Observable<AuthResponse> {
-        return this.httpClient.post(`${this.authServer}/auth/login`, req).pipe(
-            tap((res: AuthResponse) => {
-                if (res) {
-                    res.status = 200;
-                    if (res.role.toLowerCase() !== 'admin') {
-                        localStorage.setItem('CURRENT_USER', JSON.stringify(res));
-                        this.authSubject.next(true);
-                    } else {
-                        res.status = 401;
-                        res.error = {
-                            response: 'U heeft geen toegang tot de app.'
-                        };
-                    }
-                }
-            }),
-            catchError((err: AuthResponse) => {
-                return of(err);
-            })
-        );
+        return this.api.login(req).pipe(tap((res: AuthResponse) => {
+           if (res.role.toLocaleLowerCase() !== 'admin') {
+               this.authSubject.next(true);
+           }
+        }));
     }
 
     pinLogin(pincode: number): Observable<AuthResponse> {
