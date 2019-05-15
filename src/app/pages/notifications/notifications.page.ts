@@ -23,6 +23,12 @@ export class NotificationsPage {
     }
 
 
+    ionViewDidLoad() {
+        this.loadIntakeMoments();
+        this.notification.cancelAll();
+        this.scheduleNotifications();
+    }
+
 
     loadIntakeMoments() {
         const add_minutes = function (dt, minutes) {

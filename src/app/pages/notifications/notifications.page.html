@@ -7,8 +7,6 @@
 </ion-header>
 <NetworkComponent></NetworkComponent>
 <ion-content padding>
-  <ion-button expand="block" (click)="loadIntakeMoments()">Refresh lijst</ion-button>
-
   <ion-list>
     <ion-item *ngFor="let notification of notifications;" (click)="openIntakeMoment(notification)" [color]="checkDate(notification) ? 'primary' : 'medium'">
       <ion-label text-wrap>

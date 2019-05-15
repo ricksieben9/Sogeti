@@ -9,7 +9,6 @@ export class NotificationService {
 
   history = [];
 
-
   constructor(private plt: Platform, private localNotifications: LocalNotifications, private alertCtrl: AlertController) {
     this.plt.ready().then(() => {
       this.localNotifications.on('click').subscribe(res => {
@@ -51,12 +50,7 @@ export class NotificationService {
     }).then(alert => alert.present());
   }
 
-
-  // Get current date for notification
-  getDate() {
-    const today = new Date();
-    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-    return date + '-' + time;
+  cancelAll() {
+    this.localNotifications.cancelAll();
   }
 }
