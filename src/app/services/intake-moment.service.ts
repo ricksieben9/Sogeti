@@ -26,6 +26,7 @@ export class IntakeMomentService {
     }
 
     removeIntakeMomentMedicineCompletion(id: any, elem: any): Observable<any> {
-        return this.http.request<any>('delete', `${environment.apiServerAddress}` + '/intakeMoment/mobile/' + id, {body: elem});
+        return this.api.removeIntakeMomentMedicineCompletion(id, elem);
+       // return this.http.request<any>('delete', `${environment.apiServerAddress}` + '/intakeMoment/mobile/' + id, {body: elem});
     }
 }

@@ -69,6 +69,17 @@ export class ApiService {
     }
   }
 
+  removeIntakeMomentMedicineCompletion(id: any, elem: any) {
+    const url = `${environment.apiServerAddress}` + '/intakeMoment/mobile/' + id;
+    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
+      // save api call
+      return from(this.offlineManager.storeRequest(url, 'DELETE', elem));
+    } else {
+      // Return real API data
+      return this.http.request<any>('delete', url, {body: elem});
+    }
+  }
+
   // Save result of API requests
   private setLocalData(key, data) {
     localStorage.setItem(key, data);

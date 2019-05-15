@@ -66,8 +66,8 @@ export class OfflineManagerService {
          const oneObs = this.http.patch(op.url, op.data).subscribe();
          obs.push(oneObs);
       } else if (op.type === 'DELETE') {
-        const oneObs = this.http.delete(op.url, op.data);
-        obs.push(oneObs);
+          const oneObs = this.http.request(op.type, op.url, {body: op.data}).subscribe();
+          obs.push(oneObs);
       }
     }
 
