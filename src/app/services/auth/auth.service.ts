@@ -14,9 +14,10 @@ import {Router} from '@angular/router';
 export class AuthService {
 
     private authServer = environment.apiServerAddress;
-    private authSubject = new BehaviorSubject(false);
+    private authSubject;
 
     constructor(private httpClient: HttpClient, private router: Router) {
+        this.authSubject = new BehaviorSubject(false);
     }
 
     login(req: Request): Observable<AuthResponse> {
@@ -55,7 +56,7 @@ export class AuthService {
         this.router.navigateByUrl('');
     }
 
-    isLoggedIn() {
+    public get isLoggedIn() {
         return this.authSubject.value;
     }
 }

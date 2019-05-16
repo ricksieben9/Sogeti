@@ -10,16 +10,16 @@ export class NotificationService {
   history = [];
 
   constructor(private plt: Platform, private localNotifications: LocalNotifications, private alertCtrl: AlertController) {
-    this.plt.ready().then(() => {
-      this.localNotifications.on('click').subscribe(res => {
-        const msg = res.data ? res.data.mydata : '';
-        this.showAlert(res.title, res.text, msg);
-      });
-      this.localNotifications.on('trigger').subscribe(res => {
-        const msg = res.data ? res.data.mydata : '';
-        this.showAlert(res.title, res.text, msg);
-      });
-    });
+    // this.plt.ready().then(() => {
+    //   this.localNotifications.on('click').subscribe(res => {
+    //     const msg = res.data ? res.data.mydata : '';
+    //     this.showAlert(res.title, res.text, msg);
+    //   });
+    //   this.localNotifications.on('trigger').subscribe(res => {
+    //     const msg = res.data ? res.data.mydata : '';
+    //     this.showAlert(res.title, res.text, msg);
+    //   });
+    // });
   }
 
   // Notification content
