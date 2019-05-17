@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {IntakeMomentService} from '../../services/intake-moment.service';
+import {IntakeMomentService} from '../../services/intake-moment/intake-moment.service';
 import {NavController} from '@ionic/angular';
 
 @Component({

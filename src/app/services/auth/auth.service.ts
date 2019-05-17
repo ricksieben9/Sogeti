@@ -6,15 +6,20 @@ import {Request} from '../../models/request';
 import {AuthResponse} from '../../models/auth-response';
 import {Router} from '@angular/router';
 import {ApiService} from '../api/api.service';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
 
-    private authSubject = new BehaviorSubject(false);
+    private authServer;
+    private authSubject;
 
-    constructor(private router: Router, private api: ApiService) {
+    constructor(private httpClient: HttpClient, private router: Router, private api: ApiService) {
+        this.authServer = environment.apiServerAddress;
+        this.authSubject = new BehaviorSubject(false);
     }
 
     login(req: Request): Observable<AuthResponse> {
@@ -39,7 +44,7 @@ export class AuthService {
         this.router.navigateByUrl('');
     }
 
-    isLoggedIn() {
+    public get isLoggedIn() {
         return this.authSubject.value;
     }
 }

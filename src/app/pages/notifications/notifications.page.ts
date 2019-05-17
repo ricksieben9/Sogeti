@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
-import {Platform, AlertController} from '@ionic/angular';
-import {LocalNotifications, ELocalNotificationTriggerUnit} from '@ionic-native/local-notifications/ngx';
+import {NavController} from '@ionic/angular';
+import {NotificationService} from '../../services/notification/notification.service';
+import {IntakeMomentService} from '../../services/intake-moment/intake-moment.service';
 
 @Component({
     selector: 'app-notifications',
@@ -10,81 +11,65 @@ import {LocalNotifications, ELocalNotificationTriggerUnit} from '@ionic-native/l
 
 
 export class NotificationsPage {
-    history = [];
+
+    notifications: any;
 
 
-    constructor(private plt: Platform, private localNotifications: LocalNotifications, private alertCtrl: AlertController) {
-        this.plt.ready().then(() => {
-            this.localNotifications.on('click').subscribe(res => {
-                const msg = res.data ? res.data.mydata : '';
-                this.showAlert(res.title, res.text, msg);
-            });
-            this.localNotifications.on('trigger').subscribe(res => {
-                const msg = res.data ? res.data.mydata : '';
-                this.showAlert(res.title, res.text, msg);
-            });
+    constructor(public navCtrl: NavController, private notification: NotificationService,
+                private intakeMomentService: IntakeMomentService) {
+
+        this.loadIntakeMoments();
+        this.scheduleNotifications();
+    }
+
+
+    ionViewDidLoad() {
+        this.loadIntakeMoments();
+        this.notification.cancelAll();
+        this.scheduleNotifications();
+    }
+
+
+    loadIntakeMoments() {
+        const add_minutes = function (dt, minutes) {
+            return new Date(dt.getTime() + minutes * 60000);
+        };
+        this.intakeMomentService.getAllIntakeMoments().subscribe(res => {
+            this.notifications = res;
+        }, error => {
+        }, () => {
+            for (const data of this.notifications) {
+                const event = {
+                    id: data.id,
+                    title: data.receiver_id.name,
+                    startTime: new Date(data.intake_start_time),
+                    endTime: add_minutes(new Date(data.intake_start_time), 30),
+                    desc: data.remark
+                };
+            }
         });
     }
 
-    // When tab is opened
-    ionViewDidEnter() {
-        this.loadHistory();
+    scheduleNotifications() {
+        try {
+            // Schedule all notifications to phone
+            for (const notification of this.notifications) {
+                this.notification.scheduleNotification(notification);
+            }
+        } catch (e) {
+        }
     }
 
-
-    // Notification content
-    scheduleNotification() {
-        this.localNotifications.schedule({
-            id: 1,
-            title: 'Melding',
-            text: 'Medicatie melding!',
-            data: 'Pieter heeft medicatie nodig ' + this.getDate(),
-            trigger: {in: 5, unit: ELocalNotificationTriggerUnit.SECOND},
-            foreground: true,
-            wakeup: true,
-            priority: 2,
-            vibrate: true,
-            launch: true,
-            silent: false
-        });
+    openIntakeMoment(intake) {
+        this.navCtrl.navigateForward('/intakeMoment/' + intake.id);
     }
 
-
-    // When notification is clicked
-    showAlert(header, sub, msg) {
-        this.alertCtrl.create({
-            header: header,
-            subHeader: sub,
-            message: msg,
-            buttons: ['Ok'],
-        }).then(alert => alert.present());
-    }
-
-
-    // Get current date for notification
-    getDate() {
-        const today = new Date();
-        const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-        const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-        return date + '-' + time;
-    }
-
-
-    // Load history of notifications
-    loadHistory() {
-        this.localNotifications.getAll().then(res => {
-            res.forEach(notification => {
-                if (this.history.length === 0) {
-                    this.history.push(notification);
-                } else if (this.history[this.history.length - 1].data !== notification.data) {
-                    this.history.push(notification);
-                }
-            });
-        });
-    }
-
-// Remove notification history
-    remove() {
-        this.history = [];
+    checkDate(notification) {
+        const notificationDate = new Date (notification.intake_start_time);
+        if (notificationDate < new Date()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }

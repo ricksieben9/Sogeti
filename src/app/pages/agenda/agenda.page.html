@@ -11,6 +11,7 @@
         </ion-button>
     </ion-toolbar>
 </ion-header>
+<NetworkComponent></NetworkComponent>
 
 <ion-content padding>
 
@@ -37,7 +38,7 @@
             [eventSource]="eventSource"
             [calendarMode]="calendar.mode"
             [currentDate]="calendar.currentDate"
-            (onEventSelected)="onEventSelected($event)"
+            (onEventSelected)="openIntakeMoment($event)"
             (onTitleChanged)="onViewTitleChanged($event)"
             startHour="0"
             endHour="24"

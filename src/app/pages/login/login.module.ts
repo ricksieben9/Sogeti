@@ -6,21 +6,23 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
+import { NetworkModule } from '../../modules/network/network.module';
 
 const routes: Routes = [
   {
-	path: '',
-	component: LoginPage
+    path: '',
+    component: LoginPage
   }
 ];
 
 @NgModule({
-  imports: [
-	CommonModule,
-	FormsModule,
-	IonicModule,
-	RouterModule.forChild(routes)
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        IonicModule,
+        RouterModule.forChild(routes),
+        NetworkModule
+    ],
   declarations: [LoginPage]
 })
 export class LoginPageModule {}

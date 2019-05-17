@@ -1,10 +1,8 @@
 import {Component, ViewChild, OnInit, Inject, LOCALE_ID, AfterViewInit} from '@angular/core';
 import {CalendarComponent} from 'ionic2-calendar/calendar';
 import {AlertController, NavController} from '@ionic/angular';
-import {formatDate} from '@angular/common';
 import {DateFormatterService} from '../../services/formatter/date-formatter.service';
-import {IntakeMomentService} from '../../services/intake-moment.service';
-import {forEach} from '@angular-devkit/schematics';
+import {IntakeMomentService} from '../../services/intake-moment/intake-moment.service';
 
 @Component({
     selector: 'app-agenda',
@@ -103,9 +101,9 @@ export class AgendaPage implements OnInit, AfterViewInit {
     }
 
 
-    // When event is clicked
-    async onEventSelected(event) {
-        this.navCtrl.navigateForward('/intakeMoment/' + event.id);
+    // When intake-moment is clicked
+    async openIntakeMoment(intake) {
+        this.navCtrl.navigateForward('/intakeMoment/' + intake.id);
     }
 
     // When switched to another day or calendar mode
