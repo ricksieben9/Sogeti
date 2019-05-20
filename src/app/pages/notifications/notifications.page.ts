@@ -24,7 +24,7 @@ export class NotificationsPage {
 
 
     // Notification page is opened
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.refresh();
     }
 
