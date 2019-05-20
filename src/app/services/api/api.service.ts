@@ -97,6 +97,25 @@ export class ApiService {
   }
     // endregion
 
+    //region groups
+
+    getGroupsOfDispenser(forceRefresh: boolean = false)  {
+
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
+            // Return the cached data from Storage
+            return from(this.getLocalData('groups'));
+        } else {
+            // Return real API data and store it locally
+            return this.http.get(`${this.API_URL}/group/mobile/`).pipe(
+                tap(res => {
+                    this.setLocalData('groups', JSON.stringify(res));
+                })
+            );
+        }
+    }
+
+    //end region
+
   // Save result of API requests
   private setLocalData(key, data) {
     localStorage.setItem(key, data);

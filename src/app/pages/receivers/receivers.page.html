@@ -1,10 +1,32 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ontvangers
+      Groepen
     </ion-title>
   </ion-toolbar>
 </ion-header>
 <NetworkComponent></NetworkComponent>
 
-<ion-content></ion-content>
+<ion-content>
+  <ion-list *ngFor="let group of groups; let i = index;" class="accordion-list" no-padding>
+<ion-item tappable (click)="toggleGroup(i)" [ngClass]="{'section-active': group.open, 'section': !group.open}">
+  <ion-icon slot="start" name="arrow-forward" *ngIf="!group.open"></ion-icon>
+  <ion-icon slot="start" name="arrow-down" *ngIf="group.open"></ion-icon>
+  <ion-label>
+    {{group.name}}
+  </ion-label>
+</ion-item>
+
+    <div *ngIf="group.receivers && group.open">
+      <ion-list *ngFor="let receiver of group.receivers" lines="none" class="child-list">
+        <ion-item tappable (click)="viewIntakeMoments(receiver.id)">
+          <ion-label>
+            {{receiver.name}}
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <p *ngIf="group.receivers.length == 0 && group.open" text-center>Deze groep heeft geen ontvangers</p>
+  </ion-list>
+</ion-content>
