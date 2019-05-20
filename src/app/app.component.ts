@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {AuthService} from './services/auth/auth.service';
 import {ConnectionStatus, NetworkService} from './services/connection/network.service';
 import {OfflineManagerService} from './services/offline/offline-manager.service';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 
 @Component({
@@ -24,7 +25,8 @@ export class AppComponent {
         private localNotifications: LocalNotifications,
         private navCtrl: NavController,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private fcm: FCM,
     ) {
         this.initializeApp();
     }
@@ -33,6 +35,22 @@ export class AppComponent {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
+            this.fcm.getToken().then(token => {
+                console.log(token);
+            });
+            this.fcm.onTokenRefresh().subscribe(token => {
+                console.log(token);
+            });
+            this.fcm.onNotification().subscribe(data => {
+                console.log(data);
+                if (data.wasTapped) {
+                    console.log('Received in background');
+                    this.router.navigateByUrl('/intakeMoment/' + data.id);
+                } else {
+                    console.log('Received in foreground');
+                    this.router.navigateByUrl('/intakeMoment/' + data.id);
+                }
+            });
             this.localNotifications.on('click').subscribe(res => {
                 this.router.navigateByUrl('/intakeMoment/' + res.id);
                 if (!this.authService.isLoggedIn) {
