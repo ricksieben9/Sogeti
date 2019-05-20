@@ -11,7 +11,7 @@ export class IntakeMomentService {
     constructor(private api: ApiService) {
     }
 
-    getAllIntakeMoments(): Observable<any> {
+    getAllIntakeMoments(): Observable<IntakeMomentDetailInterface> {
         return this.api.getAllIntakeMoments(true);
     }
 
@@ -25,17 +25,5 @@ export class IntakeMomentService {
 
     removeIntakeMomentMedicineCompletion(id: any, elem: any): Observable<any> {
         return this.api.removeIntakeMomentMedicineCompletion(id, elem);
-    }
-
-    // Descending sort of notifications date
-    sortOnDate(notifications) {
-        notifications.sort((a, b) => {
-            return this.getTime(new Date(b.intake_start_time)) - this.getTime(new Date(a.intake_start_time));
-        });
-    }
-
-    // Get time from intake_start_time string
-    getTime(date?: Date) {
-        return date != null ? date.getTime() : 0;
     }
 }
