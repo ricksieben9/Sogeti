@@ -85,4 +85,7 @@
     <plugin name="cordova-plugin-local-notification" spec="0.9.0-beta.2" />
     <allow-navigation href="http://192.168.2.19:8100" sessionid="ad7d6d32" />
     <allow-navigation href="http://192.168.2.14:8100" sessionid="e47ffaec" />
+    <allow-navigation href="http://192.168.2.18:8100" sessionid="b18f8790" />
+    <allow-navigation href="http://172.30.0.159:8100" sessionid="9a5281ea" />
+    <allow-navigation href="http://192.168.2.9:8100" sessionid="1ac39f0d" />
 </widget>

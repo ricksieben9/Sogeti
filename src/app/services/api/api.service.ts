@@ -48,12 +48,12 @@ export class ApiService {
 
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
       // Return the cached data from Storage
-      return from(this.getLocalData('intakeMoments'));
+        return of(JSON.parse(this.getLocalData('intakeMoments')));
     } else {
       // Return real API data and store it locally
       return this.http.get(`${this.API_URL}/intakeMoment/mobile/`).pipe(
                    tap(res => {
-                     this.setLocalData('intakeMoment', JSON.stringify(res));
+                     this.setLocalData('intakeMoments', JSON.stringify(res));
                    })
       );
     }
@@ -104,6 +104,6 @@ export class ApiService {
 
   // Get cached API result
   private getLocalData(key) {
-    return this.storage.get(key);
+    return localStorage.getItem(key);
   }
 }
