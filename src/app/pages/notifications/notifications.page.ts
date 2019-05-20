@@ -2,6 +2,7 @@ import {Component} from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {NotificationService} from '../../services/notification/notification.service';
 import {IntakeMomentService} from '../../services/intake-moment/intake-moment.service';
+import {IntakeMomentDetailInterface} from '../../models/intake-moment-detail.interface';
 
 @Component({
     selector: 'app-notifications',
@@ -14,7 +15,6 @@ export class NotificationsPage {
 
     notifications: any;
 
-
     constructor(public navCtrl: NavController, private notification: NotificationService,
                 private intakeMomentService: IntakeMomentService) {
 
@@ -24,6 +24,11 @@ export class NotificationsPage {
 
 
     ionViewDidEnter() {
+        this.refresh();
+    }
+
+
+    refresh() {
         this.loadIntakeMoments();
         this.notification.cancelAll();
         this.scheduleNotifications();
@@ -35,6 +40,7 @@ export class NotificationsPage {
             return new Date(dt.getTime() + minutes * 60000);
         };
         this.intakeMomentService.getAllIntakeMoments().subscribe(res => {
+            this.sortOnDate(res);
             this.notifications = res;
         }, error => {
         }, () => {
@@ -50,6 +56,7 @@ export class NotificationsPage {
         });
     }
 
+
     scheduleNotifications() {
         try {
             // Schedule all notifications to phone
@@ -60,9 +67,11 @@ export class NotificationsPage {
         }
     }
 
+
     openIntakeMoment(intake) {
         this.navCtrl.navigateForward('/intakeMoment/' + intake.id);
     }
+
 
     checkDate(notification) {
         const notificationDate = new Date (notification.intake_start_time);
@@ -73,13 +82,34 @@ export class NotificationsPage {
         }
     }
 
+
+    getTime(date?: Date) {
+        return date != null ? date.getTime() : 0;
+    }
+
+
+    sortOnDate(res) {
+         res.sort((a: IntakeMomentDetailInterface, b: IntakeMomentDetailInterface) => {
+             return this.getTime(new Date(b.intake_start_time)) - this.getTime(new Date(a.intake_start_time));
+         });
+    }
+
+
     isFinished(notification) {
-        let finished = true
+        let finished = true;
         for (const medicine of notification.intake_moment_medicines) {
             if (medicine.completed_at == null) {
                 finished = false;
             }
         }
         return finished;
+    }
+
+
+    doRefresh(event) {
+        this.refresh();
+        setTimeout(() => {
+            event.target.complete();
+        }, 2000);
     }
 }

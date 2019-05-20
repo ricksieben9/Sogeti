@@ -7,6 +7,9 @@
 </ion-header>
 <NetworkComponent></NetworkComponent>
 <ion-content padding>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list>
     <ion-item *ngFor="let notification of notifications;" (click)="openIntakeMoment(notification)" [color]="checkDate(notification) ? 'primary' : 'light'">
       <ion-label text-wrap>
