@@ -9,7 +9,9 @@ import { Router } from '@angular/router';
 
 export class RegisterPinPage {
 
-  private pinErrorMsg: string;
+	private pinErrorMsg: string;
+	trigger = "";
+	regexp = new RegExp('0{4}|1{4}|2{4}|3{4}|4{4}|5{4}|6{4}|7{4}|8{4}|9{4}');
 
   constructor(private router: Router) { }
 
@@ -18,6 +20,7 @@ export class RegisterPinPage {
 	let repeat_pin:number;
 	pin = parseInt(form.value.pincode);
 	repeat_pin = parseInt(form.value.repeat_pincode);
+	let regex = this.regexp.test(JSON.stringify(pin));
 
 	if (isNaN(pin) && isNaN(repeat_pin)) {
 		this.pinErrorMsg = 'U kunt alleen cijfers in uw pincode gebruiken.';
@@ -26,7 +29,11 @@ export class RegisterPinPage {
 		if ((pin.toString().length < 5 || pin.toString().length > 8) && (repeat_pin.toString().length < 5 || repeat_pin.toString().length > 8)) {
 			this.pinErrorMsg = 'Uw pincode mag niet minder dan 5 en niet meer dan 8 cijfers bevatten.';
 
-		//check if the first pin equals the confirm pin
+		//checks if there are consecutive digits in the PIN (max 3 allowed)
+		}else if (regex){
+			this.pinErrorMsg = 'Uw pincode mag 4 achteropeenvolgende cijfers bevatten.';
+		
+		//check if the first pin equals the confirm PIN
 		} else if (pin != repeat_pin){
 			this.pinErrorMsg = 'Uw bevestigingspincode moet hetzelfde zijn.';
 		}	else {
@@ -34,6 +41,8 @@ export class RegisterPinPage {
 			const pinuser = { username: username, pin: pin };
 			localStorage.setItem('PIN_CODE_USER', JSON.stringify(pinuser));
 			console.log("TEST: " + JSON.stringify(pinuser));
+			let test = this.regexp.test(JSON.stringify(pinuser));
+			console.log(test);
 			this.router.navigateByUrl('');
 		}
 	}
