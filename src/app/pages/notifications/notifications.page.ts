@@ -23,7 +23,7 @@ export class NotificationsPage {
     }
 
 
-    ionViewDidLoad() {
+    ionViewDidEnter() {
         this.loadIntakeMoments();
         this.notification.cancelAll();
         this.scheduleNotifications();
@@ -71,5 +71,15 @@ export class NotificationsPage {
         } else {
             return true;
         }
+    }
+
+    isFinished(notification) {
+        let finished = true
+        for (const medicine of notification.intake_moment_medicines) {
+            if (medicine.completed_at == null) {
+                finished = false;
+            }
+        }
+        return finished;
     }
 }
