@@ -24,7 +24,7 @@ export class NotificationsPage {
 
 
     // Notification page is opened
-    ionViewDidEnter() {
+    ionViewWillEnter() {
         this.refresh();
     }
 
@@ -43,7 +43,7 @@ export class NotificationsPage {
             return new Date(dt.getTime() + minutes * 60000);
         };
         this.intakeMomentService.getAllIntakeMoments().subscribe(res => {
-            this.sortOnDate(res); // Sort result
+            this.intakeMomentService.sortOnDate(res); // Sort result
             this.notifications = res;
         }, error => {
         }, () => {
@@ -58,6 +58,7 @@ export class NotificationsPage {
             }
         });
     }
+
 
     // Schedule local notifications to current device
     scheduleNotifications() {
@@ -85,20 +86,6 @@ export class NotificationsPage {
         } else {
             return true;
         }
-    }
-
-
-    // Get time from intake_start_time string
-    getTime(date?: Date) {
-        return date != null ? date.getTime() : 0;
-    }
-
-
-    // Descending sort of notifications date
-    sortOnDate(notifications) {
-        notifications.sort((a: IntakeMomentDetailInterface, b: IntakeMomentDetailInterface) => {
-             return this.getTime(new Date(b.intake_start_time)) - this.getTime(new Date(a.intake_start_time));
-         });
     }
 
 
