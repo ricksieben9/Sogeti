@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {tap, catchError} from 'rxjs/operators';
-import {Observable, BehaviorSubject, throwError, of} from 'rxjs';
+import {Observable, BehaviorSubject, throwError, of, from} from 'rxjs';
 
 import {Request} from '../../models/request';
 import {AuthResponse} from '../../models/auth-response';
@@ -32,35 +32,18 @@ export class AuthService {
     }
 
     pinLogin(pincode: number): Observable<AuthResponse> {
-        console.log(JSON.parse(localStorage.getItem('PIN_CODE_USER')).pin);
         let pinFromDB = JSON.parse(localStorage.getItem('PIN_CODE_USER')).pin;
-        let autSub = this.authSubject;
-        let result;
-        let error;
-        bcrypt.compare(pincode.toString(), pinFromDB, function(err, res) {
-            console.log("hoi");
-            console.log("pincode " + pincode);
-            console.log("pinfromDB " + pinFromDB);
+        let aSubject = this.authSubject.next(true);
+        return from(bcrypt.compare(pincode.toString(), pinFromDB).then(function(res: AuthResponse, err) {
             if (err) {
-                console.log(err);
-                // handle error
-                return of({username: '', token: '', role: '', name: '', status: 401, error: {response: 'Pincode incorrect.'}});
-
+                return err;
             } else {
-                // it works!z
-                console.log(res);
-                result = res;  
-                autSub.next(true);
-                return of(JSON.parse(localStorage.getItem('CURRENT_USER')));              
+                if (res){    
+                    aSubject;
+                    return of(JSON.parse(localStorage.getItem('CURRENT_USER')));  
+                }
             }            
-        });
-        ///////////////////////////////////////////////////////////////
-        if (result) {
-            this.authSubject.next(true);
-            return of(JSON.parse(localStorage.getItem('CURRENT_USER')));
-        } else {
-            return of({username: '', token: '', role: '', name: '', status: 401, error: {response: 'Pincode incorrect.'}});
-        }
+        }));             
     }
 
     logout() {
