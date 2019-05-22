@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {ApiService} from '../api/api.service';
 import {HttpClient} from '@angular/common/http';
 import {environment} from '../../../environments/environment';
+import * as bcrypt from 'bcryptjs';
 
 @Injectable({
     providedIn: 'root'
@@ -31,7 +32,30 @@ export class AuthService {
     }
 
     pinLogin(pincode: number): Observable<AuthResponse> {
-        if (JSON.parse(localStorage.getItem('PIN_CODE_USER')).pin === pincode) {
+        console.log(JSON.parse(localStorage.getItem('PIN_CODE_USER')).pin);
+        let pinFromDB = JSON.parse(localStorage.getItem('PIN_CODE_USER')).pin;
+        let autSub = this.authSubject;
+        let result;
+        let error;
+        bcrypt.compare(pincode.toString(), pinFromDB, function(err, res) {
+            console.log("hoi");
+            console.log("pincode " + pincode);
+            console.log("pinfromDB " + pinFromDB);
+            if (err) {
+                console.log(err);
+                // handle error
+                return of({username: '', token: '', role: '', name: '', status: 401, error: {response: 'Pincode incorrect.'}});
+
+            } else {
+                // it works!z
+                console.log(res);
+                result = res;  
+                autSub.next(true);
+                return of(JSON.parse(localStorage.getItem('CURRENT_USER')));              
+            }            
+        });
+        ///////////////////////////////////////////////////////////////
+        if (result) {
             this.authSubject.next(true);
             return of(JSON.parse(localStorage.getItem('CURRENT_USER')));
         } else {
