@@ -45,13 +45,10 @@ export class RegisterPinPage {
 
 				bcrypt.genSalt(saltRounds, function(err, salt) {
 					bcrypt.hash(myHashedPincode, salt, function(err, hash) {
-						const pinuser = { username: username, pin: hash }
-						console.log("HASHED: " + hash);						
+						const pinuser = { username: username, pin: hash }	
 						localStorage.setItem('PIN_CODE_USER', JSON.stringify(pinuser));	
 					});
-				});	
-				console.log("GET HASH: " + myHashedPincode);
-				
+				});					
 				
 				this.router.navigateByUrl('');
 			}
