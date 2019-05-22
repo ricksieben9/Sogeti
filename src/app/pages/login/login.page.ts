@@ -2,7 +2,7 @@ import { Component, OnInit, NgModule} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup } from '@angular/forms';
-
+import { NetworkService } from '../../services/connection/network.service';
 @Component({
     selector: 'app-login',
     templateUrl: './login.page.html',
@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
     private pinIsSet: boolean;
     returnUrl: string;
 
-    constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {
+    constructor(private network: NetworkService, private authService: AuthService, private router: Router, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
@@ -26,6 +26,7 @@ export class LoginPage implements OnInit {
 
     // fires every time the you enter the view
     ionViewWillEnter() {
+        this.checkConnection();
         this.checkPin();
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/app/';
     }
@@ -72,5 +73,12 @@ export class LoginPage implements OnInit {
         this.errorMsg = null;
         this.pinErrorMsg = null;
         form.reset();
+    }
+
+    checkConnection() {
+        const connection = this.network;
+        setInterval(function () {
+            connection.checkConnection();
+        }, 5000);
     }
 }
