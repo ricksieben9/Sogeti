@@ -13,8 +13,9 @@ export class IntakeMomentDetailPage implements OnInit {
     intakeMomentMedicines = [];
     intakeMomentDetail;
 
-    constructor(private activatedRoute: ActivatedRoute, private intakeMomentService: IntakeMomentService, private navCtrl: NavController) {
-    }
+    constructor(private activatedRoute: ActivatedRoute,
+                private intakeMomentService: IntakeMomentService, private navCtrl: NavController) {}
+
 
     ngOnInit() {
         this.Id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -23,6 +24,7 @@ export class IntakeMomentDetailPage implements OnInit {
 
     getIntakeMomentDetail() {
         const intakeMomentObservable = this.intakeMomentService.getIntakeMomentById(this.Id);
+        if (intakeMomentObservable){
         intakeMomentObservable.subscribe(
             data => {
                 this.intakeMomentMedicines = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : null);
@@ -31,6 +33,7 @@ export class IntakeMomentDetailPage implements OnInit {
             error => {
                 console.log(error);
             });
+    }
     }
 
     submit() {

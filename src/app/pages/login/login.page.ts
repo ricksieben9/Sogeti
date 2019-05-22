@@ -1,8 +1,9 @@
-import { Component, OnInit, NgModule} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup } from '@angular/forms';
 import { NetworkService } from '../../services/connection/network.service';
+
 @Component({
     selector: 'app-login',
     templateUrl: './login.page.html',
@@ -14,10 +15,10 @@ export class LoginPage implements OnInit {
     private errorMsg: string;
     private pinErrorMsg: string;
     private pinIsSet: boolean;
+    private timer;
     returnUrl: string;
 
-    constructor(private network: NetworkService, private authService: AuthService, private router: Router, private route: ActivatedRoute) {
-    }
+    constructor(private network: NetworkService, private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.checkPin();
@@ -77,7 +78,7 @@ export class LoginPage implements OnInit {
 
     checkConnection() {
         const connection = this.network;
-        setInterval(function () {
+        this.timer = setInterval(function () {
             connection.checkConnection();
         }, 5000);
     }
