@@ -11,8 +11,12 @@ export class IntakeMomentService {
     constructor(private api: ApiService) {
     }
 
-    getAllIntakeMoments(): Observable<IntakeMomentDetailInterface> {
+    getAllIntakeMoments(): Observable<any> {
         return this.api.getAllIntakeMoments(true);
+    }
+
+    getAllIntakeMomentsOfReceiver(id: any): Observable<any> {
+        return this.api.getAllIntakeMomentsOfReceiver(id,true);
     }
 
     getIntakeMomentById(id: any): Observable<any> {

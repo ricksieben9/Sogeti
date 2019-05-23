@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {NavController} from "@ionic/angular";
 import {GroupService} from "../../services/group/group.service";
-import {GroupDetailInterface} from "../../models/group-detail.interface";
 
 @Component({
   selector: 'app-receivers',
@@ -37,6 +36,6 @@ export class ReceiversPage implements OnInit{
   }
 
   viewIntakeMoments(id: any) {
-    console.log(id);
+    this.navCtrl.navigateForward('/receiver/' + id + '/intakeMoments');
   }
 }
