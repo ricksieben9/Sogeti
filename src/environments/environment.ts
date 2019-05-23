@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // change server to local desktop ip running the api server
-  apiServerAddress: 'http://192.168.2.9:3000'
+  apiServerAddress: 'http://192.168.2.10:3000'
   // apiServerAddress: 'http://localhost:3000'
 };
 

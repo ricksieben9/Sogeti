@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { Observable, from, of, forkJoin } from 'rxjs';
-import { switchMap, map, finalize } from 'rxjs/operators';
+import {of, forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import {forEach} from '@angular-devkit/schematics';
-import {sendRequest} from 'selenium-webdriver/http';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 const STORAGE_REQ_KEY = 'storedreq';
 

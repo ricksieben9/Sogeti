@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NetworkService, ConnectionStatus } from '../connection/network.service';
 import { Storage } from '@ionic/storage';
-import {Observable, from, of} from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
+import {from, of} from 'rxjs';
+import {tap, map, catchError} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {AuthResponse} from '../../models/auth-response';
 import {Request} from '../../models/request';
@@ -62,15 +62,12 @@ export class ApiService {
   getIntakeMomentById(forceRefresh: boolean = false, id: any) {
       if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
           // Return the cached data from Storage
-
-          // return from(this.getLocalData('intakeMoments'));
+          return of(JSON.parse(this.getLocalData('intakeMoments'))).pipe(
+              map(moments => moments.filter(moment => moment.id.toString() === id))
+          );
       } else {
           // Return real API data and store it locally
-          return this.http.get(`${this.API_URL}/intakeMoment/mobile/` + id).pipe(
-              tap(res => {
-                //  this.setLocalData('intakeMoment', JSON.stringify(res));
-              })
-          );
+          return this.http.get(`${this.API_URL}/intakeMoment/mobile/` + id);
       }
   }
 
