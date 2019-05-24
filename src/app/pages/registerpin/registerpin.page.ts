@@ -34,7 +34,7 @@ export class RegisterPinPage {
 
                 // checks if there are consecutive digits in the PIN (max 3 allowed)
             } else if (regex) {
-                this.pinErrorMsg = 'Uw pincode mag niet meer dan 4 herhalende cijfers bevatten.';
+                this.pinErrorMsg = 'Uw pincode mag niet meer dan 3 herhalende cijfers bevatten.';
 
                 // check if the first pin equals the confirm PIN
             } else if (pin !== repeat_pin) {
