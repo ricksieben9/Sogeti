@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
-import {tap, catchError} from 'rxjs/operators';
-import {Observable, BehaviorSubject, throwError, of, from} from 'rxjs';
+import {tap} from 'rxjs/operators';
+import {Observable, BehaviorSubject, of, from} from 'rxjs';
 
 import {Request} from '../../models/request';
 import {AuthResponse} from '../../models/auth-response';
@@ -32,18 +32,18 @@ export class AuthService {
     }
 
     pinLogin(pincode: number): Observable<AuthResponse> {
-        let pinFromDB = JSON.parse(localStorage.getItem('PIN_CODE_USER')).pin;
-        let aSubject = this.authSubject.next(true);
+        const pinFromDB = JSON.parse(localStorage.getItem('PIN_CODE_USER')).pin;
+        const aSubject = this.authSubject.next(true);
         return from(bcrypt.compare(pincode.toString(), pinFromDB).then(function(res: AuthResponse, err) {
             if (err) {
                 return err;
             } else {
-                if (res){    
+                if (res) {
                     aSubject;
-                    return of(JSON.parse(localStorage.getItem('CURRENT_USER')));  
+                    return of(JSON.parse(localStorage.getItem('CURRENT_USER')));
                 }
-            }            
-        }));             
+            }
+        }));
     }
 
     logout() {
