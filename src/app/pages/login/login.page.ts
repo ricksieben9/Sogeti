@@ -59,8 +59,8 @@ export class LoginPage implements OnInit {
 
     pinLogin(form: FormGroup) {
         this.authService.pinLogin(form.value.pincode).subscribe(res => {
-            if (res.status !== 200) {
-                this.pinErrorMsg = res.error.response;
+            if (!res) {
+                this.pinErrorMsg = "Pincode incorrect.";
             } else {
                 this.resetForm(form);
                 this.router.navigate([this.returnUrl]);
