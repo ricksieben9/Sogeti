@@ -25,9 +25,11 @@ export class AuthService {
 
     login(req: Request): Observable<AuthResponse> {
         return this.api.login(req).pipe(tap((res: AuthResponse) => {
-           if (res.role.toLocaleLowerCase() !== 'admin') {
-               this.authSubject.next(true);
-           }
+            if (res.role) {
+                if (res.role.toLocaleLowerCase() !== 'admin') {
+                    this.authSubject.next(true);
+                }
+            }
         }));
     }
 
