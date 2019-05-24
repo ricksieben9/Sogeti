@@ -3,11 +3,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NetworkService, ConnectionStatus } from '../connection/network.service';
 import { Storage } from '@ionic/storage';
-import {Observable, from, of} from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
-import {environment} from '../../../environments/environment';
-import {AuthResponse} from '../../models/auth-response';
-import {Request} from '../../models/request';
+import { from, of } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
+import { AuthResponse } from '../../models/auth-response';
+import { Request } from '../../models/request';
 
 
 
