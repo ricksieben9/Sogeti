@@ -66,7 +66,7 @@ export class ApiService {
               map(moments => moments.filter(moment => moment.id.toString() === id))
           );
       } else {
-          // Return real API data and store it locally
+          // Return real API data
           return this.http.get(`${this.API_URL}/intakeMoment/mobile/` + id);
       }
   }
