@@ -133,6 +133,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     }
 
     loadIntakeMoment() {
+        this.eventSource = [];
         let agenda: any;
         const add_minutes = function (dt, minutes) {
             return new Date(dt.getTime() + minutes * 60000);
