@@ -136,6 +136,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     }
 
     loadIntakeMoments() {
+        this.eventSource = [];
         let agenda: any;
         const add_minutes = function (dt, minutes) {
             return new Date(dt.getTime() + minutes * 60000);
@@ -153,7 +154,6 @@ export class AgendaPage implements OnInit, AfterViewInit {
                         endTime: add_minutes(new Date(data.intake_start_time), 30),
                         desc: data.remark
                     };
-                    this.eventSource = [];
                     this.eventSource.push(event);
                 }
             }
