@@ -33,8 +33,7 @@
         </ion-col>
     </ion-row>
     <ng-template #customTemplate let-displayEvent="displayEvent">
-        <div _ngcontent-c5 [class]="color(displayEvent.event.startTime)? 'futureIntake' + ' calendar-event-inner' : 'oldIntake'
-         + ' calendar-event-inner'">{{displayEvent.event.title}}</div>
+        <div _ngcontent-c5 [ngClass]="['calendar-event-inner', color(displayEvent.event.startTime)? 'futureIntake' : 'oldIntake']">{{displayEvent.event.title}}</div>
     </ng-template>
 
     <calendar
