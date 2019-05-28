@@ -65,3 +65,15 @@ ion-row.butrow {
 .calendar-event{
   z-index: 1!important;
 }
+
+.monthview-current:not(.monthview-selected){
+  color: #009900!important;
+}
+
+.oldIntake{
+    background-color: #9c9c9c!important;
+}
+
+.futureIntake{
+  background-color: #3a87ad!important;
+}

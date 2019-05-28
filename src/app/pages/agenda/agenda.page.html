@@ -32,7 +32,10 @@
             </ion-button>
         </ion-col>
     </ion-row>
-
+    <ng-template #customTemplate let-displayEvent="displayEvent">
+        <div _ngcontent-c5 [class]="color(displayEvent.event.startTime)? 'futureIntake' + ' calendar-event-inner' : 'oldIntake'
+         + ' calendar-event-inner'">{{displayEvent.event.title}}</div>
+    </ng-template>
 
     <calendar
             [eventSource]="eventSource"
@@ -40,10 +43,14 @@
             [currentDate]="calendar.currentDate"
             (onEventSelected)="openIntakeMoment($event)"
             (onTitleChanged)="onViewTitleChanged($event)"
+            [dateFormatter]="calendar.dateFormatter"
+            [weekviewNormalEventTemplate]="customTemplate"
+            [dayviewNormalEventTemplate]="customTemplate"
+            [noEventsLabel]="'Geen toedienmomenten'"
+            [scrollToHour] = 7
             startHour="0"
             endHour="24"
             step="30"
-            startingDayWeek="1"
-            [dateFormatter]="calendar.dateFormatter">
+            startingDayWeek="1">
     </calendar>
 </ion-content>

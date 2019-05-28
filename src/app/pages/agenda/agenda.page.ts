@@ -152,4 +152,12 @@ export class AgendaPage implements OnInit, AfterViewInit {
             this.myCal.loadEvents();
         });
     }
+
+    color(startTime) {
+        if (startTime < new Date()) {
+            return false;
+        } else{
+            return true;
+        }
+    }
 }
