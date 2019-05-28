@@ -8,6 +8,7 @@ import {tap, map, catchError} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {AuthResponse} from '../../models/auth-response';
 import {Request} from '../../models/request';
+import {forEach} from '@angular-devkit/schematics';
 
 
 
@@ -74,24 +75,59 @@ export class ApiService {
   setIntakeMomentMedicineCompletion(id: any, elem: any) {
     const url = `${environment.apiServerAddress}` + '/intakeMoment/mobile/' + id;
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
-      // save api call
-      return from(this.offlineManager.storeRequest(url, 'PATCH', elem));
+        // change locally stored intakemoments
+        this.setIntakeMomentStatusOffline(id, elem);
+
+        // save api call
+        return from(this.offlineManager.storeRequest(url, 'PATCH', elem));
+
     } else {
-      // Return real API data
-       return this.http.patch(url, elem);
+        // Return real API data
+          return this.http.patch(url, elem);
     }
   }
 
   removeIntakeMomentMedicineCompletion(id: any, elem: any) {
     const url = `${environment.apiServerAddress}` + '/intakeMoment/mobile/' + id;
     if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
-      // save api call
+        // change locally stored intakemoments
+        this.setIntakeMomentStatusOffline(id, elem);
+
+        // save api call
       return from(this.offlineManager.storeRequest(url, 'DELETE', elem));
     } else {
       // Return real API data
       return this.http.request<any>('delete', url, {body: elem});
     }
   }
+
+    setIntakeMomentStatusOffline(id: any, elem: any) {
+        const intakeMomentObservable = this.getIntakeMomentById(false, id);
+        let intakeMomentMedicines = [];
+
+        intakeMomentObservable.subscribe(
+            data => {
+                intakeMomentMedicines = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : null);
+                intakeMomentMedicines.forEach(function(medicine) {
+                    if (medicine.medicine_id.id === elem.medicine_id.id) {
+                        medicine.completed_at = elem.completed_at;
+                    }
+                });
+            },
+            error => {
+                console.log(error);
+            }, () => {
+                const moments = JSON.parse(this.getLocalData('intakeMoments'));
+
+                moments.forEach(function (moment) {
+                    if (moment.id.toString() === id) {
+                        moment.intake_moment_medicines = intakeMomentMedicines;
+                    }
+                });
+                this.setLocalData('intakeMoments', JSON.stringify(moments));
+            }
+        );
+    }
     // endregion
 
   // Save result of API requests
