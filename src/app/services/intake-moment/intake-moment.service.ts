@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {IntakeMomentDetailInterface} from '../../models/intake-moment-detail.interface';
 import {ApiService} from './../api/api.service';
 
 @Injectable({
@@ -11,7 +10,7 @@ export class IntakeMomentService {
     constructor(private api: ApiService) {
     }
 
-    getAllIntakeMoments(): Observable<IntakeMomentDetailInterface> {
+    getAllIntakeMoments(): Observable<any> {
         return this.api.getAllIntakeMoments(true);
     }
 
