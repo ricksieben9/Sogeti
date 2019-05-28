@@ -19,6 +19,7 @@ export class ReceiversPage implements OnInit{
     this.getGroups();
   }
 
+  // get groupdata from group service
   private getGroups() {
     const groupObservable = this.groupService.getGroupsOfDispenser();
     groupObservable.subscribe(
@@ -31,10 +32,12 @@ export class ReceiversPage implements OnInit{
         });
   }
 
+  // show or hide a group
   toggleGroup(index: number) {
     this.groups[index].open = !this.groups[index].open;
   }
 
+  // navigate to intakemoments of receiver
   viewIntakeMoments(id: any) {
     this.navCtrl.navigateForward('/receiver/' + id + '/intakeMoments');
   }

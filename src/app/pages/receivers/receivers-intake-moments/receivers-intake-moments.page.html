@@ -3,9 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button (click)="back()"></ion-back-button>
     </ion-buttons>
-    <ion-title *ngIf="receiverName.length <= 11">Toedienmomenten {{receiverName}}</ion-title>
-    <ion-title *ngIf="receiverName.length > 11 && receiverName.length <= 24"><div class="small-title">Toedienmomenten {{receiverName}}</div></ion-title>
-    <ion-title *ngIf="receiverName.length > 25">{{receiverName}}</ion-title>
+    <div *ngIf="receiverName">
+      <ion-title *ngIf="receiverName.length <= 11">Toedienmomenten {{receiverName}}</ion-title>
+      <ion-title *ngIf="receiverName.length > 11 && receiverName.length <= 24"><div class="small-title">Toedienmomenten {{receiverName}}</div></ion-title>
+      <ion-title *ngIf="receiverName.length > 25">{{receiverName}}</ion-title>
+    </div>
   </ion-toolbar>
 </ion-header>
 <NetworkComponent></NetworkComponent>

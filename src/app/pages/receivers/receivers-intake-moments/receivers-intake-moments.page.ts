@@ -23,6 +23,7 @@ export class ReceiversIntakeMomentsPage implements OnInit {
     this.loadIntakeMoments();
   }
 
+  // get intakemoments of receiver from service
   private loadIntakeMoments() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.receiverService.getReceiver(id).subscribe(res => {
@@ -33,10 +34,12 @@ export class ReceiversIntakeMomentsPage implements OnInit {
     });
   }
 
+  // navigate to intakemoment detail page
   openIntakeMoment(intake) {
     this.navCtrl.navigateForward('/intakeMoment/' + intake.id);
   }
 
+  // check if date is today or later
   checkDate(intakeMoment) {
     const intakeMomentDate = new Date (intakeMoment.intake_start_time);
     return intakeMomentDate >= new Date();
@@ -53,6 +56,7 @@ export class ReceiversIntakeMomentsPage implements OnInit {
     return finished;
   }
 
+  // navigate back to group page
   back() {
     this.navCtrl.navigateBack('/tabs/groups');
   }

@@ -18,12 +18,14 @@
 </ion-item>
 
     <div *ngIf="group.receivers && group.open">
-      <ion-list *ngFor="let receiver of group.receivers" lines="none" class="child-list">
-        <ion-item tappable (click)="viewIntakeMoments(receiver.id)">
-          <ion-label>
-            {{receiver.name}}
-          </ion-label>
-        </ion-item>
+      <ion-list>
+        <div *ngFor="let receiver of group.receivers" class="child-list">
+          <ion-item tappable (click)="viewIntakeMoments(receiver.id)">
+            <ion-label>
+              {{receiver.name}}
+            </ion-label>
+          </ion-item>
+        </div>
       </ion-list>
     </div>
 
