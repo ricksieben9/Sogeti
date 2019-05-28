@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {IntakeMomentDetailInterface} from '../../models/intake-moment-detail.interface';
 import {ApiService} from './../api/api.service';
 
 @Injectable({
