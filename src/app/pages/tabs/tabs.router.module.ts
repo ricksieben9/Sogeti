@@ -28,7 +28,7 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'receivers',
+        path: 'groups',
         children: [
           {
             path: '',
