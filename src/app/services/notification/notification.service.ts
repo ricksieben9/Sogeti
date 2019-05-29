@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {AlertController, Platform} from '@ionic/angular';
-import {ELocalNotificationTriggerUnit, LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {Router} from '@angular/router';
 import {GroupService} from '../group/group.service';
 import {forEach} from '@angular-devkit/schematics';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Injectable({
     providedIn: 'root'

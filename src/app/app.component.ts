@@ -6,7 +6,7 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Router} from '@angular/router';
 import {AuthService} from './services/auth/auth.service';
-import {ConnectionStatus, NetworkService} from './services/connection/network.service';
+import {NetworkService} from './services/connection/network.service';
 import {OfflineManagerService} from './services/offline/offline-manager.service';
 
 @Component({

@@ -3,6 +3,7 @@ import {NavController} from '@ionic/angular';
 import {NotificationService} from '../../services/notification/notification.service';
 import {IntakeMomentService} from '../../services/intake-moment/intake-moment.service';
 import {IntakeMomentDetailInterface} from '../../models/intake-moment-detail.interface';
+import {NetworkService} from '../../services/connection/network.service';
 
 @Component({
     selector: 'app-notifications',
@@ -15,7 +16,7 @@ export class NotificationsPage {
 
     notifications: any;
 
-    constructor(public navCtrl: NavController, private notification: NotificationService,
+    constructor(private network: NetworkService, public navCtrl: NavController, private notification: NotificationService,
                 private intakeMomentService: IntakeMomentService) {
 
         this.loadIntakeMoments();
@@ -47,14 +48,16 @@ export class NotificationsPage {
             this.notifications = res;
         }, error => {
         }, () => {
-            for (const data of this.notifications) {
-                const event = {
-                    id: data.id,
-                    title: data.receiver_id.name,
-                    startTime: new Date(data.intake_start_time),
-                    endTime: add_minutes(new Date(data.intake_start_time), 30),
-                    desc: data.remark
-                };
+            if (this.notifications) {
+                for (const data of this.notifications) {
+                    const event = {
+                        id: data.id,
+                        title: data.receiver_id.name,
+                        startTime: new Date(data.intake_start_time),
+                        endTime: add_minutes(new Date(data.intake_start_time), 30),
+                        desc: data.remark
+                    };
+                }
             }
         });
     }
@@ -79,7 +82,7 @@ export class NotificationsPage {
 
     // Checks if Notification item is in the Past or Future
     checkDate(notification) {
-        const notificationDate = new Date (notification.intake_start_time);
+        const notificationDate = new Date(notification.intake_start_time);
         if (notificationDate < new Date()) {
             return false;
         } else {
@@ -96,9 +99,11 @@ export class NotificationsPage {
 
     // Descending sort of notifications date
     sortOnDate(notifications) {
-        notifications.sort((a: IntakeMomentDetailInterface, b: IntakeMomentDetailInterface) => {
-             return this.getTime(new Date(b.intake_start_time)) - this.getTime(new Date(a.intake_start_time));
-         });
+        if (notifications) {
+            notifications.sort((a: IntakeMomentDetailInterface, b: IntakeMomentDetailInterface) => {
+                return this.getTime(new Date(b.intake_start_time)) - this.getTime(new Date(a.intake_start_time));
+            });
+        }
     }
 
 

@@ -27,7 +27,8 @@ export class AgendaPage implements OnInit, AfterViewInit {
 
     @ViewChild(CalendarComponent) myCal: CalendarComponent;
 
-    constructor(private alertCtrl: AlertController, @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService,
+    constructor(private alertCtrl: AlertController,
+                @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService,
                 public navCtrl: NavController, private intakeMomentService: IntakeMomentService) {
     }
 
@@ -39,7 +40,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     }
 
     ionViewWillEnter() {
-        this.loadIntakeMoment();
+        this.loadIntakeMoments();
     }
 
     // When agenda is done loading
@@ -132,7 +133,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
         }
     }
 
-    loadIntakeMoment() {
+    loadIntakeMoments() {
         this.eventSource = [];
         let agenda: any;
         const add_minutes = function (dt, minutes) {
@@ -142,17 +143,27 @@ export class AgendaPage implements OnInit, AfterViewInit {
             agenda = res;
         }, error => {
         }, () => {
-            for (const data of agenda) {
-                const event = {
-                    id: data.id,
-                    title: data.receiver_id.name,
-                    startTime: new Date(data.intake_start_time),
-                    endTime: add_minutes(new Date(data.intake_start_time), 30),
-                    desc: data.remark
-                };
-                this.eventSource.push(event);
+            if (agenda) {
+                for (const data of agenda) {
+                    const event = {
+                        id: data.id,
+                        title: data.receiver_id.name,
+                        startTime: new Date(data.intake_start_time),
+                        endTime: add_minutes(new Date(data.intake_start_time), 30),
+                        desc: data.remark
+                    };
+                    this.eventSource.push(event);
+                }
             }
             this.myCal.loadEvents();
         });
+    }
+
+    color(startTime) {
+        if (startTime < new Date()) {
+            return false;
+        } else{
+            return true;
+        }
     }
 }
