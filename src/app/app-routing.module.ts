@@ -20,7 +20,11 @@ const routes: Routes = [
     {   path: 'intakeMoment/:id',
         loadChildren: './pages/intake-moment-detail/intake-moment-detail.module#IntakeMomentDetailPageModule',
         canActivate: [LoginGuard]
-    }
+    },
+  { path: 'receiver/:id/intakeMoments',
+      loadChildren: './pages/receivers/receivers-intake-moments/receivers-intake-moments.module#ReceiversIntakeMomentsPageModule',
+      canActivate: [LoginGuard]}
+
 ];
 
 @NgModule({
