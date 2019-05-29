@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {NavController} from "@ionic/angular";
-import {GroupService} from "../../services/group/group.service";
+import {ActivatedRoute} from '@angular/router';
+import {NavController} from '@ionic/angular';
+import {GroupService} from '../../services/group/group.service';
 
 @Component({
   selector: 'app-receivers',
