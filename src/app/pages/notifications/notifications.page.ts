@@ -32,11 +32,9 @@ export class NotificationsPage {
 
     // Get Intake moments cancel old schedules and schedule new notifications
     refresh() {
-        if (this.network.getCurrentNetworkStatus() === ConnectionStatus.Online) {
-            this.loadIntakeMoments();
-            this.notification.cancelAll();
-            this.scheduleNotifications();
-        }
+        this.loadIntakeMoments();
+        this.notification.cancelAll();
+        this.scheduleNotifications();
     }
 
 
@@ -84,7 +82,7 @@ export class NotificationsPage {
 
     // Checks if Notification item is in the Past or Future
     checkDate(notification) {
-        const notificationDate = new Date (notification.intake_start_time);
+        const notificationDate = new Date(notification.intake_start_time);
         if (notificationDate < new Date()) {
             return false;
         } else {
