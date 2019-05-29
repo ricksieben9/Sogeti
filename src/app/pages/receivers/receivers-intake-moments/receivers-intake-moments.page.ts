@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
-import {NavController} from "@ionic/angular";
-import {IntakeMomentService} from "../../../services/intake-moment/intake-moment.service";
-import {ActivatedRoute} from "@angular/router";
-import {ReceiverService} from "../../../services/receiver/receiver.service";
+import { Component } from '@angular/core';
+import {NavController} from '@ionic/angular';
+import {IntakeMomentService} from '../../../services/intake-moment/intake-moment.service';
+import {ActivatedRoute} from '@angular/router';
+import {ReceiverService} from '../../../services/receiver/receiver.service';
 
 @Component({
   selector: 'app-receivers-intake-moments',
   templateUrl: './receivers-intake-moments.page.html',
   styleUrls: ['./receivers-intake-moments.page.scss'],
 })
-export class ReceiversIntakeMomentsPage implements OnInit {
+export class ReceiversIntakeMomentsPage {
 
   intakeMoments: any;
   receiverName: string;
@@ -19,7 +19,7 @@ export class ReceiversIntakeMomentsPage implements OnInit {
               private intakeMomentService: IntakeMomentService,
               private receiverService: ReceiverService) { }
 
-  ngOnInit() {
+  ionViewWillEnter() {
     this.loadIntakeMoments();
   }
 
