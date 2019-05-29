@@ -36,9 +36,11 @@ export class AgendaPage implements OnInit, AfterViewInit {
     ngOnInit() {
         const today = new Date;
         this.currentWeek = this.dateFormatter.getWeekNumber(today.getFullYear(), today.getMonth(), today.getDate());
-        this.loadIntakeMoment();
     }
 
+    ionViewWillEnter() {
+        this.loadIntakeMoment();
+    }
 
     // When agenda is done loading
     ngAfterViewInit() {
@@ -131,6 +133,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     }
 
     loadIntakeMoment() {
+        this.eventSource = [];
         let agenda: any;
         const add_minutes = function (dt, minutes) {
             return new Date(dt.getTime() + minutes * 60000);

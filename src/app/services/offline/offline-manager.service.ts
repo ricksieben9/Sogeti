@@ -1,11 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Storage } from '@ionic/storage';
-import { Observable, from, of, forkJoin } from 'rxjs';
-import { switchMap, map, finalize } from 'rxjs/operators';
+import {of, forkJoin } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import {forEach} from '@angular-devkit/schematics';
-import {sendRequest} from 'selenium-webdriver/http';
-import {el} from '@angular/platform-browser/testing/src/browser_util';
 
 const STORAGE_REQ_KEY = 'storedreq';
 
@@ -25,12 +20,13 @@ export class OfflineManagerService {
   constructor(private http: HttpClient) { }
 
   // checkForEvents(): Observable<any> {
-  checkForEvents() {
+   checkForEvents() {
 
     const requests: [] = JSON.parse(localStorage.getItem(STORAGE_REQ_KEY));
     // send all requests and remove from local storage
     if (requests && requests.length > 0) {
-      this.sendRequests(requests).pipe().toPromise().finally(() => localStorage.removeItem(STORAGE_REQ_KEY));
+      this.sendRequests(requests);
+      localStorage.removeItem(STORAGE_REQ_KEY);
     } else {
       return of(false);
     }
@@ -59,7 +55,7 @@ export class OfflineManagerService {
     return localStorage.getItem(STORAGE_REQ_KEY);
   }
 
-  sendRequests(operations: StoredRequest[]) {
+  async sendRequests(operations: StoredRequest[]) {
     const obs = [];
     for (const op of operations) {
       if (op.type === 'PATCH') {
@@ -72,6 +68,6 @@ export class OfflineManagerService {
     }
 
     // Send out all local events and return once they are finished
-    return forkJoin(obs);
+    return await forkJoin(obs);
   }
 }
