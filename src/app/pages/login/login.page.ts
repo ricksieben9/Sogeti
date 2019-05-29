@@ -1,4 +1,4 @@
-import { Component, OnInit, NgModule} from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { FormGroup } from '@angular/forms';
