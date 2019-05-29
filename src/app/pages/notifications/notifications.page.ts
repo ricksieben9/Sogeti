@@ -3,7 +3,7 @@ import {NavController} from '@ionic/angular';
 import {NotificationService} from '../../services/notification/notification.service';
 import {IntakeMomentService} from '../../services/intake-moment/intake-moment.service';
 import {IntakeMomentDetailInterface} from '../../models/intake-moment-detail.interface';
-import {ConnectionStatus, NetworkService} from '../../services/connection/network.service';
+import {NetworkService} from '../../services/connection/network.service';
 
 @Component({
     selector: 'app-notifications',

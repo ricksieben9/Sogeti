@@ -2,7 +2,6 @@ import { OfflineManagerService } from '../offline/offline-manager.service';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NetworkService, ConnectionStatus } from '../connection/network.service';
-import { Storage } from '@ionic/storage';
 import { from, of } from 'rxjs';
 import { tap, map, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
@@ -164,7 +163,7 @@ export class ApiService {
     // end region
 
     // region receivers
-    getReceiver(id:number, forceRefresh: boolean = false)  {
+    getReceiver(id: number, forceRefresh: boolean = false)  {
 
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
             // Return the cached data from Storage
