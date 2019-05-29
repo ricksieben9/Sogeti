@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
     pinLogin(form: FormGroup) {
         this.authService.pinLogin(form.value.pincode).subscribe(res => {
             if (!res) {
-                this.pinErrorMsg = "Pincode incorrect.";
+                this.pinErrorMsg = 'Pincode incorrect.';
             } else {
                 this.resetForm(form);
                 this.router.navigate([this.returnUrl]);
@@ -78,7 +78,7 @@ export class LoginPage implements OnInit {
 
     checkConnection() {
         const connection = this.network;
-        this.timer = setInterval(function () {
+        this.timer = setInterval(() => {
             connection.checkConnection();
         }, 5000);
     }

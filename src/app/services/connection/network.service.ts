@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable} from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { timeout } from 'rxjs/operators';
 
 export enum ConnectionStatus {
   Online,
@@ -20,7 +21,7 @@ export class NetworkService {
     }
 
     checkConnection() {
-      this.httpClient.get(environment.apiServerAddress + '/connection').subscribe(
+      this.httpClient.get(environment.apiServerAddress + '/connection').pipe(timeout(5000)).subscribe(
           data => this.status.next(ConnectionStatus.Online),
           error => this.status.next(ConnectionStatus.Offline));
     }
