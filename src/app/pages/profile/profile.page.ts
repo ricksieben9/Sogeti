@@ -9,8 +9,7 @@ import {Router} from '@angular/router';
 })
 export class ProfilePage {
 
-    constructor(private authService: AuthService, private router: Router) {
-    }
+    constructor(private authService: AuthService, private router: Router) {}
 
     logout() {
         this.authService.logout();

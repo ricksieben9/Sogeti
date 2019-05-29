@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject, Observable} from 'rxjs';
-import {Network} from '@ionic-native/network/ngx';
-import {Platform} from '@ionic/angular';
-
+import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable} from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { timeout } from 'rxjs/operators';
 
 export enum ConnectionStatus {
   Online,
@@ -16,34 +16,17 @@ export class NetworkService {
 
   private status: BehaviorSubject<ConnectionStatus> = new BehaviorSubject(ConnectionStatus.Offline);
 
-  constructor(private network: Network, private plt: Platform) {
-    this.plt.ready().then(() => {
-      this.initializeNetworkEvents();
-      const status = this.network.type !== 'none' ? ConnectionStatus.Online : ConnectionStatus.Offline;
-      this.status.next(status);
-    });
-  }
+  constructor(private httpClient: HttpClient) {
+    this.status.next(ConnectionStatus.Online);
+    }
 
-  public initializeNetworkEvents() {
+    checkConnection() {
+      this.httpClient.get(environment.apiServerAddress + '/connection').pipe(timeout(5000)).subscribe(
+          data => this.status.next(ConnectionStatus.Online),
+          error => this.status.next(ConnectionStatus.Offline));
+    }
 
-    this.network.onDisconnect().subscribe(() => {
-      if (this.status.getValue() === ConnectionStatus.Online) {
-        this.updateNetworkStatus(ConnectionStatus.Offline);
-      }
-    });
-
-    this.network.onConnect().subscribe(() => {
-      if (this.status.getValue() === ConnectionStatus.Offline) {
-        this.updateNetworkStatus(ConnectionStatus.Online);
-      }
-    });
-  }
-
-  private async updateNetworkStatus(status: ConnectionStatus) {
-    this.status.next(status);
-  }
-
-  public onNetworkChange(): Observable<ConnectionStatus> {
+  onNetworkChange(): Observable<ConnectionStatus> {
     return this.status.asObservable();
   }
 

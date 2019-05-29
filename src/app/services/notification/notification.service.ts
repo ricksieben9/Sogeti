@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {AlertController, Platform} from '@ionic/angular';
-import {ELocalNotificationTriggerUnit, LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 
 @Injectable({
   providedIn: 'root'
