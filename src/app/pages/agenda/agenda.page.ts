@@ -33,17 +33,15 @@ export class AgendaPage implements OnInit, AfterViewInit {
     }
 
 
-    ionViewWillEnter() {
-        this.loadIntakeMoments();
-    }
-
     // Before agenda has loaded
     ngOnInit() {
         const today = new Date;
         this.currentWeek = this.dateFormatter.getWeekNumber(today.getFullYear(), today.getMonth(), today.getDate());
-        this.loadIntakeMoments();
     }
 
+    ionViewWillEnter() {
+        this.loadIntakeMoments();
+    }
 
     // When agenda is done loading
     ngAfterViewInit() {
