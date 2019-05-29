@@ -4,14 +4,18 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { LoginGuard } from './login.guard';
+import {NetworkService} from '../services/connection/network.service';
+import {Network} from '@ionic-native/network';
 
 describe('LoginGuard', () => {
   beforeEach(() => TestBed.configureTestingModule({
+    declarations: [],
+    imports: [RouterTestingModule],
     providers: [
-      HttpClient,
-      HttpHandler,
-      RouterTestingModule,
-      HttpClientTestingModule
+        HttpClient,
+        HttpHandler,
+        RouterTestingModule,
+        HttpClientTestingModule
     ]
   }));
 
