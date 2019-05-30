@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {GroupService} from '../group/group.service';
 import {forEach} from '@angular-devkit/schematics';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
+import {DatePipe, formatDate} from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +25,8 @@ export class NotificationService {
                 this.router.navigateByUrl('/intakeMoment/' + data.id);
             } else {
                 // Do if app is on foreground
-                this.router.navigateByUrl('/intakeMoment/' + data.id);
+                this.showAlert('Toedienmoment overtijd!', 'Waarschuwing',
+                    'De toedienmoment van ' + data.name + ' op ' + formatDate(data.time, 'dd-MM-yyyy', 'en-US') + ' is overtijd!');
             }
         });
     }
