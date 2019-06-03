@@ -3,6 +3,7 @@ import {NavController} from '@ionic/angular';
 import {IntakeMomentService} from '../../../services/intake-moment/intake-moment.service';
 import {ActivatedRoute} from '@angular/router';
 import {ReceiverService} from '../../../services/receiver/receiver.service';
+import {IntakeMomentDetailInterface} from "../../../models/intake-moment-detail.interface";
 
 @Component({
   selector: 'app-receivers-intake-moments',
@@ -30,8 +31,23 @@ export class ReceiversIntakeMomentsPage {
       this.receiverName = res[0].name;
     });
     this.intakeMomentService.getAllIntakeMomentsOfReceiver(id).subscribe(res => {
+      this.sortOnDate(res);
       this.intakeMoments = res;
     });
+  }
+
+  // Descending sort of notifications date
+  sortOnDate(notifications) {
+    if (notifications) {
+      notifications.sort((a: IntakeMomentDetailInterface, b: IntakeMomentDetailInterface) => {
+        return this.getTime(new Date(b.intake_start_time)) - this.getTime(new Date(a.intake_start_time));
+      });
+    }
+  }
+
+  // Get time from intake_start_time string
+  getTime(date?: Date) {
+    return date != null ? date.getTime() : 0;
   }
 
   // navigate to intakemoment detail page
