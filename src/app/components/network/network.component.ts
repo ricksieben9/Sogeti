@@ -10,18 +10,40 @@ import {OfflineManagerService} from '../../services/offline/offline-manager.serv
 export class NetworkComponent {
 
   offline: boolean;
+  syncTime: string;
 
   constructor(private networkService: NetworkService,  private offlineManager: OfflineManagerService) {
     this.offline = false;
+    this.syncTime = this.getTime();
 
     // subscribe to networkservice on networkchange set local bool to offline/online
     this.networkService.onNetworkChange().subscribe((status) => {
+      this.syncTime = this.getTime();
       if (status === ConnectionStatus.Offline) {
-        this.offline = true;
+          this.offline = true;
       } else if (status === ConnectionStatus.Online) {
         this.offline = false;
         this.offlineManager.checkForEvents();
+        localStorage.removeItem('syncTime');
       }
     });
   }
+
+
+  getTime() {
+    let d: Date;
+
+    if (localStorage.getItem('syncTime') === null) {
+      d = new Date();
+      localStorage.setItem('syncTime', d.toString());
+    } else {
+      d = new Date(localStorage.getItem('syncTime'));
+    }
+
+    let minutes = d.getMinutes().toString();
+    minutes = ('0' + minutes).slice(-2);
+    return d.getHours() + ':' + minutes + ' ' + d.getDay() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+  }
+
+
 }

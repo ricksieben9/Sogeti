@@ -1,6 +1,6 @@
 <ion-row>
   <div class="network networkoff" *ngIf="offline" >
-    <ion-label align="center">Geen verbinding met de server</ion-label>
+    <ion-label align="center">U bent offline sinds {{syncTime}}</ion-label>
   </div>
   <div class="network networkon" *ngIf="!offline" >
     <ion-label align="center"></ion-label>
