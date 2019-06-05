@@ -45,10 +45,10 @@ export class ApiService {
     // region IntakeMoments
     getAllIntakeMoments(forceRefresh: boolean = false) {
 
-        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
-            // Return the cached data from Storage
-            return of(JSON.parse(this.getLocalData('intakeMoments')));
-        } else {
+      if (this.checkNetwork(forceRefresh)) {
+          // Return the cached data from Storage
+          return of(JSON.parse(this.getLocalData('intakeMoments')));
+      } else {
             // Return real API data and store it locally
             return this.http.get(`${this.API_URL}/intakeMoment/mobile/`).pipe(
                 tap(res => {
@@ -60,12 +60,12 @@ export class ApiService {
 
     getAllIntakeMomentsOfReceiver(id: number, forceRefresh: boolean = false)  {
 
-        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
+        if (this.checkNetwork(forceRefresh)) {
             // Return the cached data from Storage
             return from(this.getLocalData('intakeMoments/receiver/' + id));
         } else {
             // Return real API data and store it locally
-            return this.http.get(`${this.API_URL}/intakeMoment/receiver/` +id).pipe(
+            return this.http.get(`${this.API_URL}/intakeMoment/receiver/` + id).pipe(
                 tap(res => {
                     this.setLocalData('intakeMoments/receiver/' + id, JSON.stringify(res));
                 })
@@ -74,7 +74,7 @@ export class ApiService {
     }
 
   getIntakeMomentById(forceRefresh: boolean = false, id: any) {
-      if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
+      if (this.checkNetwork(forceRefresh)) {
           // Return the cached data from Storage
           return of(JSON.parse(this.getLocalData('intakeMoments'))).pipe(
               map(moments => moments.filter(moment => moment.id.toString() === id))
@@ -87,7 +87,7 @@ export class ApiService {
 
   setIntakeMomentMedicineCompletion(id: any, elem: any) {
     const url = `${environment.apiServerAddress}` + '/intakeMoment/mobile/' + id;
-    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
+      if (this.checkNetwork(true)) {
         // change locally stored intakemoments
         this.setIntakeMomentStatusOffline(id, elem);
 
@@ -102,7 +102,7 @@ export class ApiService {
 
   removeIntakeMomentMedicineCompletion(id: any, elem: any) {
     const url = `${environment.apiServerAddress}` + '/intakeMoment/mobile/' + id;
-    if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
+      if (this.checkNetwork(true)) {
         // change locally stored intakemoments
         this.setIntakeMomentStatusOffline(id, elem);
 
@@ -147,7 +147,7 @@ export class ApiService {
 
     getGroupsOfDispenser(forceRefresh: boolean = false)  {
 
-        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
+        if (this.checkNetwork(forceRefresh)) {
             // Return the cached data from Storage
             return from(this.getLocalData('groups'));
         } else {
@@ -177,6 +177,14 @@ export class ApiService {
         }
     }
     // end region
+
+  private checkNetwork(forceRefresh: boolean) {
+      if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
+          return false;
+      } else {
+          return true;
+      }
+  }
 
   // Save result of API requests
   private setLocalData(key, data) {
