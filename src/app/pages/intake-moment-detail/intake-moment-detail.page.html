@@ -1,0 +1,80 @@
+<!-- Default back button -->
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="back()"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Toedienmoment</ion-title>
+  </ion-toolbar>
+</ion-header>
+<NetworkComponent></NetworkComponent>
+
+<ion-content padding *ngIf="intakeMomentDetail">
+  <ion-list >
+    <ion-item-divider color="light">
+      Afgerond
+    </ion-item-divider>
+    <div *ngFor="let item of intakeMomentMedicines">
+      <ion-item-sliding *ngIf="item.completed_at">
+        <ion-item color="success" >
+          <ion-icon name="checkmark-circle-outline" item-left></ion-icon>
+          {{item.medicine_id.name}}
+          {{item.dosage}} {{item.medicine_id.unit}}
+          <ion-note slot="end" style="font-size: 20px">
+            ◄
+          </ion-note>
+        </ion-item>
+        <ion-item-options side="end">
+          <ion-item-option color="danger" (click)="delete(item)" expandable>
+            <ion-icon name="trash"></ion-icon>Ongedaan
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    </div>
+  </ion-list>
+    <ion-list>
+      <ion-item color="none" id="3">
+        <h2>
+          Naam: {{intakeMomentDetail.receiver_id.name}}
+        </h2>
+      </ion-item>
+      <ion-item id="-container2">
+        <div class="show-list-numbers-and-dots">
+          <p>
+            Opmerking: {{intakeMomentDetail.remark}}
+          </p>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="show-list-numbers-and-dots">
+          <p>
+            Datum: {{intakeMomentDetail.intake_start_time| date:'d-M-yy'}}
+          </p>
+          <p>
+            Starttijd: {{intakeMomentDetail.intake_start_time| date:'H:mm'}}
+          </p>
+          <p>
+            Eindtijd: {{intakeMomentDetail.intake_end_time| date:'H:mm'}}
+          </p>
+        </div>
+      </ion-item>
+    </ion-list>
+  <ion-list>
+    <ion-item-divider color="light" >
+      Controlelijst
+    </ion-item-divider>
+    <div ngFor *ngFor="let item of intakeMomentMedicines">
+      <ion-item  *ngIf="!item.completed_at">
+        <ion-checkbox [(ngModel)]="item.checked"></ion-checkbox>
+        <ion-label>
+          {{item.medicine_id.name}}
+          {{item.dosage}} {{item.medicine_id.unit}}
+        </ion-label>
+      </ion-item>
+    </div>
+  </ion-list>
+  <ion-button expand="block"  (click)="submit()" *ngIf="!canSend()">
+    Inzenden als afgerond
+  </ion-button>
+  <div class="spacer" style="width:300px;height:50px;" ></div>
+</ion-content>

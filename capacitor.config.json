@@ -1,0 +1,6 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "medicatieapp",
+  "bundledWebRuntime": false,
+  "webDir": "www"
+}

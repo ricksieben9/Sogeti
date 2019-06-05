@@ -1,0 +1,55 @@
+<ion-header>
+    <ion-toolbar color="primary">
+        <ion-title class="agendaTitle">
+            {{ viewTitle }}
+        </ion-title>
+        <ion-button slot="start" fill="clear" (click)="back()">
+            <ion-icon name="arrow-back" slot="icon-only" color="light"></ion-icon>
+        </ion-button>
+        <ion-button slot="end" fill="clear" (click)="next()">
+            <ion-icon name="arrow-forward" slot="icon-only" color="light"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
+</ion-header>
+<NetworkComponent></NetworkComponent>
+
+<ion-content padding>
+
+    <ion-row class="butrow">
+        <ion-col size="4">
+            <ion-button expand="block" [color]="calendar.mode == 'day' ? 'primary' : 'secondary'"
+                        (click)="changeMode('day')">Dag
+            </ion-button>
+        </ion-col>
+        <ion-col size="4">
+            <ion-button expand="block" [color]="calendar.mode == 'week' ? 'primary' : 'secondary'"
+                        (click)="changeMode('week')">Week
+            </ion-button>
+        </ion-col>
+        <ion-col size="4">
+            <ion-button expand="block" [color]="calendar.mode == 'month' ? 'primary' : 'secondary'"
+                        (click)="changeMode('month')">Maand
+            </ion-button>
+        </ion-col>
+    </ion-row>
+    <ng-template #customTemplate let-displayEvent="displayEvent">
+        <div _ngcontent-c7 [ngClass]="['intakeBlock', color(displayEvent.event.startTime)? 'futureIntake' : 'oldIntake']">{{displayEvent.event.title}}</div>
+    </ng-template>
+
+    <calendar
+            [eventSource]="eventSource"
+            [calendarMode]="calendar.mode"
+            [currentDate]="calendar.currentDate"
+            (onEventSelected)="openIntakeMoment($event)"
+            (onTitleChanged)="onViewTitleChanged($event)"
+            [dateFormatter]="calendar.dateFormatter"
+            [weekviewNormalEventTemplate]="customTemplate"
+            [dayviewNormalEventTemplate]="customTemplate"
+            [noEventsLabel]="'Geen toedienmomenten'"
+            [scrollToHour] = 7
+            startHour="0"
+            endHour="24"
+            step="30"
+            startingDayWeek="1">
+    </calendar>
+</ion-content>
