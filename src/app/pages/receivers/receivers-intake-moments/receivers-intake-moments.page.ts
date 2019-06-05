@@ -37,9 +37,9 @@ export class ReceiversIntakeMomentsPage {
   }
 
   // Descending sort of notifications date
-  sortOnDate(notifications) {
-    if (notifications) {
-      notifications.sort((a: IntakeMomentDetailInterface, b: IntakeMomentDetailInterface) => {
+  sortOnDate(intakemoments) {
+    if (intakemoments) {
+      intakemoments.sort((a: IntakeMomentDetailInterface, b: IntakeMomentDetailInterface) => {
         return this.getTime(new Date(b.intake_start_time)) - this.getTime(new Date(a.intake_start_time));
       });
     }
