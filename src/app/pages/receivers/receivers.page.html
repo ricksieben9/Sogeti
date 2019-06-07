@@ -11,7 +11,7 @@
   <ion-list *ngFor="let group of groups; let i = index;" class="accordion-list" no-padding>
 <ion-item tappable (click)="toggleGroup(i)" [ngClass]="{'section-active': group.open, 'section': !group.open}">
   <ion-label>
-    {{group.name}}
+    <div class="font-weight-bold">{{group.name}}</div>
   </ion-label>
   <ion-icon slot="end" name="arrow-dropright" *ngIf="!group.open"></ion-icon>
   <ion-icon slot="end" name="arrow-dropdown" *ngIf="group.open"></ion-icon>
