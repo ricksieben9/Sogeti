@@ -1,30 +1,35 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button (click)="back()"></ion-back-button>
-    </ion-buttons>
-    <div *ngIf="receiverName">
-      <ion-title *ngIf="receiverName.length <= 11">Toedienmomenten {{receiverName}}</ion-title>
-      <ion-title *ngIf="receiverName.length > 11 && receiverName.length <= 24"><div class="small-title">Toedienmomenten {{receiverName}}</div></ion-title>
-      <ion-title *ngIf="receiverName.length > 25">{{receiverName}}</ion-title>
-    </div>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button (click)="back()"></ion-back-button>
+        </ion-buttons>
+        <div *ngIf="receiverName">
+            <ion-title *ngIf="receiverName.length <= 11">Toedienmomenten {{receiverName}}</ion-title>
+            <ion-title *ngIf="receiverName.length > 11 && receiverName.length <= 24">
+                <div class="small-title">Toedienmomenten {{receiverName}}</div>
+            </ion-title>
+            <ion-title *ngIf="receiverName.length > 25">{{receiverName}}</ion-title>
+        </div>
+    </ion-toolbar>
 </ion-header>
 <NetworkComponent></NetworkComponent>
 <ion-content padding>
-  <ion-list>
-    <ion-item *ngFor="let intakeMoment of intakeMoments;" (click)="openIntakeMoment(intakeMoment)" [color]="checkDate(intakeMoment) ? 'primary' : 'light'">
-      <ion-label text-wrap>
-        <p>Opmerking: {{ intakeMoment.remark }}</p>
-        <p>Datum: {{ intakeMoment.intake_start_time| date:'d-M-yy' }}</p>
-        <p>Tijd: {{ intakeMoment.intake_start_time| date:'H:mm' }}</p>
-        <p *ngIf="intakeMoment.dispenser">Toediener: {{intakeMoment.dispenser.name}}</p>
-        <p *ngIf="!intakeMoment.dispenser">Toediener: geen toediener</p>
-      </ion-label>
-      <ion-icon *ngIf="isFinished(intakeMoment)" name="checkmark" slot="end" role="img" class="hydrated" aria-label="checkmark" color="success"></ion-icon>
-    </ion-item>
-  </ion-list>
-  <div *ngIf="intakeMoments">
-  <p *ngIf="intakeMoments.length == 0 && receiverName" text-center>{{receiverName}} heeft geen Toedienmomenten.</p>
-  </div>
+    <ion-list>
+        <ion-item *ngFor="let intakeMoment of intakeMoments;" (click)="openIntakeMoment(intakeMoment)"
+                  [color]="checkDate(intakeMoment) ? 'primary' : 'light'">
+            <ion-label text-wrap>
+                <p>Opmerking: {{ intakeMoment.remark }}</p>
+                <p>Datum: {{ intakeMoment.intake_start_time| date:'d-M-yy' }}</p>
+                <p>Tijd: {{ intakeMoment.intake_start_time| date:'H:mm' }}</p>
+                <p *ngIf="intakeMoment.dispenser">Toediener: {{intakeMoment.dispenser.name}}</p>
+                <p *ngIf="!intakeMoment.dispenser">Toediener: geen toediener</p>
+            </ion-label>
+            <ion-icon *ngIf="isFinished(intakeMoment)" name="checkmark" slot="end" role="img" class="hydrated"
+                      aria-label="checkmark" color="success"></ion-icon>
+        </ion-item>
+    </ion-list>
+    <div *ngIf="intakeMoments">
+        <p *ngIf="intakeMoments.length == 0 && receiverName" text-center>{{receiverName}} heeft geen
+            Toedienmomenten.</p>
+    </div>
 </ion-content>
