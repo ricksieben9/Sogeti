@@ -8,6 +8,9 @@
 <NetworkComponent></NetworkComponent>
 
 <ion-content>
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
   <ion-list *ngFor="let group of groups; let i = index;" class="accordion-list" no-padding>
 <ion-item tappable (click)="toggleGroup(i)" [ngClass]="{'section-active': group.open, 'section': !group.open}">
   <ion-label>
