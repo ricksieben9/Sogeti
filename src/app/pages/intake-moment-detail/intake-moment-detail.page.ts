@@ -24,7 +24,7 @@ export class IntakeMomentDetailPage implements OnInit {
 
     getIntakeMomentDetail() {
         const intakeMomentObservable = this.intakeMomentService.getIntakeMomentById(this.Id);
-        if (intakeMomentObservable){
+        if (intakeMomentObservable) {
         intakeMomentObservable.subscribe(
             data => {
                 this.intakeMomentMedicines = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : null);

@@ -162,7 +162,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     color(startTime) {
         if (startTime < new Date()) {
             return false;
-        } else{
+        } else {
             return true;
         }
     }
