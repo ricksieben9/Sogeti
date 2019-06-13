@@ -9,17 +9,17 @@ import { RegisterPinPage } from './registerpin.page';
 
 const routes: Routes = [
   {
-	path: '',
-	component: RegisterPinPage
+    path: '',
+    component: RegisterPinPage
   }
 ];
 
 @NgModule({
   imports: [
-	CommonModule,
-	FormsModule,
-	IonicModule,
-	RouterModule.forChild(routes)
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [RegisterPinPage]
 })
