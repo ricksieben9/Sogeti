@@ -19,7 +19,6 @@ export class OfflineManagerService {
 
   constructor(private http: HttpClient) { }
 
-  // checkForEvents(): Observable<any> {
    checkForEvents() {
 
     const requests: [] = JSON.parse(localStorage.getItem(STORAGE_REQ_KEY));
@@ -40,7 +39,6 @@ export class OfflineManagerService {
       time: new Date().getTime(),
       id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
     };
-    // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
 
     let storedObj = JSON.parse(localStorage.getItem(STORAGE_REQ_KEY));
 
