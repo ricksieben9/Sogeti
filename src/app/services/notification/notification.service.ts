@@ -3,16 +3,13 @@ import {AlertController, Platform} from '@ionic/angular';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {Router} from '@angular/router';
 import {GroupService} from '../group/group.service';
-import {forEach} from '@angular-devkit/schematics';
 import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import {DatePipe, formatDate} from '@angular/common';
+import {formatDate} from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
 })
 export class NotificationService {
-
-    history = [];
 
     constructor(private plt: Platform, private localNotifications: LocalNotifications, private alertCtrl: AlertController, private fcm: FCM,
                 private router: Router, private groupService: GroupService) {

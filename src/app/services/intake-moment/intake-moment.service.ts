@@ -15,7 +15,7 @@ export class IntakeMomentService {
     }
 
     getAllIntakeMomentsOfReceiver(id: any): Observable<any> {
-        return this.api.getAllIntakeMomentsOfReceiver(id,true);
+        return this.api.getAllIntakeMomentsOfReceiver(id, true);
     }
 
     getIntakeMomentById(id: any): Observable<any> {
