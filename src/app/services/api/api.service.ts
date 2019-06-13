@@ -65,7 +65,7 @@ export class ApiService {
             return from(this.getLocalData('intakeMoments/receiver/' + id));
         } else {
             // Return real API data and store it locally
-            return this.http.get(`${this.API_URL}/intakeMoment/receiver/` +id).pipe(
+            return this.http.get(`${this.API_URL}/intakeMoment/receiver/` + id).pipe(
                 tap(res => {
                     this.setLocalData('intakeMoments/receiver/' + id, JSON.stringify(res));
                 })
@@ -144,7 +144,6 @@ export class ApiService {
     // endregion
 
     // region groups
-
     getGroupsOfDispenser(forceRefresh: boolean = false)  {
 
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
@@ -159,8 +158,7 @@ export class ApiService {
             );
         }
     }
-
-    // end region
+    // endregion
 
     // region receivers
     getReceiver(id: number, forceRefresh: boolean = false)  {
@@ -176,7 +174,7 @@ export class ApiService {
             return this.http.get(`${this.API_URL}/receiver/` + id);
         }
     }
-    // end region
+    // endregion
 
   // Save result of API requests
   private setLocalData(key, data) {
