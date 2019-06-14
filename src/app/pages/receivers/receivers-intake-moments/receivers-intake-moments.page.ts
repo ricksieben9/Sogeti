@@ -9,6 +9,7 @@ import {ReceiverService} from '../../../services/receiver/receiver.service';
   templateUrl: './receivers-intake-moments.page.html',
   styleUrls: ['./receivers-intake-moments.page.scss'],
 })
+
 export class ReceiversIntakeMomentsPage {
 
   intakeMoments: any;
@@ -34,12 +35,12 @@ export class ReceiversIntakeMomentsPage {
     });
   }
 
-  // navigate to intakemoment detail page
+  // Navigate to intakemoment detail page
   openIntakeMoment(intake) {
     this.navCtrl.navigateForward('/intakeMoment/' + intake.id);
   }
 
-  // check if date is today or later
+  // Check if date is today or later
   checkDate(intakeMoment) {
     const intakeMomentDate = new Date (intakeMoment.intake_start_time);
     return intakeMomentDate >= new Date();
@@ -56,7 +57,7 @@ export class ReceiversIntakeMomentsPage {
     return finished;
   }
 
-  // navigate back to group page
+  // Navigate back to group page
   back() {
     this.navCtrl.navigateBack('/tabs/groups');
   }

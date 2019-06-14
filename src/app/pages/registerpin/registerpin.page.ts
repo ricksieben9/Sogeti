@@ -26,16 +26,16 @@ export class RegisterPinPage {
         if (isNaN(pin) && isNaN(repeat_pin)) {
             this.pinErrorMsg = 'U kunt alleen cijfers in uw pincode gebruiken.';
         } else {
-            // check the length of the PIN
+            // Check the length of the PIN
             if ((pin.toString().length < 5 || pin.toString().length > 8)
                 && (repeat_pin.toString().length < 5 || repeat_pin.toString().length > 8)) {
                 this.pinErrorMsg = 'Uw pincode mag niet minder dan 5 en niet meer dan 8 cijfers bevatten.';
 
-                // checks if there are consecutive digits in the PIN (max 3 allowed)
+                // Checks if there are consecutive digits in the PIN (max 3 allowed)
             } else if (regex) {
                 this.pinErrorMsg = 'Uw pincode mag niet meer dan 3 herhalende cijfers bevatten.';
 
-                // check if the first pin equals the confirm PIN
+                // Check if the first pin equals the confirm PIN
             } else if (pin !== repeat_pin) {
                 this.pinErrorMsg = 'Uw bevestigingspincode moet hetzelfde zijn.';
             } else {

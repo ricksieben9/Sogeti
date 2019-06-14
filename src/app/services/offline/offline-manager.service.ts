@@ -22,7 +22,7 @@ export class OfflineManagerService {
    checkForEvents() {
 
     const requests: [] = JSON.parse(localStorage.getItem(STORAGE_REQ_KEY));
-    // send all requests and remove from local storage
+    // Send all requests and remove from local storage
     if (requests && requests.length > 0) {
       this.sendRequests(requests);
       localStorage.removeItem(STORAGE_REQ_KEY);
