@@ -8,8 +8,7 @@ import {AuthService} from '../services/auth/auth.service';
 })
 export class LoginGuard implements CanActivate {
 
-    constructor(private authService: AuthService, private router: Router) {
-    }
+    constructor(private authService: AuthService, private router: Router) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
         boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
@@ -25,5 +24,4 @@ export class LoginGuard implements CanActivate {
         boolean | UrlTree | Observable<boolean | UrlTree> | Promise<boolean | UrlTree> {
         return this.canActivate(route, state);
     }
-
 }

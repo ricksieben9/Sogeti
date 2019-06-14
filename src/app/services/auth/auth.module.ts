@@ -1,9 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-
-import { IonicStorageModule } from '@ionic/storage';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import {IonicStorageModule} from '@ionic/storage';
 
 @NgModule({
   declarations: [],
@@ -14,4 +13,4 @@ import { IonicStorageModule } from '@ionic/storage';
     IonicStorageModule.forRoot()
   ]
 })
-export class AuthModule { }
+export class AuthModule {}

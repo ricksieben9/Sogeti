@@ -12,8 +12,7 @@ export class ReceiversPage {
 
   groups;
 
-  constructor(private activatedRoute: ActivatedRoute, private groupService: GroupService, private navCtrl: NavController) {
-  }
+  constructor(private activatedRoute: ActivatedRoute, private groupService: GroupService, private navCtrl: NavController) {}
 
   ionViewWillEnter() {
     this.getGroups();
@@ -49,5 +48,4 @@ export class ReceiversPage {
       event.target.complete();
     }, 2000);
   }
-
 }

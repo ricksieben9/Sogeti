@@ -1,6 +1,5 @@
-import { TestBed } from '@angular/core/testing';
-
-import { NetworkService } from './network.service';
+import {TestBed} from '@angular/core/testing';
+import {NetworkService} from './network.service';
 
 describe('NetworkService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

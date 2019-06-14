@@ -29,8 +29,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
 
     constructor(private alertCtrl: AlertController,
                 @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService,
-                public navCtrl: NavController, private intakeMomentService: IntakeMomentService) {
-    }
+                public navCtrl: NavController, private intakeMomentService: IntakeMomentService) {}
 
 
     // Before agenda has loaded

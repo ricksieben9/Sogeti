@@ -6,8 +6,7 @@ import {Injectable} from '@angular/core';
 export class DateFormatterService {
 
 
-    constructor() {
-    }
+    constructor() {}
 
     // Object with format functions returning dates in dutch
     dateFormatter = {

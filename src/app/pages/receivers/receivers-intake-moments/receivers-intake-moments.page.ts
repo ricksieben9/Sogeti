@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {IntakeMomentService} from '../../../services/intake-moment/intake-moment.service';
 import {ActivatedRoute} from '@angular/router';
@@ -17,7 +17,7 @@ export class ReceiversIntakeMomentsPage {
   constructor(public navCtrl: NavController,
               private route: ActivatedRoute,
               private intakeMomentService: IntakeMomentService,
-              private receiverService: ReceiverService) { }
+              private receiverService: ReceiverService) {}
 
   ionViewWillEnter() {
     this.loadIntakeMoments();

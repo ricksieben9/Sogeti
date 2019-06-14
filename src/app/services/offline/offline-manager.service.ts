@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import {of, forkJoin } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {of, forkJoin} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 const STORAGE_REQ_KEY = 'storedreq';
 
@@ -17,7 +17,7 @@ interface StoredRequest {
 })
 export class OfflineManagerService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
    checkForEvents() {
 

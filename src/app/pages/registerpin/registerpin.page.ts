@@ -14,8 +14,7 @@ export class RegisterPinPage {
     trigger = '';
     regexp = new RegExp('0{4}|1{4}|2{4}|3{4}|4{4}|5{4}|6{4}|7{4}|8{4}|9{4}');
 
-    constructor(private router: Router) {
-    }
+    constructor(private router: Router) {}
 
     registerPin(form) {
         let pin: number;
@@ -41,7 +40,6 @@ export class RegisterPinPage {
                 this.pinErrorMsg = 'Uw bevestigingspincode moet hetzelfde zijn.';
             } else {
                 const username = JSON.parse(localStorage.getItem('CURRENT_USER')).username;
-
                 const saltRounds = 10;
                 const myHashedPincode = JSON.stringify(pin);
 
@@ -51,11 +49,9 @@ export class RegisterPinPage {
                         localStorage.setItem('PIN_CODE_USER', JSON.stringify(pinuser));
                     });
                 });
-
                 this.router.navigateByUrl('');
             }
         }
         form.reset();
     }
-
 }
