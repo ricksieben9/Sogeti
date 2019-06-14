@@ -25,15 +25,15 @@ export class LoginPage implements OnInit {
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/app/';
     }
 
-    // fires every time the you enter the view
+    // Fires every time the you enter the view
     ionViewWillEnter() {
         this.checkConnection();
         this.checkPin();
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/app/';
     }
 
-    // sets value of pinIsSet which is used in the view
-    // to decide if password or pincode should be shown
+    // Sets value of pinIsSet which is used in the view
+    // To decide if password or pincode should be shown
     checkPin() {
         this.pinIsSet = localStorage.getItem('PIN_CODE_USER') != null;
     }
