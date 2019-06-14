@@ -1,25 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {FormsModule} from '@angular/forms';
+import {Routes, RouterModule} from '@angular/router';
 
-import { IonicModule } from '@ionic/angular';
+import {IonicModule} from '@ionic/angular';
 
-import { RegisterPinPage } from './registerpin.page';
+import {RegisterPinPage} from './registerpin.page';
 
 const routes: Routes = [
   {
-	path: '',
-	component: RegisterPinPage
+    path: '',
+    component: RegisterPinPage
   }
 ];
 
 @NgModule({
   imports: [
-	CommonModule,
-	FormsModule,
-	IonicModule,
-	RouterModule.forChild(routes)
+    CommonModule,
+    FormsModule,
+    IonicModule,
+    RouterModule.forChild(routes)
   ],
   declarations: [RegisterPinPage]
 })

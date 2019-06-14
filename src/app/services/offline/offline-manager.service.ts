@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import {of, forkJoin } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {of, forkJoin} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 const STORAGE_REQ_KEY = 'storedreq';
 
@@ -17,13 +17,12 @@ interface StoredRequest {
 })
 export class OfflineManagerService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  // checkForEvents(): Observable<any> {
    checkForEvents() {
 
     const requests: [] = JSON.parse(localStorage.getItem(STORAGE_REQ_KEY));
-    // send all requests and remove from local storage
+    // Send all requests and remove from local storage
     if (requests && requests.length > 0) {
       this.sendRequests(requests);
       localStorage.removeItem(STORAGE_REQ_KEY);
@@ -40,7 +39,6 @@ export class OfflineManagerService {
       time: new Date().getTime(),
       id: Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5)
     };
-    // https://stackoverflow.com/questions/1349404/generate-random-string-characters-in-javascript
 
     let storedObj = JSON.parse(localStorage.getItem(STORAGE_REQ_KEY));
 

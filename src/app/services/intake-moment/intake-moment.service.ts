@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
-import {ApiService} from './../api/api.service';
+import {ApiService} from '../api/api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -15,7 +15,7 @@ export class IntakeMomentService {
     }
 
     getAllIntakeMomentsOfReceiver(id: any): Observable<any> {
-        return this.api.getAllIntakeMomentsOfReceiver(id,true);
+        return this.api.getAllIntakeMomentsOfReceiver(id, true);
     }
 
     getIntakeMomentById(id: any): Observable<any> {
