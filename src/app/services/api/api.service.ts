@@ -59,13 +59,30 @@ export class ApiService {
     getAllIntakeMomentsOfReceiver(id: number, forceRefresh: boolean = false)  {
 
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
-            // Return the cached data from Storage
-            return from(this.getLocalData('intakeMoments/receiver/' + id));
+            // prepare the cached data from Storage
+            const groups = JSON.parse(this.getLocalData('groups'));
+            let moments = [];
+            groups.forEach(function (group) {
+                group.receivers.some(function (receiver) {
+                    if (receiver.id === id) {
+                        moments = receiver.intakeMoments;
+                    }
+                });
+            });
+            return of(moments);
         } else {
             // Return real API data and store it locally
             return this.http.get(`${this.API_URL}/intakeMoment/receiver/` + id).pipe(
                 tap(res => {
-                    this.setLocalData('intakeMoments/receiver/' + id, JSON.stringify(res));
+                    const groups = JSON.parse(this.getLocalData('groups'));
+                    groups.forEach(function (group) {
+                        group.receivers.some(function (receiver) {
+                            if (receiver.id === id) {
+                                receiver.intakeMoments = res;
+                            }
+                        });
+                    });
+                    this.setLocalData('groups', JSON.stringify(groups));
                 })
             );
         }
@@ -146,7 +163,7 @@ export class ApiService {
 
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
             // Return the cached data from Storage
-            return from(this.getLocalData('groups'));
+            return of(this.getLocalData('groups'));
         } else {
             // Return real API data and store it locally
             return this.http.get(`${this.API_URL}/group/mobile/`).pipe(
