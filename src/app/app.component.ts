@@ -9,7 +9,6 @@ import {AuthService} from './services/auth/auth.service';
 import {NetworkService} from './services/connection/network.service';
 import {OfflineManagerService} from './services/offline/offline-manager.service';
 
-
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html'
@@ -24,7 +23,7 @@ export class AppComponent {
         private localNotifications: LocalNotifications,
         private navCtrl: NavController,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
     ) {
         this.initializeApp();
     }

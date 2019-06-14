@@ -19,6 +19,7 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {DateFormatterService} from './services/formatter/date-formatter.service';
 import {IntakeMomentService} from './services/intake-moment/intake-moment.service';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
+import { FCM } from '@ionic-native/fcm/ngx';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {JwtInterceptor} from './helpers/jwt.interceptor';
         Network,
         StatusBar,
         SplashScreen,
+        FCM,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         LocalNotifications,
