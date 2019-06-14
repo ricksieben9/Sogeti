@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NetworkComponent} from '../../components/network/network.component';
 import {IonicModule} from '@ionic/angular';
 
@@ -13,4 +13,4 @@ import {IonicModule} from '@ionic/angular';
     NetworkComponent
   ]
 })
-export class NetworkModule { }
+export class NetworkModule {}

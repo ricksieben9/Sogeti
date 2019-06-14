@@ -15,7 +15,6 @@ export class NetworkComponent {
     constructor(private networkService: NetworkService, private offlineManager: OfflineManagerService) {
         this.offline = false;
         this.syncTime = this.getTime();
-        console.log('syncTime is now ' + this.syncTime);
 
         // subscribe to networkservice on networkchange set local bool to offline/online
         this.networkService.onNetworkChange().subscribe((status) => {
@@ -32,9 +31,7 @@ export class NetworkComponent {
         });
     }
 
-
     // Get and save time when offline
-
     getTime() {
         let d: Date;
         if (localStorage.getItem('syncTime') === null) {
@@ -48,6 +45,4 @@ export class NetworkComponent {
         minutes = ('0' + minutes).slice(-2);
         return d.getHours() + ':' + minutes + ' ' + d.getDay() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
     }
-
-
 }

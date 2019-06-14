@@ -24,7 +24,7 @@ export class IntakeMomentDetailPage implements OnInit {
 
     getIntakeMomentDetail() {
         const intakeMomentObservable = this.intakeMomentService.getIntakeMomentById(this.Id);
-        if (intakeMomentObservable){
+        if (intakeMomentObservable) {
         intakeMomentObservable.subscribe(
             data => {
                 this.intakeMomentMedicines = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : null);
@@ -45,6 +45,7 @@ export class IntakeMomentDetailPage implements OnInit {
             }
         });
     }
+
     delete(item) {
         item.completed_at = null;
         this.intakeMomentService.removeIntakeMomentMedicineCompletion(this.Id, item).subscribe();
@@ -53,6 +54,7 @@ export class IntakeMomentDetailPage implements OnInit {
     canSend(): boolean {
         return this.intakeMomentMedicines.filter(elem => elem.completed_at === null).length === 0;
     }
+
     back() {
         this.navCtrl.navigateBack('/tabs/agenda');
     }

@@ -1,14 +1,12 @@
-import { OfflineManagerService } from '../offline/offline-manager.service';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { NetworkService, ConnectionStatus } from '../connection/network.service';
-import { from, of } from 'rxjs';
-import { tap, map, catchError } from 'rxjs/operators';
-import { environment } from '../../../environments/environment';
-import { AuthResponse } from '../../models/auth-response';
-import { Request } from '../../models/request';
-
-
+import {OfflineManagerService} from '../offline/offline-manager.service';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {NetworkService, ConnectionStatus} from '../connection/network.service';
+import {from, of} from 'rxjs';
+import {tap, map, catchError} from 'rxjs/operators';
+import {environment} from '../../../environments/environment';
+import {AuthResponse} from '../../models/auth-response';
+import {Request} from '../../models/request';
 
 @Injectable({
   providedIn: 'root'
@@ -61,13 +59,30 @@ export class ApiService {
     getAllIntakeMomentsOfReceiver(id: number, forceRefresh: boolean = false)  {
 
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
-            // Return the cached data from Storage
-            return from(this.getLocalData('intakeMoments/receiver/' + id));
+            // prepare the cached data from Storage
+            const groups = JSON.parse(this.getLocalData('groups'));
+            let moments = [];
+            groups.forEach(function (group) {
+                group.receivers.some(function (receiver) {
+                    if (receiver.id === id) {
+                        moments = receiver.intakeMoments;
+                    }
+                });
+            });
+            return of(moments);
         } else {
             // Return real API data and store it locally
-            return this.http.get(`${this.API_URL}/intakeMoment/receiver/` +id).pipe(
+            return this.http.get(`${this.API_URL}/intakeMoment/receiver/` + id).pipe(
                 tap(res => {
-                    this.setLocalData('intakeMoments/receiver/' + id, JSON.stringify(res));
+                    const groups = JSON.parse(this.getLocalData('groups'));
+                    groups.forEach(function (group) {
+                        group.receivers.some(function (receiver) {
+                            if (receiver.id === id) {
+                                receiver.intakeMoments = res;
+                            }
+                        });
+                    });
+                    this.setLocalData('groups', JSON.stringify(groups));
                 })
             );
         }
@@ -144,12 +159,11 @@ export class ApiService {
     // endregion
 
     // region groups
-
     getGroupsOfDispenser(forceRefresh: boolean = false)  {
 
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
             // Return the cached data from Storage
-            return from(this.getLocalData('groups'));
+            return of(this.getLocalData('groups'));
         } else {
             // Return real API data and store it locally
             return this.http.get(`${this.API_URL}/group/mobile/`).pipe(
@@ -159,8 +173,7 @@ export class ApiService {
             );
         }
     }
-
-    // end region
+    // endregion
 
     // region receivers
     getReceiver(id: number, forceRefresh: boolean = false)  {
@@ -176,7 +189,7 @@ export class ApiService {
             return this.http.get(`${this.API_URL}/receiver/` + id);
         }
     }
-    // end region
+    // endregion
 
   // Save result of API requests
   private setLocalData(key, data) {
