@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable} from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { timeout } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {environment} from '../../../environments/environment';
+import {timeout} from 'rxjs/operators';
 
 export enum ConnectionStatus {
   Online,

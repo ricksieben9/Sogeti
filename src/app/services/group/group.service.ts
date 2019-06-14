@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {ApiService} from '../api/api.service';
 import {Observable} from 'rxjs';
 
@@ -7,8 +7,7 @@ import {Observable} from 'rxjs';
 })
 export class GroupService {
 
-  constructor(private api: ApiService) {
-  }
+  constructor(private api: ApiService) {}
 
   getGroupsOfDispenser(): Observable<any> {
     return this.api.getGroupsOfDispenser(true);

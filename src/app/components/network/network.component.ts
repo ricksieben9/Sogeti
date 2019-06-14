@@ -14,7 +14,7 @@ export class NetworkComponent {
   constructor(private networkService: NetworkService,  private offlineManager: OfflineManagerService) {
     this.offline = false;
 
-    // subscribe to networkservice on networkchange set local bool to offline/online
+    // Subscribe to networkservice on networkchange set local bool to offline/online
     this.networkService.onNetworkChange().subscribe((status) => {
       if (status === ConnectionStatus.Offline) {
         this.offline = true;

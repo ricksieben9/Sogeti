@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // change server to local desktop ip running the api server
-  apiServerAddress: 'http://145.49.88.163:3000'
+   apiServerAddress: 'https://sogeti.herokuapp.com'
   // apiServerAddress: 'http://localhost:3000'
 };
 

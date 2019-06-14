@@ -9,7 +9,6 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 
-
 import {Network} from '@ionic-native/network/ngx';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {RouterModule} from '@angular/router';
@@ -19,6 +18,7 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {DateFormatterService} from './services/formatter/date-formatter.service';
 import {IntakeMomentService} from './services/intake-moment/intake-moment.service';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
+import {FCM} from '@ionic-native/fcm/ngx';
 
 
 @NgModule({
@@ -36,6 +36,7 @@ import {JwtInterceptor} from './helpers/jwt.interceptor';
         Network,
         StatusBar,
         SplashScreen,
+        FCM,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
         LocalNotifications,
@@ -43,5 +44,4 @@ import {JwtInterceptor} from './helpers/jwt.interceptor';
     ],
     bootstrap: [AppComponent]
 })
-export class AppModule {
-}
+export class AppModule {}

@@ -1,7 +1,7 @@
-import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NotificationsPage } from './notifications.page';
+import {NotificationsPage} from './notifications.page';
 
 describe('NotificationsPage', () => {
   let component: NotificationsPage;

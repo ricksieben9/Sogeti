@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {NavController} from '@ionic/angular';
 import {IntakeMomentService} from '../../../services/intake-moment/intake-moment.service';
 import {ActivatedRoute} from '@angular/router';
@@ -10,6 +10,7 @@ import {IntakeMomentDetailInterface} from "../../../models/intake-moment-detail.
   templateUrl: './receivers-intake-moments.page.html',
   styleUrls: ['./receivers-intake-moments.page.scss'],
 })
+
 export class ReceiversIntakeMomentsPage {
 
   intakeMoments: any;
@@ -18,7 +19,7 @@ export class ReceiversIntakeMomentsPage {
   constructor(public navCtrl: NavController,
               private route: ActivatedRoute,
               private intakeMomentService: IntakeMomentService,
-              private receiverService: ReceiverService) { }
+              private receiverService: ReceiverService) {}
 
   ionViewWillEnter() {
     this.loadIntakeMoments();
@@ -50,12 +51,12 @@ export class ReceiversIntakeMomentsPage {
     return date != null ? date.getTime() : 0;
   }
 
-  // navigate to intakemoment detail page
+  // Navigate to intakemoment detail page
   openIntakeMoment(intake) {
     this.navCtrl.navigateForward('/intakeMoment/' + intake.id);
   }
 
-  // check if date is today or later
+  // Check if date is today or later
   checkDate(intakeMoment) {
     const intakeMomentDate = new Date (intakeMoment.intake_start_time);
     return intakeMomentDate >= new Date();
@@ -72,7 +73,7 @@ export class ReceiversIntakeMomentsPage {
     return finished;
   }
 
-  // navigate back to group page
+  // Navigate back to group page
   back() {
     this.navCtrl.navigateBack('/tabs/groups');
   }

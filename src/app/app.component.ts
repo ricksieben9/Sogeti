@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-
 import {NavController, Platform} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
@@ -8,7 +7,6 @@ import {Router} from '@angular/router';
 import {AuthService} from './services/auth/auth.service';
 import {NetworkService} from './services/connection/network.service';
 import {OfflineManagerService} from './services/offline/offline-manager.service';
-
 
 @Component({
     selector: 'app-root',
@@ -24,7 +22,7 @@ export class AppComponent {
         private localNotifications: LocalNotifications,
         private navCtrl: NavController,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
     ) {
         this.initializeApp();
     }
