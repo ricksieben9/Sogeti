@@ -64,7 +64,7 @@ export class LoginPage implements OnInit {
             if (!res) {
                 this.pinErrorMsg = 'Pincode incorrect.';
             } else {
-                this.resetForm(form);
+                //this.resetForm(form);
                 this.router.navigate([this.returnUrl]);
             }
         });
