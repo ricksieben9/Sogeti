@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {of, forkJoin} from 'rxjs';
+import {forkJoin, of} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 
 const STORAGE_REQ_KEY = 'storedreq';

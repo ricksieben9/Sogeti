@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { OfflineManagerService } from './offline-manager.service';
+import {OfflineManagerService} from './offline-manager.service';
 
 describe('OfflineManagerService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

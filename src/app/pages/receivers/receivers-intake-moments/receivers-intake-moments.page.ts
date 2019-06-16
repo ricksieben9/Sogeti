@@ -25,7 +25,7 @@ export class ReceiversIntakeMomentsPage {
     this.loadIntakeMoments();
   }
 
-  // get intakemoments of receiver from service
+  // Get intakemoments of receiver from service
   private loadIntakeMoments() {
     const id = +this.route.snapshot.paramMap.get('id');
     this.receiverService.getReceiver(id).subscribe(res => {

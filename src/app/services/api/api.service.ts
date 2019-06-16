@@ -1,9 +1,9 @@
 import {OfflineManagerService} from '../offline/offline-manager.service';
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {NetworkService, ConnectionStatus} from '../connection/network.service';
+import {ConnectionStatus, NetworkService} from '../connection/network.service';
 import {from, of} from 'rxjs';
-import {tap, map, catchError} from 'rxjs/operators';
+import {catchError, map, tap} from 'rxjs/operators';
 import {environment} from '../../../environments/environment';
 import {AuthResponse} from '../../models/auth-response';
 import {Request} from '../../models/request';

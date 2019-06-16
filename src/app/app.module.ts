@@ -1,6 +1,6 @@
 import {NgModule} from '@angular/core';
 import {BrowserModule} from '@angular/platform-browser';
-import {RouteReuseStrategy} from '@angular/router';
+import {RouteReuseStrategy, RouterModule} from '@angular/router';
 
 import {IonicModule, IonicRouteStrategy} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
@@ -11,7 +11,6 @@ import {AppComponent} from './app.component';
 
 import {Network} from '@ionic-native/network/ngx';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {RouterModule} from '@angular/router';
 import {IonicStorageModule} from '@ionic/storage';
 
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';

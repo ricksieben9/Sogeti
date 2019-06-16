@@ -16,7 +16,7 @@ export class NetworkComponent {
         this.offline = false;
         this.syncTime = this.getTime();
 
-        // subscribe to networkservice on networkchange set local bool to offline/online
+        // Subscribe to networkservice on networkchange set local bool to offline/online
         this.networkService.onNetworkChange().subscribe((status) => {
             if (status === ConnectionStatus.Offline) {
                 this.offline = true;

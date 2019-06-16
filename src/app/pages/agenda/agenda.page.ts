@@ -1,4 +1,4 @@
-import {Component, ViewChild, OnInit, Inject, LOCALE_ID, AfterViewInit} from '@angular/core';
+import {AfterViewInit, Component, Inject, LOCALE_ID, OnInit, ViewChild} from '@angular/core';
 import {CalendarComponent} from 'ionic2-calendar/calendar';
 import {AlertController, NavController} from '@ionic/angular';
 import {DateFormatterService} from '../../services/formatter/date-formatter.service';

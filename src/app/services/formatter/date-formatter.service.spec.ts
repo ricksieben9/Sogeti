@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { DateFormatterService } from './date-formatter.service';
+import {DateFormatterService} from './date-formatter.service';
 
 describe('DateFormatterService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));

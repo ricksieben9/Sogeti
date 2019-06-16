@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {tap} from 'rxjs/operators';
-import {Observable, BehaviorSubject, of, from} from 'rxjs';
+import {BehaviorSubject, from, Observable, of} from 'rxjs';
 
 import {Request} from '../../models/request';
 import {AuthResponse} from '../../models/auth-response';

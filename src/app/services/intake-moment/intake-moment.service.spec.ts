@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { IntakeMomentService } from './intake-moment.service';
+import {IntakeMomentService} from './intake-moment.service';
 
 describe('IntakeMomentService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
