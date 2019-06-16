@@ -6,16 +6,17 @@ import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {Router} from '@angular/router';
 import {AuthService} from './services/auth/auth.service';
 import {NetworkService} from './services/connection/network.service';
-import {OfflineManagerService} from './services/offline/offline-manager.service';
+
 
 @Component({
     selector: 'app-root',
     templateUrl: 'app.component.html'
 })
 export class AppComponent {
-    private networkService: NetworkService;
-    private offlineManager: OfflineManagerService;
+    private timer;
+
     constructor(
+        private networkService: NetworkService,
         private platform: Platform,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
@@ -44,5 +45,14 @@ export class AppComponent {
                 }
             });
         });
+        this.checkConnection();
+    }
+
+    checkConnection() {
+        const connection = this.networkService;
+        this.timer = setInterval(() => {
+            console.log('check');
+            connection.checkConnection();
+        }, 5000);
     }
 }
