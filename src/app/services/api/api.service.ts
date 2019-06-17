@@ -191,6 +191,18 @@ export class ApiService {
     }
     // endregion
 
+    // region medicine
+    getMedicineById(forceRefresh: boolean = false, id: any) {
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
+            // Return the cached data from Storage
+            // TODO: Local medicine data
+        } else {
+            // Return real API data
+            return this.http.get(`${this.API_URL}/medicine/` + id);
+        }
+    }
+    // endregion
+
   // Save result of API requests
   private setLocalData(key, data) {
     localStorage.setItem(key, data);

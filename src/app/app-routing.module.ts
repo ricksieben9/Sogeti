@@ -17,13 +17,22 @@ const routes: Routes = [
         loadChildren: './pages/registerpin/registerpin.module#RegisterPinPageModule',
         canActivate: [LoginGuard]
     },
-    {   path: 'intakeMoment/:id',
+    {
+        path: 'intakeMoment/:id',
         loadChildren: './pages/intake-moment-detail/intake-moment-detail.module#IntakeMomentDetailPageModule',
         canActivate: [LoginGuard]
     },
-  { path: 'receiver/:id/intakeMoments',
-      loadChildren: './pages/receivers/receivers-intake-moments/receivers-intake-moments.module#ReceiversIntakeMomentsPageModule',
-      canActivate: [LoginGuard]}
+    {
+        path: 'receiver/:id/intakeMoments',
+        loadChildren: './pages/receivers/receivers-intake-moments/receivers-intake-moments.module#ReceiversIntakeMomentsPageModule',
+        canActivate: [LoginGuard]
+    },
+    {
+        path: 'medicine-detail/:id',
+        loadChildren: './pages/medicine-detail/medicine-detail.module#MedicineDetailPageModule',
+        canActivate: [LoginGuard]
+    }
+
 
 ];
 
@@ -33,4 +42,5 @@ const routes: Routes = [
     ],
     exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
