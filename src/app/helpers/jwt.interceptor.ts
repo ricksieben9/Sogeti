@@ -27,12 +27,11 @@ export class JwtInterceptor implements HttpInterceptor {
 
 @Injectable()
 export class JwtResponseInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthService) {}
+    constructor() {}
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
         return next.handle(req).pipe(tap((event: HttpEvent<any>) => {
-            if (this.authenticationService.isLoggedIn) {
                 if (event instanceof HttpResponse) {
                     if (event.headers.get('token')) {
                         const user = JSON.parse(localStorage.getItem('CURRENT_USER'));
@@ -40,7 +39,6 @@ export class JwtResponseInterceptor implements HttpInterceptor {
                         localStorage.setItem('CURRENT_USER', JSON.stringify(user));
                     }
                 }
-            }
             return event;
         }));
 

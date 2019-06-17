@@ -210,7 +210,7 @@ export class ApiService {
             this.offlineManager.storeRequest(url, 'GET', user.username);
         } else {
             // make API call, token will be refreshed by the interceptor
-            this.http.get(url,user.username);
+            this.http.post(url, {username: user.username}).subscribe();
         }
     }
 }

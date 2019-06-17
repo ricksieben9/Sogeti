@@ -67,7 +67,7 @@ export class OfflineManagerService {
       }
       // refresh token fires immediately after connection is established
       else if (op.url === `${environment.apiServerAddress}` + '/auth/refreshToken'){
-        this.http.get(op.url, op.data);
+        this.http.post(op.url, {username: op.data}).subscribe();
       }
     }
 
