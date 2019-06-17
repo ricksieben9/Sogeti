@@ -48,6 +48,10 @@ export class AuthService {
         }));
     }
 
+    refreshToken() {
+        this.api.refreshToken();
+    }
+
     logout() {
         this.authSubject.next(false);
         this.router.navigateByUrl('');
