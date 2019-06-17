@@ -23,7 +23,7 @@ export class NotificationService {
             } else {
                 // Do if app is on foreground
                 this.showAlert('Toedienmoment te laat!', 'Waarschuwing',
-                    'De toedienmoment van ' + data.name + ' van ' + formatDate(data.time, 'HH:mm', 'en-US') + 'u is te laat! ' +
+                    'Het toedienmoment van ' + data.name + ' van ' + formatDate(data.time, 'HH:mm', 'en-US') + 'u is te laat! ' +
                     'verantwoordelijke is ' + data.dispenser,
                     data.id);
             }
@@ -58,14 +58,9 @@ export class NotificationService {
                 {
                     text: 'Gelezen',
                     role: 'cancel',
-                    cssClass: 'secondary',
-                    handler: () => {
-                        console.log('Confirm Cancel: blah');
-                    }
                 }, {
                     text: 'Open',
                     handler: () => {
-                        console.log('Confirm Okay');
                         this.router.navigateByUrl('/intakeMoment/' + id);
                     }
                 }
