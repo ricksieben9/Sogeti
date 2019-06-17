@@ -23,7 +23,8 @@ export class NotificationService {
             } else {
                 // Do if app is on foreground
                 this.showAlert('Toedienmoment te laat!', 'Waarschuwing',
-                    'De toedienmoment van ' + data.name + ' van ' + formatDate(data.time, 'HH:mm', 'en-US') + 'u is te laat! ',
+                    'De toedienmoment van ' + data.name + ' van ' + formatDate(data.time, 'HH:mm', 'en-US') + 'u is te laat! ' +
+                    'verantwoordelijke is ' + data.dispenser,
                     data.id);
             }
         });
