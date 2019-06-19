@@ -22,8 +22,10 @@ export class NotificationService {
                 this.router.navigateByUrl('/intakeMoment/' + data.id);
             } else {
                 // Do if app is on foreground
-                this.showAlert('Toedienmoment overtijd!', 'Waarschuwing',
-                    'De toedienmoment van ' + data.name + ' op ' + formatDate(data.time, 'dd-MM-yyyy', 'en-US') + ' is overtijd!');
+                this.showAlert('Toedienmoment te laat!', 'Waarschuwing',
+                    'Het toedienmoment van ' + data.name + ' van ' + formatDate(data.time, 'HH:mm', 'en-US') + 'u is te laat! ' +
+                    'verantwoordelijke is ' + data.dispenser,
+                    data.id);
             }
         });
     }
@@ -47,12 +49,22 @@ export class NotificationService {
 
 
     // When notification is clicked
-    showAlert(header, sub, msg) {
+    showAlert(header, sub, msg, id) {
         this.alertCtrl.create({
             header: header,
             subHeader: sub,
             message: msg,
-            buttons: ['Ok'],
+            buttons: [
+                {
+                    text: 'Gelezen',
+                    role: 'cancel',
+                }, {
+                    text: 'Open',
+                    handler: () => {
+                        this.router.navigateByUrl('/intakeMoment/' + id);
+                    }
+                }
+            ]
         }).then(alert => alert.present());
     }
 
