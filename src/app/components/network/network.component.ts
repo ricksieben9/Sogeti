@@ -10,7 +10,7 @@ import {OfflineManagerService} from '../../services/offline/offline-manager.serv
 export class NetworkComponent {
 
     offline: boolean;
-    syncTime: string;
+    syncTime: Date;
 
     constructor(private networkService: NetworkService, private offlineManager: OfflineManagerService) {
         this.offline = false;
@@ -40,9 +40,6 @@ export class NetworkComponent {
         } else {
             d = new Date(localStorage.getItem('syncTime'));
         }
-
-        let minutes = d.getMinutes().toString();
-        minutes = ('0' + minutes).slice(-2);
-        return d.getHours() + ':' + minutes + ' ' + d.getDay() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
+        return d;
     }
 }

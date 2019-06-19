@@ -16,6 +16,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     dateFormatter = this.dateFormat.getDates();
     currentWeek;
     currentDay;
+    currentHour = new Date().getHours();
 
     calendar = {
         allDay: false,
