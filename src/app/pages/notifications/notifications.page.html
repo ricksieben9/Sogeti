@@ -16,7 +16,7 @@
         <p>Ontvanger: {{notification.receiver_id.name}}</p>
         <p>Datum: {{ notification.intake_start_time| date:'d-M-yy' }}</p>
         <p>Tijd: {{ notification.intake_start_time| date:'H:mm' }}</p>
-        <p *ngIf="notification.remark">Opmerking: {{ notification.remark }}</p>
+        <p *ngIf="notification.remark">Opmerking: {{ notification.remark | slice:0:70}}{{notification.remark.length <  70 ? '': '....'}}</p>
       </ion-label>
       <ion-icon *ngIf="isFinished(notification)" name="checkmark" slot="end" role="img" class="hydrated" aria-label="checkmark" color="success"></ion-icon>
     </ion-item>
