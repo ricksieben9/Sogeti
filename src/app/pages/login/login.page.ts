@@ -61,6 +61,7 @@ export class LoginPage implements OnInit {
             if (!res) {
                 this.pinErrorMsg = 'Pincode incorrect.';
             } else {
+                this.authService.refreshToken();
                 this.router.navigate([this.returnUrl]);
             }
         });
