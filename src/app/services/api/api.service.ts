@@ -237,4 +237,17 @@ export class ApiService {
   private getLocalData(key) {
     return localStorage.getItem(key);
   }
+
+  // Refresh token of inlog with correct PIN
+    refreshToken() {
+        const url = `${environment.apiServerAddress}` + '/auth/refreshToken';
+        const user = JSON.parse(localStorage.getItem('CURRENT_USER'));
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline) {
+            // save api call
+            this.offlineManager.storeRequest(url, 'GET', user.username);
+        } else {
+            // make API call, token will be refreshed by the interceptor
+            this.http.post(url, {username: user.username}).subscribe();
+        }
+    }
 }

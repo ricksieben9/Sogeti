@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import {of, forkJoin} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
+import {environment} from "../../../environments/environment";
+import {tap} from "rxjs/operators";
 
 const STORAGE_REQ_KEY = 'storedreq';
 
@@ -62,6 +64,10 @@ export class OfflineManagerService {
       } else if (op.type === 'DELETE') {
           const oneObs = this.http.request(op.type, op.url, {body: op.data}).subscribe();
           obs.push(oneObs);
+      }
+      // refresh token fires immediately after connection is established
+      else if (op.url === `${environment.apiServerAddress}` + '/auth/refreshToken'){
+        this.http.post(op.url, {username: op.data}).subscribe();
       }
     }
 

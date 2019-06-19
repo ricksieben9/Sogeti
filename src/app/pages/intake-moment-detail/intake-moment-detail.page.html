@@ -40,6 +40,12 @@
       </ion-item>
       <ion-item id="-container2">
         <div class="show-list-numbers-and-dots">
+          <p *ngIf="intakeMomentDetail.dispenser">Verantwoordelijke: {{intakeMomentDetail.dispenser.name}}</p>
+          <p *ngIf="!intakeMomentDetail.dispenser">Verantwoordelijke: geen toediener</p>
+        </div>
+      </ion-item>
+      <ion-item>
+        <div class="show-list-numbers-and-dots">
           <p>
             Opmerking: {{intakeMomentDetail.remark}}
           </p>

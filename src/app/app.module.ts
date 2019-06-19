@@ -17,7 +17,7 @@ import {IonicStorageModule} from '@ionic/storage';
 import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
 import {DateFormatterService} from './services/formatter/date-formatter.service';
 import {IntakeMomentService} from './services/intake-moment/intake-moment.service';
-import {JwtInterceptor} from './helpers/jwt.interceptor';
+import {JwtInterceptor, JwtResponseInterceptor} from './helpers/jwt.interceptor';
 import {FCM} from '@ionic-native/fcm/ngx';
 
 
@@ -39,6 +39,7 @@ import {FCM} from '@ionic-native/fcm/ngx';
         FCM,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
         {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true},
+        {provide: HTTP_INTERCEPTORS, useClass: JwtResponseInterceptor, multi: true},
         LocalNotifications,
         IntakeMomentService
     ],
