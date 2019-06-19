@@ -192,16 +192,41 @@ export class ApiService {
     // endregion
 
     // region medicine
+
+    getAllMedicine(forceRefresh: boolean = false) {
+        if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
+            // Return the cached data from Storage
+            return of(JSON.parse(this.getLocalData('intakeMoments')));
+        } else {
+            // Return real API data and store it locally
+            return this.http.get(`${this.API_URL}/medicine/`).pipe(
+                tap(res => {
+                    this.setLocalData('medicine', JSON.stringify(res));
+                })
+            );
+        }
+    }
     getMedicineById(forceRefresh: boolean = false, id: any) {
         if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Offline || !forceRefresh) {
             // Return the cached data from Storage
-            // TODO: Local medicine data
+            return of(JSON.parse(this.getLocalData('medicine'))).pipe(
+                map(medicine => medicine.filter(med => med.id.toString() === id))
+            );
         } else {
             // Return real API data
             return this.http.get(`${this.API_URL}/medicine/` + id);
         }
     }
     // endregion
+
+    // loads all offline data called on login
+    getAllOffline() {
+      if (this.networkService.getCurrentNetworkStatus() === ConnectionStatus.Online) {
+          this.getAllMedicine(true).subscribe();
+          this.getAllIntakeMoments(true).subscribe();
+          this.getGroupsOfDispenser(true).subscribe();
+      }
+    }
 
   // Save result of API requests
   private setLocalData(key, data) {
