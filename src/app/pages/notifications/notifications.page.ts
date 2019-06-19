@@ -4,7 +4,6 @@ import {NotificationService} from '../../services/notification/notification.serv
 import {IntakeMomentService} from '../../services/intake-moment/intake-moment.service';
 import {IntakeMomentDetailInterface} from '../../models/intake-moment-detail.interface';
 import {NetworkService} from '../../services/connection/network.service';
-import {DateFormatterService} from '../../services/formatter/date-formatter.service';
 
 @Component({
     selector: 'app-notifications',
@@ -18,7 +17,7 @@ export class NotificationsPage {
     notifications: any;
 
     constructor(private network: NetworkService, public navCtrl: NavController, private notification: NotificationService,
-                private intakeMomentService: IntakeMomentService, private dateFormat: DateFormatterService) {
+                private intakeMomentService: IntakeMomentService) {
 
         this.loadIntakeMoments();
         this.scheduleNotifications();
@@ -51,11 +50,10 @@ export class NotificationsPage {
         }, () => {
             if (this.notifications) {
                 for (const data of this.notifications) {
-                    data.date = this.dateFormat.formatDate(data.intake_start_time);
                     const event = {
                         id: data.id,
                         title: data.receiver_id.name,
-                        startTime: this.dateFormat.formatDate(data.intake_start_time),
+                        startTime: new Date(data.intake_start_time),
                         endTime: add_minutes(new Date(data.intake_start_time), 30),
                         desc: data.remark
                     };

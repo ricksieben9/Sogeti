@@ -57,11 +57,4 @@ export class DateFormatterService {
     getDates() {
         return this.dateFormatter;
     }
-
-    // Format date to uu:mm dd-mm-yy
-    formatDate(date) {
-        const dateF = new Date(date);
-        return dateF.getHours() + ':' + (dateF.getMinutes() < 10 ? '0' : '') + dateF.getMinutes()
-            + ' ' + dateF.getDate() + '-' + dateF.getMonth() + '-' + dateF.getFullYear();
-    }
 }
