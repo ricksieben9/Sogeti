@@ -13,7 +13,7 @@ export class MedicineDetailPage implements OnInit {
     medicineDetail;
 
     constructor(private activatedRoute: ActivatedRoute,
-                private getMedicineById: MedicineService, private navCtrl: NavController) {
+                private medicineService: MedicineService, private navCtrl: NavController) {
     }
 
     ngOnInit() {
@@ -22,7 +22,7 @@ export class MedicineDetailPage implements OnInit {
     }
 
     getMedicineDetail() {
-        const medicineDetailObservable = this.getMedicineById.getMedicineById(this.Id);
+        const medicineDetailObservable = this.medicineService.getMedicineById(this.Id);
         if (medicineDetailObservable) {
             medicineDetailObservable.subscribe(
                 data => {
