@@ -13,9 +13,10 @@
   <ion-list>
     <ion-item *ngFor="let notification of notifications;" (click)="openIntakeMoment(notification)" [color]="checkDate(notification) ? 'primary' : 'light'">
       <ion-label text-wrap>
-        {{ notification.receiver_id.name}}
-        <p>{{ notification.remark }}</p>
-        <p>{{ notification.intake_start_time | date:'hh:mm dd-MM-yy'}}</p>
+        <p>Ontvanger: {{notification.receiver_id.name}}</p>
+        <p>Datum: {{ notification.intake_start_time| date:'d-M-yy' }}</p>
+        <p>Tijd: {{ notification.intake_start_time| date:'H:mm' }}</p>
+        <p *ngIf="notification.remark">Opmerking: {{ notification.remark }}</p>
       </ion-label>
       <ion-icon *ngIf="isFinished(notification)" name="checkmark" slot="end" role="img" class="hydrated" aria-label="checkmark" color="success"></ion-icon>
     </ion-item>

@@ -18,11 +18,11 @@
         <ion-item *ngFor="let intakeMoment of intakeMoments;" (click)="openIntakeMoment(intakeMoment)"
                   [color]="checkDate(intakeMoment) ? 'primary' : 'light'">
             <ion-label text-wrap>
-                <p>Opmerking: {{ intakeMoment.remark }}</p>
-                <p>Datum: {{ intakeMoment.intake_start_time| date:'d-M-yy' }}</p>
-                <p>Tijd: {{ intakeMoment.intake_start_time| date:'H:mm' }}</p>
                 <p *ngIf="intakeMoment.dispenser">Toediener: {{intakeMoment.dispenser.name}}</p>
                 <p *ngIf="!intakeMoment.dispenser">Toediener: geen toediener</p>
+                <p>Datum: {{ intakeMoment.intake_start_time| date:'d-M-yy' }}</p>
+                <p>Tijd: {{ intakeMoment.intake_start_time| date:'H:mm' }}</p>
+                <p *ngIf="intakeMoment.remark">Opmerking: {{ intakeMoment.remark }}</p>
             </ion-label>
             <ion-icon *ngIf="isFinished(intakeMoment)" name="checkmark" slot="end" role="img" class="hydrated"
                       aria-label="checkmark" color="success"></ion-icon>
