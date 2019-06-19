@@ -51,10 +51,7 @@
             Datum: {{intakeMomentDetail.intake_start_time| date:'d-M-yy'}}
           </p>
           <p>
-            Starttijd: {{intakeMomentDetail.intake_start_time| date:'H:mm'}}
-          </p>
-          <p>
-            Eindtijd: {{intakeMomentDetail.intake_end_time| date:'H:mm'}}
+            Toedientijd: {{intakeMomentDetail.intake_start_time| date:'H:mm'}}
           </p>
         </div>
       </ion-item>
@@ -63,7 +60,7 @@
     <ion-item-divider color="light" >
       Medicijnen
     </ion-item-divider>
-    <div ngFor *ngFor="let item of intakeMomentMedicines">
+    <div *ngFor="let item of intakeMomentMedicines">
       <ion-item  *ngIf="!item.completed_at">
         <ion-checkbox [(ngModel)]="item.checked"></ion-checkbox>
         <ion-label>

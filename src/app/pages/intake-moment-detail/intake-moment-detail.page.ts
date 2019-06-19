@@ -54,7 +54,8 @@ export class IntakeMomentDetailPage implements OnInit {
     }
 
     canSend(): boolean {
-        this.range = this.intakeMomentMedicines.filter(elem => elem.checked === true).length + '/' + this.intakeMomentMedicines.length;
+        this.range = this.intakeMomentMedicines.filter(elem => elem.completed_at !== null || elem.checked === true).length + '/'
+            + this.intakeMomentMedicines.length;
         return this.intakeMomentMedicines.filter(elem => elem.completed_at === null).length === 0;
     }
 
