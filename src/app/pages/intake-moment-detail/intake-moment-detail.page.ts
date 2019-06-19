@@ -67,7 +67,7 @@ export class IntakeMomentDetailPage implements OnInit {
         return this.intakeMomentMedicines.filter(elem => elem.checked === true).length > 0;
     }
 
-    back() {
-        this.navCtrl.navigateBack('/tabs/agenda');
+    forward(id) {
+        this.navCtrl.navigateForward('/medicine-detail/' + id);
     }
 }

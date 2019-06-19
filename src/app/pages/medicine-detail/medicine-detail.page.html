@@ -1,0 +1,23 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Info</ion-title>
+    </ion-toolbar>
+</ion-header>
+<NetworkComponent></NetworkComponent>
+
+<ion-content>
+    <ion-card *ngIf="medicineDetail">
+        <ion-item>
+            <ion-icon name="medical"></ion-icon>
+            <strong>{{medicineDetail.name}}</strong>
+        </ion-item>
+        <hr/>
+        <ion-card-content>
+            <p><strong>Beschrijving: </strong>{{medicineDetail.description}}</p>
+            <p><strong>Eenheid: </strong>{{medicineDetail.unit}}</p>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

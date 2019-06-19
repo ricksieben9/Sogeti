@@ -51,7 +51,6 @@ export class AppComponent {
     checkConnection() {
         const connection = this.networkService;
         this.timer = setInterval(() => {
-            console.log('check');
             connection.checkConnection();
         }, 5000);
     }
