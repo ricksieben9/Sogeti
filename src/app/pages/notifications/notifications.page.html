@@ -15,7 +15,7 @@
       <ion-label text-wrap>
         {{ notification.receiver_id.name}}
         <p>{{ notification.remark }}</p>
-        <p>{{ notification.intake_start_time.substring(0, 10) }}</p>
+        <p>{{ notification.date}}</p>
       </ion-label>
       <ion-icon *ngIf="isFinished(notification)" name="checkmark" slot="end" role="img" class="hydrated" aria-label="checkmark" color="success"></ion-icon>
     </ion-item>
