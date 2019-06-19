@@ -14,7 +14,8 @@ export class IntakeMomentDetailPage implements OnInit {
     intakeMomentDetail;
 
     constructor(private activatedRoute: ActivatedRoute,
-                private intakeMomentService: IntakeMomentService, private navCtrl: NavController) {}
+                private intakeMomentService: IntakeMomentService, private navCtrl: NavController) {
+    }
 
 
     ngOnInit() {
@@ -25,15 +26,15 @@ export class IntakeMomentDetailPage implements OnInit {
     getIntakeMomentDetail() {
         const intakeMomentObservable = this.intakeMomentService.getIntakeMomentById(this.Id);
         if (intakeMomentObservable) {
-        intakeMomentObservable.subscribe(
-            data => {
-                this.intakeMomentMedicines = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : null);
-                this.intakeMomentDetail = data[0];
-            },
-            error => {
-                console.log(error);
-            });
-    }
+            intakeMomentObservable.subscribe(
+                data => {
+                    this.intakeMomentMedicines = (data[0].intake_moment_medicines[0].dosage !== null ? data[0].intake_moment_medicines : null);
+                    this.intakeMomentDetail = data[0];
+                },
+                error => {
+                    console.log(error);
+                });
+        }
     }
 
     submit() {
@@ -55,7 +56,7 @@ export class IntakeMomentDetailPage implements OnInit {
         return this.intakeMomentMedicines.filter(elem => elem.completed_at === null).length === 0;
     }
 
-    back() {
-        this.navCtrl.navigateBack('/tabs/agenda');
+    forward(id) {
+        this.navCtrl.navigateForward('/medicine-detail/' + id);
     }
 }
