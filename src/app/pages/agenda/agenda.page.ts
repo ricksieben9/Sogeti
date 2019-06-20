@@ -145,11 +145,14 @@ export class AgendaPage implements OnInit, AfterViewInit {
         }, () => {
             if (agenda) {
                 for (const data of agenda) {
+                    const minTimeWindow = Math.min.apply(Math, data.intake_moment_medicines.map(function (o) {
+                        return o.time_window;
+                    }));
                     const event = {
                         id: data.id,
                         title: data.receiver_id.name,
                         startTime: new Date(data.intake_start_time),
-                        endTime: add_minutes(new Date(data.intake_start_time), 30),
+                        endTime: add_minutes(new Date(data.intake_start_time), minTimeWindow),
                         desc: data.remark
                     };
                     this.eventSource.push(event);
