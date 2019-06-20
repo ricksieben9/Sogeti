@@ -1,8 +1,7 @@
-import { Component, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
-import { AuthService } from '../../services/auth/auth.service';
-import { FormGroup } from '@angular/forms';
-import { NetworkService } from '../../services/connection/network.service';
+import {AuthService} from '../../services/auth/auth.service';
+import {FormGroup} from '@angular/forms';
 
 @Component({
     selector: 'app-login',
@@ -15,25 +14,23 @@ export class LoginPage implements OnInit {
     private errorMsg: string;
     private pinErrorMsg: string;
     private pinIsSet: boolean;
-    private timer;
     returnUrl: string;
 
-    constructor(private network: NetworkService, private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
+    constructor(private authService: AuthService, private router: Router, private route: ActivatedRoute) {}
 
     ngOnInit() {
         this.checkPin();
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/app/';
     }
 
-    // fires every time the you enter the view
+    // Fires every time the you enter the view
     ionViewWillEnter() {
-        this.checkConnection();
         this.checkPin();
         this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/app/';
     }
 
-    // sets value of pinIsSet which is used in the view
-    // to decide if password or pincode should be shown
+    // Sets value of pinIsSet which is used in the view
+    // To decide if password or pincode should be shown
     checkPin() {
         this.pinIsSet = localStorage.getItem('PIN_CODE_USER') != null;
     }
@@ -64,7 +61,7 @@ export class LoginPage implements OnInit {
             if (!res) {
                 this.pinErrorMsg = 'Pincode incorrect.';
             } else {
-                this.resetForm(form);
+                this.authService.refreshToken();
                 this.router.navigate([this.returnUrl]);
             }
         });
@@ -74,12 +71,5 @@ export class LoginPage implements OnInit {
         this.errorMsg = null;
         this.pinErrorMsg = null;
         form.reset();
-    }
-
-    checkConnection() {
-        const connection = this.network;
-        this.timer = setInterval(() => {
-            connection.checkConnection();
-        }, 5000);
     }
 }

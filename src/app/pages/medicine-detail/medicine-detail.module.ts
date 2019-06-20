@@ -5,14 +5,14 @@ import {Routes, RouterModule} from '@angular/router';
 
 import {IonicModule} from '@ionic/angular';
 
-import {IntakeMomentDetailPage} from './intake-moment-detail.page';
+import {MedicineDetailPage} from './medicine-detail.page';
 import {NetworkModule} from '../../modules/network/network.module';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: IntakeMomentDetailPage
-  }
+    {
+        path: '',
+        component: MedicineDetailPage
+    }
 ];
 
 @NgModule({
@@ -23,6 +23,7 @@ const routes: Routes = [
         RouterModule.forChild(routes),
         NetworkModule
     ],
-  declarations: [IntakeMomentDetailPage]
+    declarations: [MedicineDetailPage]
 })
-export class IntakeMomentDetailPageModule {}
+export class MedicineDetailPageModule {
+}

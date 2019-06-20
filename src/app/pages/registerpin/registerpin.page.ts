@@ -14,8 +14,7 @@ export class RegisterPinPage {
     trigger = '';
     regexp = new RegExp('0{4}|1{4}|2{4}|3{4}|4{4}|5{4}|6{4}|7{4}|8{4}|9{4}');
 
-    constructor(private router: Router) {
-    }
+    constructor(private router: Router) {}
 
     registerPin(form) {
         let pin: number;
@@ -27,21 +26,20 @@ export class RegisterPinPage {
         if (isNaN(pin) && isNaN(repeat_pin)) {
             this.pinErrorMsg = 'U kunt alleen cijfers in uw pincode gebruiken.';
         } else {
-            // check the length of the PIN
+            // Check the length of the PIN
             if ((pin.toString().length < 5 || pin.toString().length > 8)
                 && (repeat_pin.toString().length < 5 || repeat_pin.toString().length > 8)) {
                 this.pinErrorMsg = 'Uw pincode mag niet minder dan 5 en niet meer dan 8 cijfers bevatten.';
 
-                // checks if there are consecutive digits in the PIN (max 3 allowed)
+                // Checks if there are consecutive digits in the PIN (max 3 allowed)
             } else if (regex) {
                 this.pinErrorMsg = 'Uw pincode mag niet meer dan 3 herhalende cijfers bevatten.';
 
-                // check if the first pin equals the confirm PIN
+                // Check if the first pin equals the confirm PIN
             } else if (pin !== repeat_pin) {
                 this.pinErrorMsg = 'Uw bevestigingspincode moet hetzelfde zijn.';
             } else {
                 const username = JSON.parse(localStorage.getItem('CURRENT_USER')).username;
-
                 const saltRounds = 10;
                 const myHashedPincode = JSON.stringify(pin);
 
@@ -51,11 +49,9 @@ export class RegisterPinPage {
                         localStorage.setItem('PIN_CODE_USER', JSON.stringify(pinuser));
                     });
                 });
-
                 this.router.navigateByUrl('');
             }
         }
         form.reset();
     }
-
 }

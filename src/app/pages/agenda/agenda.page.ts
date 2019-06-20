@@ -16,6 +16,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     dateFormatter = this.dateFormat.getDates();
     currentWeek;
     currentDay;
+    currentHour = new Date().getHours();
 
     calendar = {
         allDay: false,
@@ -29,8 +30,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
 
     constructor(private alertCtrl: AlertController,
                 @Inject(LOCALE_ID) private locale: string, private dateFormat: DateFormatterService,
-                public navCtrl: NavController, private intakeMomentService: IntakeMomentService) {
-    }
+                public navCtrl: NavController, private intakeMomentService: IntakeMomentService) {}
 
 
     // Before agenda has loaded
@@ -162,7 +162,7 @@ export class AgendaPage implements OnInit, AfterViewInit {
     color(startTime) {
         if (startTime < new Date()) {
             return false;
-        } else{
+        } else {
             return true;
         }
     }

@@ -3,16 +3,13 @@ import {AlertController, Platform} from '@ionic/angular';
 import {FCM} from '@ionic-native/fcm/ngx';
 import {Router} from '@angular/router';
 import {GroupService} from '../group/group.service';
-import {forEach} from '@angular-devkit/schematics';
-import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
-import {DatePipe, formatDate} from '@angular/common';
+import {LocalNotifications} from '@ionic-native/local-notifications/ngx';
+import {formatDate} from '@angular/common';
 
 @Injectable({
     providedIn: 'root'
 })
 export class NotificationService {
-
-    history = [];
 
     constructor(private plt: Platform, private localNotifications: LocalNotifications, private alertCtrl: AlertController, private fcm: FCM,
                 private router: Router, private groupService: GroupService) {
@@ -25,8 +22,10 @@ export class NotificationService {
                 this.router.navigateByUrl('/intakeMoment/' + data.id);
             } else {
                 // Do if app is on foreground
-                this.showAlert('Toedienmoment overtijd!', 'Waarschuwing',
-                    'De toedienmoment van ' + data.name + ' op ' + formatDate(data.time, 'dd-MM-yyyy', 'en-US') + ' is overtijd!');
+                this.showAlert('Toedienmoment te laat!', 'Waarschuwing',
+                    'Het toedienmoment van ' + data.name + ' van ' + formatDate(data.time, 'HH:mm', 'en-US') + 'u is te laat! ' +
+                    'verantwoordelijke is ' + data.dispenser,
+                    data.id);
             }
         });
     }
@@ -50,12 +49,22 @@ export class NotificationService {
 
 
     // When notification is clicked
-    showAlert(header, sub, msg) {
+    showAlert(header, sub, msg, id) {
         this.alertCtrl.create({
             header: header,
             subHeader: sub,
             message: msg,
-            buttons: ['Ok'],
+            buttons: [
+                {
+                    text: 'Gelezen',
+                    role: 'cancel',
+                }, {
+                    text: 'Open',
+                    handler: () => {
+                        this.router.navigateByUrl('/intakeMoment/' + id);
+                    }
+                }
+            ]
         }).then(alert => alert.present());
     }
 

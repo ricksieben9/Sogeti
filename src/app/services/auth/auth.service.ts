@@ -36,16 +36,18 @@ export class AuthService {
     pinLogin(pincode: number): Observable<AuthResponse> {
         const pinFromDB = JSON.parse(localStorage.getItem('PIN_CODE_USER')).pin;
         const aSubject = this.authSubject.next(true);
-        return from(bcrypt.compare(pincode.toString(), pinFromDB).then(function(res: AuthResponse, err) {
-            if (err) {
-                return err;
-            } else {
-                if (res) {
-                    aSubject;
-                    return of(JSON.parse(localStorage.getItem('CURRENT_USER')));
-                }
-            }
+
+        return from(bcrypt.compare(pincode.toString(), pinFromDB).then(res => {
+            aSubject;
+            this.api.getAllOffline();
+            return of(JSON.parse(localStorage.getItem('CURRENT_USER')));
+        }, err => {
+            return err;
         }));
+    }
+
+    refreshToken() {
+        this.api.refreshToken();
     }
 
     logout() {

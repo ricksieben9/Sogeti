@@ -1,25 +1,22 @@
 import {CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {RegisterPinPage} from './registerpin.page';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {RouterTestingModule} from '@angular/router/testing';
+import {MedicineDetailPage} from './medicine-detail.page';
 
-describe('RegisterpinPage', () => {
-    let component: RegisterPinPage;
-    let fixture: ComponentFixture<RegisterPinPage>;
+describe('MedicineDetailPage', () => {
+    let component: MedicineDetailPage;
+    let fixture: ComponentFixture<MedicineDetailPage>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [RegisterPinPage],
-            imports: [HttpClientTestingModule, RouterTestingModule],
+            declarations: [MedicineDetailPage],
             schemas: [CUSTOM_ELEMENTS_SCHEMA],
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(RegisterPinPage);
+        fixture = TestBed.createComponent(MedicineDetailPage);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
