@@ -12,6 +12,7 @@ export class IntakeMomentDetailPage implements OnInit {
     Id = null;
     intakeMomentMedicines = [];
     intakeMomentDetail;
+    range;
 
     constructor(private activatedRoute: ActivatedRoute,
                 private intakeMomentService: IntakeMomentService, private navCtrl: NavController) {
@@ -53,7 +54,17 @@ export class IntakeMomentDetailPage implements OnInit {
     }
 
     canSend(): boolean {
+        this.range = this.intakeMomentMedicines.filter(elem =>  elem.checked === true).length + '/'
+            + this.intakeMomentMedicines.filter(elem => elem.completed_at === null).length;
         return this.intakeMomentMedicines.filter(elem => elem.completed_at === null).length === 0;
+    }
+
+    isDone(): boolean {
+        return this.intakeMomentMedicines.filter(elem => elem.completed_at !== null).length > 0;
+    }
+
+    isEnabled(): boolean {
+        return this.intakeMomentMedicines.filter(elem => elem.checked === true).length > 0;
     }
 
     forward(id) {
